@@ -204,7 +204,7 @@ export const ContactPage: React.FC = () => {
                 <div>
                   <p className="font-bold text-[#171717]">Address</p>
                   <p className="text-[#555555] leading-relaxed mt-0.5">
-                    {settings.contact.address || '123 Fashion Street, Coimbatore, Tamil Nadu - 641001'}
+                    {settings.contact.address || '12/152, Erappanaickanpalayam, Mylambadi, Bhavani, Tamil Nadu - 638314'}
                   </p>
                 </div>
               </div>
