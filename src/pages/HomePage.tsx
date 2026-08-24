@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -6,7 +6,6 @@ import {
   Phone,
   Shirt,
   Scissors,
-  Star,
   Sparkles,
   CheckCircle2
 } from 'lucide-react';
@@ -14,19 +13,6 @@ import { useStore } from '../context/StoreContext';
 
 export const HomePage: React.FC = () => {
   const { settings } = useStore();
-
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 12;
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * -12;
-    setTilt({ x, y });
-  };
-
-  const handleMouseLeave = () => {
-    setTilt({ x: 0, y: 0 });
-  };
 
   const cleanPhone = (settings.contact.phone || '+91 97877 04111').replace(/[^0-9]/g, '');
   const cleanSecondaryPhone = (settings.contact.secondaryPhone || '+91 90877 04111').replace(/[^0-9]/g, '');
@@ -38,146 +24,101 @@ export const HomePage: React.FC = () => {
   return (
     <div className="bg-transparent text-[#171717] pb-16 space-y-12 sm:space-y-16">
       {/* ========================================================================= */}
-      {/* 1. MODERN LUXURY HERO SECTION                                             */}
+      {/* 1. MODERN LUXURY HERO SECTION (CLEAN EDITORIAL WITHOUT SHIRT PHOTO)       */}
       {/* ========================================================================= */}
-      <section className="relative w-full overflow-hidden bg-[#EDE7DF]/80 backdrop-blur-md pt-10 pb-14 lg:pt-16 lg:pb-20 border-b border-[#E3DDD5]/80">
+      <section className="relative w-full overflow-hidden bg-[#EDE7DF]/80 backdrop-blur-md pt-12 pb-16 lg:pt-20 lg:pb-24 border-b border-[#E3DDD5]/80">
         {/* Soft Ambient Hero Highlights */}
         <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-gradient-to-bl from-amber-200/40 via-orange-100/20 to-transparent rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-1/4 -mb-12 w-80 h-80 bg-gradient-to-tr from-stone-300/40 via-amber-100/20 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-            {/* Left Content */}
-            <div className="lg:col-span-6 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-[#D5CEC4] shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-                <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#171717]">
-                  {settings.brandName || 'SD TRENDYZ'} • PREMIUM APPAREL CATALOG
-                </span>
-              </div>
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center space-y-6">
+          
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-[#D5CEC4] shadow-xs">
+            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+            <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#171717]">
+              {settings.brandName || 'SD TRENDYZ'} • PREMIUM APPAREL CATALOG
+            </span>
+          </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-black text-[#171717] tracking-tight leading-[1.04]">
-                Everyday Style.<br />
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#171717] via-[#333333] to-[#886633]">
-                  Crafted with Distinction.
-                </span>
-              </h1>
+          {/* Heading */}
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-display font-black text-[#171717] tracking-tight leading-[1.04] max-w-3xl">
+            Everyday Style.<br />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#171717] via-[#444444] to-[#886633]">
+              Crafted with Distinction.
+            </span>
+          </h1>
 
-              <p className="text-sm sm:text-base text-[#444444] font-normal leading-relaxed max-w-md">
-                Experience high-density 220–240 GSM combed cotton streetwear, oversized baggy fits, tailored normal essentials, and authentic artisanal tie-dye washes.
-              </p>
+          {/* Subtitle */}
+          <p className="text-sm sm:text-lg text-[#444444] font-normal leading-relaxed max-w-2xl">
+            Experience high-density 220–240 GSM combed cotton streetwear, oversized baggy fits, tailored normal essentials, and authentic artisanal tie-dye washes.
+          </p>
 
-              {/* Quick Collection Tag Pills */}
-              <div className="flex flex-wrap gap-2 pt-1">
-                <Link
-                  to="/collections/shirts/oversized"
-                  className="text-xs px-3 py-1.5 rounded-lg bg-white/80 hover:bg-white border border-[#D5CEC4] font-semibold text-[#171717] transition-all hover:scale-105 shadow-xs"
-                >
-                  ✨ Oversized Baggy
-                </Link>
-                <Link
-                  to="/collections/shirts/normal-fit"
-                  className="text-xs px-3 py-1.5 rounded-lg bg-white/80 hover:bg-white border border-[#D5CEC4] font-semibold text-[#171717] transition-all hover:scale-105 shadow-xs"
-                >
-                  👕 Normal Fit
-                </Link>
-                <Link
-                  to="/collections/shirts/tie-dye"
-                  className="text-xs px-3 py-1.5 rounded-lg bg-white/80 hover:bg-white border border-[#D5CEC4] font-semibold text-[#171717] transition-all hover:scale-105 shadow-xs"
-                >
-                  🌀 Tie & Dye
-                </Link>
-                <Link
-                  to="/collections/tshirts/acid-wash"
-                  className="text-xs px-3 py-1.5 rounded-lg bg-white/80 hover:bg-white border border-[#D5CEC4] font-semibold text-[#171717] transition-all hover:scale-105 shadow-xs"
-                >
-                  ⚡ Acid Wash
-                </Link>
-              </div>
+          {/* Quick Collection Tag Pills */}
+          <div className="flex flex-wrap justify-center gap-2.5 pt-2 max-w-xl">
+            <Link
+              to="/collections/shirts/oversized"
+              className="text-xs px-4 py-2 rounded-xl bg-white/90 hover:bg-white border border-[#D5CEC4] font-semibold text-[#171717] transition-all hover:scale-105 shadow-xs"
+            >
+              ✨ Oversized Baggy
+            </Link>
+            <Link
+              to="/collections/shirts/normal-fit"
+              className="text-xs px-4 py-2 rounded-xl bg-white/90 hover:bg-white border border-[#D5CEC4] font-semibold text-[#171717] transition-all hover:scale-105 shadow-xs"
+            >
+              👕 Normal Fit
+            </Link>
+            <Link
+              to="/collections/shirts/tie-dye"
+              className="text-xs px-4 py-2 rounded-xl bg-white/90 hover:bg-white border border-[#D5CEC4] font-semibold text-[#171717] transition-all hover:scale-105 shadow-xs"
+            >
+              🌀 Tie & Dye
+            </Link>
+            <Link
+              to="/collections/tshirts/acid-wash"
+              className="text-xs px-4 py-2 rounded-xl bg-white/90 hover:bg-white border border-[#D5CEC4] font-semibold text-[#171717] transition-all hover:scale-105 shadow-xs"
+            >
+              ⚡ Acid Wash
+            </Link>
+          </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-4 pt-2">
-                <Link
-                  to="/collections"
-                  className="px-6 py-3.5 bg-[#171717] hover:bg-black text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-md flex items-center gap-2 hover:scale-105"
-                >
-                  <span>EXPLORE COLLECTIONS</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
+          {/* Action Buttons */}
+          <div className="flex flex-wrap justify-center items-center gap-4 pt-3">
+            <Link
+              to="/collections"
+              className="px-7 py-4 bg-[#171717] hover:bg-black text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-md flex items-center gap-2 hover:scale-105"
+            >
+              <span>EXPLORE COLLECTIONS</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
 
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3.5 bg-white hover:bg-slate-50 text-[#171717] border border-[#D5CEC4] rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-xs flex items-center gap-2 hover:scale-105"
-                >
-                  <MessageCircle className="w-4 h-4 text-emerald-600" />
-                  <span>DIRECT ENQUIRY</span>
-                </a>
-              </div>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-7 py-4 bg-white hover:bg-slate-50 text-[#171717] border border-[#D5CEC4] rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-xs flex items-center gap-2 hover:scale-105"
+            >
+              <MessageCircle className="w-4 h-4 text-emerald-600" />
+              <span>DIRECT ENQUIRY</span>
+            </a>
+          </div>
 
-              {/* Trust Micro-Badges */}
-              <div className="grid grid-cols-3 gap-3 pt-4 border-t border-[#D5CEC4]">
-                <div>
-                  <p className="text-sm font-bold text-[#171717]">100%</p>
-                  <p className="text-[11px] text-[#737373]">Combed Cotton</p>
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-[#171717]">220–240 GSM</p>
-                  <p className="text-[11px] text-[#737373]">Heavyweight Fabric</p>
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-[#171717]">Bhavani</p>
-                  <p className="text-[11px] text-[#737373]">Tamil Nadu Workshop</p>
-                </div>
-              </div>
+          {/* Trust Micro-Badges */}
+          <div className="grid grid-cols-3 gap-6 sm:gap-12 pt-6 border-t border-[#D5CEC4] max-w-lg w-full">
+            <div>
+              <p className="text-base sm:text-lg font-bold text-[#171717]">100%</p>
+              <p className="text-[11px] text-[#737373]">Combed Cotton</p>
             </div>
-
-            {/* Right Hero Visual Showcase Card with Parallax Mouse Tilt */}
-            <div className="lg:col-span-6 flex justify-center perspective-1000">
-              <div
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-                style={{
-                  transform: `rotateY(${tilt.x}deg) rotateX(${tilt.y}deg)`,
-                  transition: 'transform 0.15s ease-out',
-                }}
-                className="relative w-full max-w-lg aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl bg-[#171717] border border-[#D5CEC4] transform-3d group cursor-pointer"
-              >
-                {/* Hero Feature Image */}
-                <img
-                  src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=1200&auto=format&fit=crop"
-                  alt="SD TRENDYZ Apparel Collection"
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out opacity-95"
-                />
-
-                {/* Subtle Gradient Overlays */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
-
-                {/* Clean Feature Tag (Bottom Left) */}
-                <div
-                  style={{ transform: 'translateZ(30px)' }}
-                  className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-white/80 shadow-xl flex items-center justify-between"
-                >
-                  <div className="space-y-0.5">
-                    <p className="text-xs font-black uppercase tracking-wider text-[#171717]">
-                      {settings.brandName || 'SD TRENDYZ'}
-                    </p>
-                    <p className="text-[11px] text-[#666666]">
-                      Oversized Baggy & Normal Fit Apparel
-                    </p>
-                  </div>
-                  <Link
-                    to="/collections"
-                    className="px-3.5 py-1.5 bg-[#171717] hover:bg-black text-white text-[11px] font-bold uppercase tracking-wider rounded-lg transition-colors flex items-center gap-1"
-                  >
-                    <span>View</span>
-                    <ArrowRight className="w-3 h-3" />
-                  </Link>
-                </div>
-              </div>
+            <div>
+              <p className="text-base sm:text-lg font-bold text-[#171717]">220–240 GSM</p>
+              <p className="text-[11px] text-[#737373]">Heavyweight Fabric</p>
+            </div>
+            <div>
+              <p className="text-base sm:text-lg font-bold text-[#171717]">Bhavani</p>
+              <p className="text-[11px] text-[#737373]">Tamil Nadu Workshop</p>
             </div>
           </div>
+
         </div>
       </section>
 
