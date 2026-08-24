@@ -23,7 +23,7 @@
   }
 }
 
-/* Hide scrollbar for clean horizontal carousel strips while retaining scrollability */
+/* 3D Transform and Animation Utilities */
 @layer utilities {
   .scrollbar-none::-webkit-scrollbar {
     display: none;
@@ -32,9 +32,71 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .perspective-2000 {
+    perspective: 2000px;
+  }
+  .transform-3d {
+    transform-style: preserve-3d;
+  }
+  .translate-z-10 {
+    transform: translateZ(10px);
+  }
+  .translate-z-20 {
+    transform: translateZ(20px);
+  }
+  .translate-z-30 {
+    transform: translateZ(30px);
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(8px) rotate(-1deg);
+  }
+}
+
+@keyframes gradient-3d {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 7s ease-in-out infinite;
+}
+
+.animate-gradient-3d {
+  background-size: 200% 200%;
+  animation: gradient-3d 8s ease infinite;
 }
 
 /* Subtle image transitions */
 img {
   image-rendering: auto;
 }
+
