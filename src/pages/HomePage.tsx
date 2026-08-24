@@ -146,57 +146,34 @@ export const HomePage: React.FC = () => {
               >
                 {/* Hero Feature Image */}
                 <img
-                  src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=1200&auto=format&fit=crop"
-                  alt="SD TRENDYZ Premium Streetwear Collection"
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out opacity-90"
+                  src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=1200&auto=format&fit=crop"
+                  alt="SD TRENDYZ Apparel Collection"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out opacity-95"
                 />
 
                 {/* Subtle Gradient Overlays */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
 
-                {/* Floating Interactive Feature Card */}
+                {/* Clean Feature Tag (Bottom Left) */}
                 <div
                   style={{ transform: 'translateZ(30px)' }}
-                  className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 p-4 rounded-2xl bg-white/90 backdrop-blur-xl border border-white/80 shadow-2xl max-w-[250px] space-y-2.5 transition-transform"
+                  className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-white/80 shadow-xl flex items-center justify-between"
                 >
-                  <div className="flex items-start gap-2.5">
-                    <div className="p-1.5 rounded-lg bg-[#171717] text-white shrink-0 mt-0.5 shadow-xs">
-                      <Shirt className="w-3.5 h-3.5" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-[#171717]">220–240 GSM Fabrics</p>
-                      <p className="text-[10px] text-[#737373] leading-tight">Soft, dense & shape-holding</p>
-                    </div>
+                  <div className="space-y-0.5">
+                    <p className="text-xs font-black uppercase tracking-wider text-[#171717]">
+                      {settings.brandName || 'SD TRENDYZ'}
+                    </p>
+                    <p className="text-[11px] text-[#666666]">
+                      Oversized Baggy & Normal Fit Apparel
+                    </p>
                   </div>
-
-                  <div className="flex items-start gap-2.5">
-                    <div className="p-1.5 rounded-lg bg-amber-500 text-white shrink-0 mt-0.5 shadow-xs">
-                      <Scissors className="w-3.5 h-3.5" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-[#171717]">Oversized & Normal Fits</p>
-                      <p className="text-[10px] text-[#737373] leading-tight">Precision drop-shoulder & regular</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-2.5">
-                    <div className="p-1.5 rounded-lg bg-indigo-600 text-white shrink-0 mt-0.5 shadow-xs">
-                      <Star className="w-3.5 h-3.5" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-[#171717]">Artisanal Tie & Dye</p>
-                      <p className="text-[10px] text-[#737373] leading-tight">Handcrafted unique motifs</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Floating Badge (Top Left) */}
-                <div
-                  style={{ transform: 'translateZ(40px)' }}
-                  className="absolute top-4 left-4 sm:top-6 sm:left-6 px-3.5 py-2 rounded-xl bg-black/85 backdrop-blur-md text-white border border-white/20 shadow-lg flex items-center gap-2"
-                >
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                  <span className="text-xs font-bold uppercase tracking-wider">Premium Series</span>
+                  <Link
+                    to="/collections"
+                    className="px-3.5 py-1.5 bg-[#171717] hover:bg-black text-white text-[11px] font-bold uppercase tracking-wider rounded-lg transition-colors flex items-center gap-1"
+                  >
+                    <span>View</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </Link>
                 </div>
               </div>
             </div>
