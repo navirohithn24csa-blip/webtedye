@@ -248,7 +248,14 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ forcedCategory }) => {
           );
         });
       } else {
-        list = list.filter((p) => p.subcategory.toLowerCase() === selSubcat.toLowerCase());
+        list = list.filter((p) => {
+          const subLower = selSubcat.toLowerCase();
+          return (
+            p.subcategory.toLowerCase().includes(subLower) ||
+            (p.styleType && p.styleType.toLowerCase().includes(subLower.replace(/[^a-z]/g, ''))) ||
+            p.name.toLowerCase().includes(subLower)
+          );
+        });
       }
     }
 

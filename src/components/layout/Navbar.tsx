@@ -13,6 +13,17 @@ export const Navbar: React.FC = () => {
   const [mobileCollectionsExpanded, setMobileCollectionsExpanded] = useState(true);
   const [mobileShirtsExpanded, setMobileShirtsExpanded] = useState(false);
   const [mobileTshirtsExpanded, setMobileTshirtsExpanded] = useState(false);
+  const [mobileOpenFits, setMobileOpenFits] = useState<Record<string, boolean>>({});
+
+  // Desktop active hovered/selected fit key
+  const [activeDesktopFit, setActiveDesktopFit] = useState<string>('oversized-shirts');
+
+  const toggleMobileFit = (fitKey: string) => {
+    setMobileOpenFits(prev => ({
+      ...prev,
+      [fitKey]: !prev[fitKey]
+    }));
+  };
 
   const location = useLocation();
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -46,28 +57,68 @@ export const Navbar: React.FC = () => {
       title: 'Shirts',
       categorySlug: 'shirts',
       icon: Shirt,
-      items: [
-        { label: 'Oversized (Baggy)', path: '/collections/shirts/oversized', description: 'Drop-shoulder relaxed & baggy silhouettes' },
-        { label: 'Normal Fit', path: '/collections/shirts/normal-fit', description: 'Classic regular & structured tailored fit' },
-        { label: 'Tie & Dye', path: '/collections/shirts/tie-dye', description: 'Artisanal swirl & dip-dye' },
-        { label: 'Acid Wash', path: '/collections/shirts/acid-wash', description: 'Vintage mineral & distressed wash' },
-        { label: 'Plain', path: '/collections/shirts/plain', description: 'Solid Oxford cotton & linen' },
-        { label: 'Printed', path: '/collections/shirts/printed', description: 'Botanical florals & retro geo prints' },
-      ],
+      fits: [
+        {
+          key: 'oversized-shirts',
+          label: 'Oversized (Baggy)',
+          path: '/collections/shirts/oversized',
+          description: 'Drop-shoulder relaxed & baggy silhouettes',
+          badge: 'Trending Baggy',
+          styles: [
+            { label: 'Tie & Dye', path: '/collections/shirts/tie-dye', description: 'Artisanal swirl & dip-dye' },
+            { label: 'Acid Wash', path: '/collections/shirts/acid-wash', description: 'Vintage mineral & distressed wash' },
+            { label: 'Plain', path: '/collections/shirts/plain', description: 'Solid Oxford cotton & linen' },
+            { label: 'Printed', path: '/collections/shirts/printed', description: 'Botanical florals & retro geo prints' },
+          ]
+        },
+        {
+          key: 'normalfit-shirts',
+          label: 'Normal Fit',
+          path: '/collections/shirts/normal-fit',
+          description: 'Classic regular & structured tailored fit',
+          badge: 'Everyday Classic',
+          styles: [
+            { label: 'Tie & Dye', path: '/collections/shirts/tie-dye', description: 'Artisanal swirl & dip-dye' },
+            { label: 'Acid Wash', path: '/collections/shirts/acid-wash', description: 'Vintage mineral & distressed wash' },
+            { label: 'Plain', path: '/collections/shirts/plain', description: 'Solid Oxford cotton & linen' },
+            { label: 'Printed', path: '/collections/shirts/printed', description: 'Botanical florals & retro geo prints' },
+          ]
+        }
+      ]
     },
     {
       title: 'T-Shirts',
       categorySlug: 'tshirts',
       icon: Layers,
-      items: [
-        { label: 'Oversized (Baggy)', path: '/collections/tshirts/oversized', description: 'Heavyweight drop-shoulder baggy streetwear' },
-        { label: 'Normal Fit', path: '/collections/tshirts/normal-fit', description: 'Everyday regular & classic crew neck fit' },
-        { label: 'Acid Wash', path: '/collections/tshirts/acid-wash', description: '240 GSM heavy mineral wash' },
-        { label: 'Tie & Dye', path: '/collections/tshirts/tie-dye', description: 'Pastel swirls & indigo cloud' },
-        { label: 'Plain', path: '/collections/tshirts/plain', description: 'Super-combed cotton essentials' },
-        { label: 'Printed', path: '/collections/tshirts/printed', description: 'Minimal typo & retro artwork' },
-      ],
-    },
+      fits: [
+        {
+          key: 'oversized-tshirts',
+          label: 'Oversized (Baggy)',
+          path: '/collections/tshirts/oversized',
+          description: 'Heavyweight drop-shoulder baggy streetwear',
+          badge: 'Streetwear 240 GSM',
+          styles: [
+            { label: 'Acid Wash', path: '/collections/tshirts/acid-wash', description: '240 GSM heavy mineral wash' },
+            { label: 'Tie & Dye', path: '/collections/tshirts/tie-dye', description: 'Pastel swirls & indigo cloud' },
+            { label: 'Plain', path: '/collections/tshirts/plain', description: 'Super-combed cotton essentials' },
+            { label: 'Printed', path: '/collections/tshirts/printed', description: 'Minimal typo & retro artwork' },
+          ]
+        },
+        {
+          key: 'normalfit-tshirts',
+          label: 'Normal Fit',
+          path: '/collections/tshirts/normal-fit',
+          description: 'Everyday regular & classic crew neck fit',
+          badge: 'Bio-Washed Cotton',
+          styles: [
+            { label: 'Acid Wash', path: '/collections/tshirts/acid-wash', description: '240 GSM heavy mineral wash' },
+            { label: 'Tie & Dye', path: '/collections/tshirts/tie-dye', description: 'Pastel swirls & indigo cloud' },
+            { label: 'Plain', path: '/collections/tshirts/plain', description: 'Super-combed cotton essentials' },
+            { label: 'Printed', path: '/collections/tshirts/printed', description: 'Minimal typo & retro artwork' },
+          ]
+        }
+      ]
+    }
   ];
 
   return (
@@ -158,13 +209,12 @@ export const Navbar: React.FC = () => {
                           View All Collections →
                         </Link>
                       </div>
-
                       {/* 2-Column Grid: SHIRTS & T-SHIRTS */}
                       <div className="grid grid-cols-2 gap-6">
                         {collectionsMenu.map((group) => {
                           const GroupIcon = group.icon;
                           return (
-                            <div key={group.title} className="space-y-2.5">
+                            <div key={group.title} className="space-y-3">
                               <Link
                                 to={`/collections/${group.categorySlug}`}
                                 className="group/head flex items-center justify-between pb-2 border-b border-[#E6E3DF]"
@@ -182,26 +232,76 @@ export const Navbar: React.FC = () => {
                                 </span>
                               </Link>
 
-                              <ul className="space-y-1">
-                                {group.items.map((item) => (
-                                  <li key={item.path}>
-                                    <Link
-                                      to={item.path}
-                                      className="group/item flex flex-col p-2 rounded-xl hover:bg-[#F7F5F2] transition-colors"
+                              <div className="space-y-2">
+                                {group.fits.map((fit) => {
+                                  const isExpanded = activeDesktopFit === fit.key;
+                                  return (
+                                    <div
+                                      key={fit.key}
+                                      className={`rounded-xl border transition-all ${
+                                        isExpanded
+                                          ? 'border-[#171717] bg-[#F7F5F2]/90 shadow-xs'
+                                          : 'border-[#E6E3DF] bg-white hover:border-[#CCCCCC]'
+                                      }`}
+                                      onMouseEnter={() => setActiveDesktopFit(fit.key)}
                                     >
-                                      <div className="flex items-center justify-between">
-                                        <span className="text-xs font-bold text-[#171717] group-hover/item:text-black">
-                                          {item.label}
-                                        </span>
-                                        <ChevronRight className="w-3.5 h-3.5 text-slate-400 opacity-0 group-hover/item:opacity-100 group-hover/item:translate-x-0.5 transition-all" />
+                                      <div className="p-2.5 flex items-center justify-between cursor-pointer">
+                                        <Link
+                                          to={fit.path}
+                                          className="flex-1 flex flex-col group/fit"
+                                        >
+                                          <div className="flex items-center gap-2">
+                                            <span className="text-xs font-bold text-[#171717] group-hover/fit:text-black">
+                                              {fit.label}
+                                            </span>
+                                            {fit.badge && (
+                                              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-white text-[#555555] border border-[#E6E3DF]">
+                                                {fit.badge}
+                                              </span>
+                                            )}
+                                          </div>
+                                          <span className="text-[10px] text-[#737373] line-clamp-1">
+                                            {fit.description}
+                                          </span>
+                                        </Link>
+                                        <button
+                                          type="button"
+                                          onClick={() => setActiveDesktopFit(isExpanded ? '' : fit.key)}
+                                          className="p-1 text-slate-400 hover:text-black"
+                                          aria-label={`Toggle ${fit.label} styles`}
+                                        >
+                                          <ChevronDown
+                                            className={`w-4 h-4 transition-transform duration-200 ${
+                                              isExpanded ? 'rotate-180 text-[#171717]' : ''
+                                            }`}
+                                          />
+                                        </button>
                                       </div>
-                                      <span className="text-[10px] text-[#737373] line-clamp-1">
-                                        {item.description}
-                                      </span>
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
+
+                                      {/* Sub-styles revealed ONLY when fit is clicked/expanded */}
+                                      {isExpanded && (
+                                        <div className="px-3 pb-2.5 pt-1 border-t border-[#E6E3DF]/80 bg-white/70 rounded-b-xl animate-in fade-in duration-150">
+                                          <div className="text-[10px] font-extrabold uppercase tracking-wider text-[#737373] mb-1.5">
+                                            Available Styles:
+                                          </div>
+                                          <div className="grid grid-cols-2 gap-1.5">
+                                            {fit.styles.map((st) => (
+                                              <Link
+                                                key={st.label}
+                                                to={st.path}
+                                                className="group/st flex items-center justify-between px-2 py-1.5 rounded-lg hover:bg-white text-xs font-semibold text-[#333333] hover:text-[#171717] transition-colors border border-transparent hover:border-[#E6E3DF]"
+                                              >
+                                                <span>• {st.label}</span>
+                                                <ChevronRight className="w-3 h-3 text-slate-400 opacity-0 group-hover/st:opacity-100 group-hover/st:translate-x-0.5 transition-all" />
+                                              </Link>
+                                            ))}
+                                          </div>
+                                        </div>
+                                      )}
+                                    </div>
+                                  );
+                                })}
+                              </div>
                             </div>
                           );
                         })}
@@ -238,30 +338,51 @@ export const Navbar: React.FC = () => {
               </NavLink>
             </nav>
 
-            {/* Right Action: Search Icon */}
-            <div className="flex items-center justify-end space-x-2">
+            {/* Desktop Right Actions: Search + Quick Contact Button */}
+            <div className="hidden lg:flex items-center space-x-4">
               <button
                 type="button"
                 onClick={() => setIsSearchOpen(true)}
-                className="p-2 text-[#171717] hover:bg-[#F4F2EF] rounded-full transition-colors focus:outline-none"
-                aria-label="Search catalog"
+                className="p-2 text-[#555555] hover:text-[#171717] transition-colors rounded-full hover:bg-slate-100"
+                aria-label="Open search dialog"
               >
-                <Search className="w-5 h-5 stroke-[2]" />
+                <Search className="w-5 h-5 stroke-[1.75]" />
+              </button>
+
+              <Link
+                to="/contact"
+                className="px-4 py-2 bg-[#171717] hover:bg-black text-[#FFFFFF] text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-xs"
+              >
+                ENQUIRE NOW
+              </Link>
+            </div>
+
+            {/* Mobile Right: Search Button */}
+            <div className="flex items-center space-x-1 lg:hidden">
+              <button
+                type="button"
+                onClick={() => setIsSearchOpen(true)}
+                className="p-2 text-[#171717] hover:text-black focus:outline-none"
+                aria-label="Open search dialog"
+              >
+                <Search className="w-5 h-5 stroke-[1.75]" />
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Mobile Slide-Out Drawer Menu (Nested Accordions) */}
+      {/* Mobile Drawer (Clean, Structured Accordion Hierarchy) */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
+          {/* Backdrop */}
           <div
-            className="fixed inset-0 bg-[#171717]/60 backdrop-blur-sm transition-opacity"
+            className="fixed inset-0 bg-black/40 backdrop-blur-xs animate-in fade-in duration-200"
             onClick={() => setIsMobileMenuOpen(false)}
           />
 
-          <div className="fixed inset-y-0 left-0 w-full max-w-xs bg-white shadow-2xl flex flex-col z-10">
+          {/* Drawer Content */}
+          <div className="fixed inset-y-0 left-0 w-4/5 max-w-sm bg-white shadow-2xl z-10 flex flex-col animate-in slide-in-from-left duration-300">
             {/* Drawer Header */}
             <div className="flex items-center justify-between px-6 py-5 border-b border-[#EAE8E4]">
               <span className="font-display font-black text-lg tracking-tight uppercase text-[#171717]">
@@ -270,15 +391,15 @@ export const Navbar: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2 text-slate-500 hover:text-slate-900 rounded-full hover:bg-slate-100 transition-colors"
-                aria-label="Close menu"
+                className="p-1.5 -mr-1.5 text-slate-500 hover:text-black"
+                aria-label="Close navigation menu"
               >
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5 stroke-[1.75]" />
               </button>
             </div>
 
-            {/* Drawer Links */}
-            <div className="flex-1 overflow-y-auto px-5 py-5 space-y-3">
+            {/* Drawer Navigation Links */}
+            <div className="flex-1 overflow-y-auto px-6 py-6 space-y-4">
               <NavLink
                 to="/"
                 className={({ isActive }) =>
@@ -326,56 +447,49 @@ export const Navbar: React.FC = () => {
                       </button>
 
                       {mobileShirtsExpanded && (
-                        <ul className="pl-2 space-y-1.5 pt-1 border-t border-[#E6E3DF]">
-                          <li>
-                            <Link
-                              to="/collections/shirts/oversized"
-                              className="block text-xs font-bold text-[#555555] hover:text-[#171717] py-1"
-                            >
-                              • Oversized (Baggy)
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/collections/shirts/normal-fit"
-                              className="block text-xs font-bold text-[#555555] hover:text-[#171717] py-1"
-                            >
-                              • Normal Fit
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/collections/shirts/tie-dye"
-                              className="block text-xs font-bold text-[#555555] hover:text-[#171717] py-1"
-                            >
-                              • Tie & Dye
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/collections/shirts/acid-wash"
-                              className="block text-xs font-bold text-[#555555] hover:text-[#171717] py-1"
-                            >
-                              • Acid Wash
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/collections/shirts/plain"
-                              className="block text-xs font-bold text-[#555555] hover:text-[#171717] py-1"
-                            >
-                              • Plain
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/collections/shirts/printed"
-                              className="block text-xs font-bold text-[#555555] hover:text-[#171717] py-1"
-                            >
-                              • Printed
-                            </Link>
-                          </li>
-                        </ul>
+                        <div className="space-y-2 pt-1 border-t border-[#E6E3DF]">
+                          {collectionsMenu[0].fits.map((fit) => {
+                            const isOpen = !!mobileOpenFits[fit.key];
+                            return (
+                              <div key={fit.key} className="bg-white rounded-lg p-2.5 border border-[#E6E3DF] space-y-2">
+                                <button
+                                  type="button"
+                                  onClick={() => toggleMobileFit(fit.key)}
+                                  className="w-full flex items-center justify-between text-xs font-bold text-[#171717]"
+                                >
+                                  <span className="flex items-center gap-1.5">
+                                    <span>• {fit.label}</span>
+                                    {fit.badge && (
+                                      <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#F4F2EF] text-[#555555]">
+                                        {fit.badge}
+                                      </span>
+                                    )}
+                                  </span>
+                                  <ChevronDown
+                                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                                      isOpen ? 'rotate-180 text-black' : 'text-slate-400'
+                                    }`}
+                                  />
+                                </button>
+
+                                {isOpen && (
+                                  <ul className="pl-3 pt-2 space-y-1.5 border-t border-[#F0ECE6]">
+                                    {fit.styles.map((st) => (
+                                      <li key={st.label}>
+                                        <Link
+                                          to={st.path}
+                                          className="block text-xs text-[#555555] hover:text-[#171717] py-1 font-medium"
+                                        >
+                                          - {st.label}
+                                        </Link>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
                       )}
                     </div>
 
@@ -398,56 +512,49 @@ export const Navbar: React.FC = () => {
                       </button>
 
                       {mobileTshirtsExpanded && (
-                        <ul className="pl-2 space-y-1.5 pt-1 border-t border-[#E6E3DF]">
-                          <li>
-                            <Link
-                              to="/collections/tshirts/oversized"
-                              className="block text-xs font-bold text-[#555555] hover:text-[#171717] py-1"
-                            >
-                              • Oversized (Baggy)
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/collections/tshirts/normal-fit"
-                              className="block text-xs font-bold text-[#555555] hover:text-[#171717] py-1"
-                            >
-                              • Normal Fit
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/collections/tshirts/acid-wash"
-                              className="block text-xs font-bold text-[#555555] hover:text-[#171717] py-1"
-                            >
-                              • Acid Wash
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/collections/tshirts/tie-dye"
-                              className="block text-xs font-bold text-[#555555] hover:text-[#171717] py-1"
-                            >
-                              • Tie & Dye
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/collections/tshirts/plain"
-                              className="block text-xs font-bold text-[#555555] hover:text-[#171717] py-1"
-                            >
-                              • Plain
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/collections/tshirts/printed"
-                              className="block text-xs font-bold text-[#555555] hover:text-[#171717] py-1"
-                            >
-                              • Printed
-                            </Link>
-                          </li>
-                        </ul>
+                        <div className="space-y-2 pt-1 border-t border-[#E6E3DF]">
+                          {collectionsMenu[1].fits.map((fit) => {
+                            const isOpen = !!mobileOpenFits[fit.key];
+                            return (
+                              <div key={fit.key} className="bg-white rounded-lg p-2.5 border border-[#E6E3DF] space-y-2">
+                                <button
+                                  type="button"
+                                  onClick={() => toggleMobileFit(fit.key)}
+                                  className="w-full flex items-center justify-between text-xs font-bold text-[#171717]"
+                                >
+                                  <span className="flex items-center gap-1.5">
+                                    <span>• {fit.label}</span>
+                                    {fit.badge && (
+                                      <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#F4F2EF] text-[#555555]">
+                                        {fit.badge}
+                                      </span>
+                                    )}
+                                  </span>
+                                  <ChevronDown
+                                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                                      isOpen ? 'rotate-180 text-black' : 'text-slate-400'
+                                    }`}
+                                  />
+                                </button>
+
+                                {isOpen && (
+                                  <ul className="pl-3 pt-2 space-y-1.5 border-t border-[#F0ECE6]">
+                                    {fit.styles.map((st) => (
+                                      <li key={st.label}>
+                                        <Link
+                                          to={st.path}
+                                          className="block text-xs text-[#555555] hover:text-[#171717] py-1 font-medium"
+                                        >
+                                          - {st.label}
+                                        </Link>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
                       )}
                     </div>
                   </div>

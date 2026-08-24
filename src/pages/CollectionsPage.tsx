@@ -1,91 +1,193 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumbs } from '../components/common/Breadcrumbs';
-import { ArrowRight, Sparkles, Shirt, Layers } from 'lucide-react';
+import { ArrowRight, ChevronDown, Sparkles, Shirt, Layers } from 'lucide-react';
 import { Interactive3DBackground } from '../components/common/Interactive3DBackground';
 
+interface StyleCard {
+  title: string;
+  path: string;
+  description: string;
+  image: string;
+  tag: string;
+}
+
+interface FitGroup {
+  id: string;
+  fitName: string;
+  badge: string;
+  path: string;
+  heroImage: string;
+  description: string;
+  styles: StyleCard[];
+}
+
 export const CollectionsPage: React.FC = () => {
-  const shirtStyles = [
+  // State for which fit is expanded under Shirts and T-Shirts
+  const [expandedShirtFit, setExpandedShirtFit] = useState<string | null>('oversized-shirts');
+  const [expandedTshirtFit, setExpandedTshirtFit] = useState<string | null>('oversized-tshirts');
+
+  const shirtFits: FitGroup[] = [
     {
-      title: 'Oversized (Baggy) Shirts',
+      id: 'oversized-shirts',
+      fitName: 'Oversized (Baggy)',
+      badge: 'Drop Shoulder • Boxy Fit',
       path: '/collections/shirts/oversized',
-      description: 'Drop-shoulder relaxed silhouettes and breezy oversized cuts.',
-      image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=800&auto=format&fit=crop'
+      heroImage: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=800&auto=format&fit=crop',
+      description: 'Relaxed streetwear silhouettes, drop-shoulder cuts, and comfortable loose drapery.',
+      styles: [
+        {
+          title: 'Tie & Dye Shirts',
+          path: '/collections/shirts/tie-dye',
+          description: 'Hand-finished pastel swirls and vibrant camp collar resort cuts.',
+          image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=800&auto=format&fit=crop',
+          tag: 'Hand-Crafted'
+        },
+        {
+          title: 'Acid Wash Shirts',
+          path: '/collections/shirts/acid-wash',
+          description: 'Heavyweight stone and mineral washed 90s vintage denim overshirts.',
+          image: 'https://images.unsplash.com/photo-1578932750294-f5075e85f44a?q=80&w=800&auto=format&fit=crop',
+          tag: 'Distressed Vintage'
+        },
+        {
+          title: 'Plain Shirts',
+          path: '/collections/shirts/plain',
+          description: 'Clean minimalist linen-cotton blend and solid drop-shoulder staples.',
+          image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=800&auto=format&fit=crop',
+          tag: 'Clean Minimal'
+        },
+        {
+          title: 'Printed Shirts',
+          path: '/collections/shirts/printed',
+          description: 'Tropical botanicals and retro geometric prints on soft viscose twill.',
+          image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=800&auto=format&fit=crop',
+          tag: 'Resort Wear'
+        }
+      ]
     },
     {
-      title: 'Normal Fit Shirts',
+      id: 'normalfit-shirts',
+      fitName: 'Normal Fit',
+      badge: 'Classic Regular • Tailored',
       path: '/collections/shirts/normal-fit',
-      description: 'Classic regular fit, structured everyday shirts and tailored essentials.',
-      image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=800&auto=format&fit=crop'
-    },
-    {
-      title: 'Tie & Dye Shirts',
-      path: '/collections/shirts/tie-dye',
-      description: 'Artisanal swirl, dip-dye, and marble-washed resort shirts.',
-      image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=800&auto=format&fit=crop'
-    },
-    {
-      title: 'Acid Wash Shirts',
-      path: '/collections/shirts/acid-wash',
-      description: 'Vintage mineral-washed, distressed twill, and stone-washed overshirts.',
-      image: 'https://images.unsplash.com/photo-1578932750294-f5075e85f44a?q=80&w=800&auto=format&fit=crop'
-    },
-    {
-      title: 'Plain Shirts',
-      path: '/collections/shirts/plain',
-      description: 'Clean solid Oxford cotton, linen-blend, and tailored poplin shirts.',
-      image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=800&auto=format&fit=crop'
-    },
-    {
-      title: 'Printed Shirts',
-      path: '/collections/shirts/printed',
-      description: 'Botanical florals, retro geometric prints, and abstract art shirts.',
-      image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=800&auto=format&fit=crop'
-    },
+      heroImage: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=800&auto=format&fit=crop',
+      description: 'Structured regular fits, sharp button-down collars, and versatile office & casual shirts.',
+      styles: [
+        {
+          title: 'Tie & Dye Shirts',
+          path: '/collections/shirts/tie-dye',
+          description: 'Tailored regular cut shirts with subtle artisanal dip-dye patterns.',
+          image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=800&auto=format&fit=crop',
+          tag: 'Dip-Dye'
+        },
+        {
+          title: 'Acid Wash Shirts',
+          path: '/collections/shirts/acid-wash',
+          description: 'Refined regular cotton twill overshirts with muted enzyme washing.',
+          image: 'https://images.unsplash.com/photo-1578932750294-f5075e85f44a?q=80&w=800&auto=format&fit=crop',
+          tag: 'Mineral Fade'
+        },
+        {
+          title: 'Plain Shirts',
+          path: '/collections/shirts/plain',
+          description: '100% Combed Oxford cotton essentials with structured button-down collar.',
+          image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=800&auto=format&fit=crop',
+          tag: 'Oxford Cotton'
+        },
+        {
+          title: 'Printed Shirts',
+          path: '/collections/shirts/printed',
+          description: 'Subtle micro-geometric prints and camp collar regular cuts.',
+          image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=800&auto=format&fit=crop',
+          tag: 'Micro Print'
+        }
+      ]
+    }
   ];
 
-  const tshirtStyles = [
+  const tshirtFits: FitGroup[] = [
     {
-      title: 'Oversized (Baggy) T-Shirts',
+      id: 'oversized-tshirts',
+      fitName: 'Oversized (Baggy)',
+      badge: '220–240 GSM • Drop Shoulder',
       path: '/collections/tshirts/oversized',
-      description: 'Heavyweight drop-shoulder baggy streetwear tees.',
-      image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop'
+      heroImage: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop',
+      description: 'Heavyweight dense combed cotton, thick ribbed necklines, and authentic boxy drops.',
+      styles: [
+        {
+          title: 'Acid Wash T-Shirts',
+          path: '/collections/tshirts/acid-wash',
+          description: 'Heavy 240 GSM stone-washed tees with distressed vintage marbled seams.',
+          image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=800&auto=format&fit=crop',
+          tag: '240 GSM Heavy'
+        },
+        {
+          title: 'Tie & Dye T-Shirts',
+          path: '/collections/tshirts/tie-dye',
+          description: 'Heavyweight 220 GSM boxy tees with spiral pastel and indigo cloud swirls.',
+          image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop',
+          tag: 'Pastel Swirl'
+        },
+        {
+          title: 'Plain T-Shirts',
+          path: '/collections/tshirts/plain',
+          description: 'Solid minimalist heavyweight basics with reinforced double-needle hems.',
+          image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800&auto=format&fit=crop',
+          tag: 'Stealth Plain'
+        },
+        {
+          title: 'Printed T-Shirts',
+          path: '/collections/tshirts/printed',
+          description: 'Minimal typographic back quotes and high-density screen graphics.',
+          image: 'https://images.unsplash.com/photo-1507680434517-d4566d617327?q=80&w=800&auto=format&fit=crop',
+          tag: 'Typo Screen'
+        }
+      ]
     },
     {
-      title: 'Normal Fit T-Shirts',
+      id: 'normalfit-tshirts',
+      fitName: 'Normal Fit',
+      badge: '180–200 GSM • Regular Crew',
       path: '/collections/tshirts/normal-fit',
-      description: 'Classic regular fit and super-soft everyday crew tees.',
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800&auto=format&fit=crop'
-    },
-    {
-      title: 'Acid Wash T-Shirts',
-      path: '/collections/tshirts/acid-wash',
-      description: 'Heavy 240 GSM stone-washed tees with vintage mineral fades.',
-      image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=800&auto=format&fit=crop'
-    },
-    {
-      title: 'Tie & Dye T-Shirts',
-      path: '/collections/tshirts/tie-dye',
-      description: 'Vibrant pastel swirls and indigo cloud tie-dye heavyweight tees.',
-      image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop'
-    },
-    {
-      title: 'Plain T-Shirts',
-      path: '/collections/tshirts/plain',
-      description: 'Minimal 100% super-combed cotton solid essentials.',
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800&auto=format&fit=crop'
-    },
-    {
-      title: 'Printed T-Shirts',
-      path: '/collections/tshirts/printed',
-      description: 'Understated typographic chest graphics and retro artwork prints.',
-      image: 'https://images.unsplash.com/photo-1507680434517-d4566d617327?q=80&w=800&auto=format&fit=crop'
-    },
+      heroImage: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800&auto=format&fit=crop',
+      description: 'Classic regular fits crafted from bio-washed combed cotton for everyday comfort and layering.',
+      styles: [
+        {
+          title: 'Acid Wash T-Shirts',
+          path: '/collections/tshirts/acid-wash',
+          description: 'Soft 210 GSM regular crew tees with subtle vintage enzyme fading.',
+          image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=800&auto=format&fit=crop',
+          tag: 'Bio-Washed'
+        },
+        {
+          title: 'Tie & Dye T-Shirts',
+          path: '/collections/tshirts/tie-dye',
+          description: 'Subtle indigo cloud tie-dye pattern on relaxed regular fit tees.',
+          image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop',
+          tag: 'Indigo Cloud'
+        },
+        {
+          title: 'Plain T-Shirts',
+          path: '/collections/tshirts/plain',
+          description: 'Everyday standard crew neck tees in ultra-soft 180 GSM cotton jersey.',
+          image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800&auto=format&fit=crop',
+          tag: 'Everyday Essential'
+        },
+        {
+          title: 'Printed T-Shirts',
+          path: '/collections/tshirts/printed',
+          description: 'Retro sun and understated emblems on regular bio-washed tees.',
+          image: 'https://images.unsplash.com/photo-1507680434517-d4566d617327?q=80&w=800&auto=format&fit=crop',
+          tag: 'Graphic Art'
+        }
+      ]
+    }
   ];
 
   return (
-    <div className="bg-[#F7F5F2] min-h-screen text-[#171717] pb-20">
-      {/* Header Banner */}
+    <div className="bg-[#F7F5F2] min-h-screen text-[#171717] pb-24">
+      {/* Header Banner with 3D Dynamic Background */}
       <div className="relative overflow-hidden bg-[#EDE7DF]/80 backdrop-blur-md border-b border-[#E3DDD5] py-10 sm:py-14">
         <Interactive3DBackground className="opacity-70" intensity="subtle" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3">
@@ -94,25 +196,27 @@ export const CollectionsPage: React.FC = () => {
             SD TRENDYZ Collections
           </h1>
           <p className="text-xs sm:text-base text-[#555555] max-w-2xl leading-relaxed">
-            Explore our curated ranges of Shirts and T-Shirts across Oversized (Baggy), Normal Fit, Tie & Dye, Acid Wash, Plain, and Printed styles.
+            Select a category, choose your fit (<strong>Oversized Baggy</strong> or <strong>Normal Fit</strong>), and explore our curated <strong>Tie & Dye</strong>, <strong>Acid Wash</strong>, <strong>Plain</strong>, and <strong>Printed</strong> collections.
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 space-y-16">
-        {/* 1. SHIRTS COLLECTIONS */}
-        <div className="space-y-6">
-          <div className="flex items-end justify-between pb-3 border-b border-[#E6E3DF]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 space-y-20">
+        {/* ========================================================================= */}
+        {/* 1. SHIRTS COLLECTIONS HIERARCHY                                           */}
+        {/* ========================================================================= */}
+        <section className="space-y-8">
+          <div className="flex items-center justify-between pb-4 border-b border-[#E6E3DF]">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#EDE7DF] flex items-center justify-center text-[#171717] border border-[#D5CEC4]">
-                <Shirt className="w-5 h-5" />
+              <div className="w-11 h-11 rounded-2xl bg-[#EDE7DF] flex items-center justify-center text-[#171717] border border-[#D5CEC4] shadow-xs">
+                <Shirt className="w-6 h-6" />
               </div>
               <div>
-                <h2 className="text-2xl font-display font-black text-[#171717] uppercase tracking-tight">
-                  Shirts Collections
+                <h2 className="text-2xl sm:text-3xl font-display font-black text-[#171717] uppercase tracking-tight">
+                  1. Shirts Collections
                 </h2>
-                <p className="text-xs text-[#737373]">
-                  Oversized baggy cuts, normal fit essentials, resort cuban collars, and vintage acid washes.
+                <p className="text-xs sm:text-sm text-[#737373]">
+                  Select <strong>Oversized (Baggy)</strong> or <strong>Normal Fit</strong> to reveal Tie & Dye, Acid Wash, Plain, and Printed styles.
                 </p>
               </div>
             </div>
@@ -120,55 +224,141 @@ export const CollectionsPage: React.FC = () => {
               to="/collections/shirts"
               className="text-xs font-bold text-[#171717] hover:underline uppercase tracking-wider hidden sm:inline-flex items-center gap-1"
             >
-              <span>View All Shirts</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <span>View All Shirts →</span>
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {shirtStyles.map((item) => (
-              <Link
-                key={item.title}
-                to={item.path}
-                className="group relative aspect-[3/4] rounded-2xl overflow-hidden shadow-xs bg-[#171717] flex flex-col justify-end p-6 text-white transition-all duration-500 hover:shadow-lg border border-[#E6E3DF]"
-              >
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="absolute inset-0 w-full h-full object-cover object-center opacity-75 group-hover:scale-108 transition-transform duration-700 ease-out"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+          {/* Level 2: Fits Cards (Oversized & Normal Fit) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {shirtFits.map((fit) => {
+              const isExpanded = expandedShirtFit === fit.id;
+              return (
+                <div
+                  key={fit.id}
+                  className={`rounded-3xl border transition-all duration-300 overflow-hidden bg-white shadow-xs ${
+                    isExpanded ? 'border-[#171717] ring-1 ring-[#171717]' : 'border-[#E3DDD5] hover:border-[#B5ADA4]'
+                  }`}
+                >
+                  {/* Fit Header Row */}
+                  <div className="p-6 sm:p-7 flex flex-col justify-between space-y-4">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="space-y-1">
+                        <span className="text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md bg-[#EDE7DF] text-[#171717] border border-[#D5CEC4]">
+                          {fit.badge}
+                        </span>
+                        <h3 className="text-xl sm:text-2xl font-display font-bold text-[#171717] pt-1">
+                          {fit.fitName} Shirts
+                        </h3>
+                        <p className="text-xs text-[#666666] leading-relaxed max-w-sm">
+                          {fit.description}
+                        </p>
+                      </div>
 
-                <div className="relative z-10 space-y-1.5">
-                  <h3 className="text-lg font-display font-bold tracking-tight text-white group-hover:translate-x-1 transition-transform">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed opacity-90">
-                    {item.description}
-                  </p>
-                  <div className="pt-2 inline-flex items-center gap-1.5 text-xs font-bold tracking-wider uppercase text-amber-300 group-hover:text-white transition-colors">
-                    <span>Explore</span>
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                      <button
+                        type="button"
+                        onClick={() => setExpandedShirtFit(isExpanded ? null : fit.id)}
+                        className="p-2.5 rounded-2xl bg-[#F7F5F2] hover:bg-[#EAE6DF] text-[#171717] transition-all flex items-center gap-1.5 shrink-0 border border-[#E3DDD5]"
+                        aria-label={`Toggle styles for ${fit.fitName}`}
+                      >
+                        <span className="text-xs font-bold uppercase tracking-wider hidden sm:inline">
+                          {isExpanded ? 'Hide Styles' : 'View Styles'}
+                        </span>
+                        <ChevronDown
+                          className={`w-4 h-4 transition-transform duration-300 ${
+                            isExpanded ? 'rotate-180 text-black' : 'text-[#737373]'
+                          }`}
+                        />
+                      </button>
+                    </div>
+
+                    <div className="flex items-center gap-3 pt-2">
+                      <Link
+                        to={fit.path}
+                        className="px-4 py-2 bg-[#171717] hover:bg-black text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all inline-flex items-center gap-1.5 shadow-xs"
+                      >
+                        <span>Explore All {fit.fitName}</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => setExpandedShirtFit(isExpanded ? null : fit.id)}
+                        className="text-xs font-bold text-[#555555] hover:text-[#171717] underline decoration-dotted"
+                      >
+                        {isExpanded ? 'Collapse' : `Show ${fit.styles.length} Styles ↓`}
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
 
-        {/* 2. T-SHIRTS COLLECTIONS */}
-        <div className="space-y-6">
-          <div className="flex items-end justify-between pb-3 border-b border-[#E6E3DF]">
+                  {/* Level 3: Revealed Styles Grid ONLY when Fit is clicked/expanded */}
+                  {isExpanded && (
+                    <div className="bg-[#F7F5F2]/90 border-t border-[#E6E3DF] p-6 animate-in fade-in slide-in-from-top-2 duration-300 space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1.5">
+                          <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                          <span className="text-xs font-black uppercase tracking-wider text-[#171717]">
+                            {fit.fitName} Styles:
+                          </span>
+                        </div>
+                        <span className="text-[11px] text-[#737373]">
+                          Click any style below to shop
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {fit.styles.map((style) => (
+                          <Link
+                            key={style.title}
+                            to={style.path}
+                            className="group relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xs bg-[#171717] flex flex-col justify-end p-4 text-white transition-all duration-300 hover:shadow-lg border border-[#E3DDD5]"
+                          >
+                            <img
+                              src={style.image}
+                              alt={style.title}
+                              className="absolute inset-0 w-full h-full object-cover object-center opacity-75 group-hover:scale-108 transition-transform duration-500"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+
+                            <div className="relative z-10 space-y-1">
+                              <span className="inline-block text-[9px] font-extrabold uppercase px-2 py-0.5 rounded bg-white/90 text-[#171717] mb-1">
+                                {style.tag}
+                              </span>
+                              <h4 className="text-sm font-display font-bold tracking-tight text-white group-hover:translate-x-1 transition-transform">
+                                {style.title}
+                              </h4>
+                              <p className="text-[11px] text-slate-300 line-clamp-1 leading-snug">
+                                {style.description}
+                              </p>
+                              <div className="pt-1 inline-flex items-center gap-1 text-[11px] font-bold text-amber-300 group-hover:text-white uppercase tracking-wider">
+                                <span>Shop Style</span>
+                                <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                              </div>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* 2. T-SHIRTS COLLECTIONS HIERARCHY                                         */}
+        {/* ========================================================================= */}
+        <section className="space-y-8">
+          <div className="flex items-center justify-between pb-4 border-b border-[#E6E3DF]">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#EAF0EC] flex items-center justify-center text-[#171717] border border-[#DFE7E1]">
-                <Layers className="w-5 h-5" />
+              <div className="w-11 h-11 rounded-2xl bg-[#EAF0EC] flex items-center justify-center text-[#171717] border border-[#DFE7E1] shadow-xs">
+                <Layers className="w-6 h-6" />
               </div>
               <div>
-                <h2 className="text-2xl font-display font-black text-[#171717] uppercase tracking-tight">
-                  T-Shirts Collections
+                <h2 className="text-2xl sm:text-3xl font-display font-black text-[#171717] uppercase tracking-tight">
+                  2. T-Shirts Collections
                 </h2>
-                <p className="text-xs text-[#737373]">
-                  Oversized baggy silhouettes, normal fit basics, vintage acid wash, and artisanal tie-dye.
+                <p className="text-xs sm:text-sm text-[#737373]">
+                  Select <strong>Oversized (Baggy)</strong> or <strong>Normal Fit</strong> to reveal Acid Wash, Tie & Dye, Plain, and Printed styles.
                 </p>
               </div>
             </div>
@@ -176,41 +366,125 @@ export const CollectionsPage: React.FC = () => {
               to="/collections/tshirts"
               className="text-xs font-bold text-[#171717] hover:underline uppercase tracking-wider hidden sm:inline-flex items-center gap-1"
             >
-              <span>View All T-Shirts</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <span>View All T-Shirts →</span>
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tshirtStyles.map((item) => (
-              <Link
-                key={item.title}
-                to={item.path}
-                className="group relative aspect-[3/4] rounded-2xl overflow-hidden shadow-xs bg-[#171717] flex flex-col justify-end p-6 text-white transition-all duration-500 hover:shadow-lg border border-[#E6E3DF]"
-              >
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="absolute inset-0 w-full h-full object-cover object-center opacity-75 group-hover:scale-108 transition-transform duration-700 ease-out"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+          {/* Level 2: Fits Cards (Oversized & Normal Fit) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {tshirtFits.map((fit) => {
+              const isExpanded = expandedTshirtFit === fit.id;
+              return (
+                <div
+                  key={fit.id}
+                  className={`rounded-3xl border transition-all duration-300 overflow-hidden bg-white shadow-xs ${
+                    isExpanded ? 'border-[#171717] ring-1 ring-[#171717]' : 'border-[#E3DDD5] hover:border-[#B5ADA4]'
+                  }`}
+                >
+                  {/* Fit Header Row */}
+                  <div className="p-6 sm:p-7 flex flex-col justify-between space-y-4">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="space-y-1">
+                        <span className="text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md bg-[#EDE7DF] text-[#171717] border border-[#D5CEC4]">
+                          {fit.badge}
+                        </span>
+                        <h3 className="text-xl sm:text-2xl font-display font-bold text-[#171717] pt-1">
+                          {fit.fitName} T-Shirts
+                        </h3>
+                        <p className="text-xs text-[#666666] leading-relaxed max-w-sm">
+                          {fit.description}
+                        </p>
+                      </div>
 
-                <div className="relative z-10 space-y-1.5">
-                  <h3 className="text-lg font-display font-bold tracking-tight text-white group-hover:translate-x-1 transition-transform">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed opacity-90">
-                    {item.description}
-                  </p>
-                  <div className="pt-2 inline-flex items-center gap-1.5 text-xs font-bold tracking-wider uppercase text-amber-300 group-hover:text-white transition-colors">
-                    <span>Explore</span>
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                      <button
+                        type="button"
+                        onClick={() => setExpandedTshirtFit(isExpanded ? null : fit.id)}
+                        className="p-2.5 rounded-2xl bg-[#F7F5F2] hover:bg-[#EAE6DF] text-[#171717] transition-all flex items-center gap-1.5 shrink-0 border border-[#E3DDD5]"
+                        aria-label={`Toggle styles for ${fit.fitName}`}
+                      >
+                        <span className="text-xs font-bold uppercase tracking-wider hidden sm:inline">
+                          {isExpanded ? 'Hide Styles' : 'View Styles'}
+                        </span>
+                        <ChevronDown
+                          className={`w-4 h-4 transition-transform duration-300 ${
+                            isExpanded ? 'rotate-180 text-black' : 'text-[#737373]'
+                          }`}
+                        />
+                      </button>
+                    </div>
+
+                    <div className="flex items-center gap-3 pt-2">
+                      <Link
+                        to={fit.path}
+                        className="px-4 py-2 bg-[#171717] hover:bg-black text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all inline-flex items-center gap-1.5 shadow-xs"
+                      >
+                        <span>Explore All {fit.fitName}</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => setExpandedTshirtFit(isExpanded ? null : fit.id)}
+                        className="text-xs font-bold text-[#555555] hover:text-[#171717] underline decoration-dotted"
+                      >
+                        {isExpanded ? 'Collapse' : `Show ${fit.styles.length} Styles ↓`}
+                      </button>
+                    </div>
                   </div>
+
+                  {/* Level 3: Revealed Styles Grid ONLY when Fit is clicked/expanded */}
+                  {isExpanded && (
+                    <div className="bg-[#F7F5F2]/90 border-t border-[#E6E3DF] p-6 animate-in fade-in slide-in-from-top-2 duration-300 space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1.5">
+                          <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                          <span className="text-xs font-black uppercase tracking-wider text-[#171717]">
+                            {fit.fitName} Styles:
+                          </span>
+                        </div>
+                        <span className="text-[11px] text-[#737373]">
+                          Click any style below to shop
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {fit.styles.map((style) => (
+                          <Link
+                            key={style.title}
+                            to={style.path}
+                            className="group relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xs bg-[#171717] flex flex-col justify-end p-4 text-white transition-all duration-300 hover:shadow-lg border border-[#E3DDD5]"
+                          >
+                            <img
+                              src={style.image}
+                              alt={style.title}
+                              className="absolute inset-0 w-full h-full object-cover object-center opacity-75 group-hover:scale-108 transition-transform duration-500"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+
+                            <div className="relative z-10 space-y-1">
+                              <span className="inline-block text-[9px] font-extrabold uppercase px-2 py-0.5 rounded bg-white/90 text-[#171717] mb-1">
+                                {style.tag}
+                              </span>
+                              <h4 className="text-sm font-display font-bold tracking-tight text-white group-hover:translate-x-1 transition-transform">
+                                {style.title}
+                              </h4>
+                              <p className="text-[11px] text-slate-300 line-clamp-1 leading-snug">
+                                {style.description}
+                              </p>
+                              <div className="pt-1 inline-flex items-center gap-1 text-[11px] font-bold text-amber-300 group-hover:text-white uppercase tracking-wider">
+                                <span>Shop Style</span>
+                                <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                              </div>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </Link>
-            ))}
+              );
+            })}
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );

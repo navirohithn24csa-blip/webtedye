@@ -1,5 +1,5 @@
-import React from 'react';
-import { X, RotateCcw, SlidersHorizontal, Check } from 'lucide-react';
+import React, { useState } from 'react';
+import { X, RotateCcw, SlidersHorizontal, Check, ChevronDown } from 'lucide-react';
 import { ProductCategory, CatalogFilterState } from '../../types';
 
 interface FilterSidebarProps {
@@ -46,10 +46,31 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
   onCloseMobile,
   totalResultsCount
 }) => {
+  const [openFitSections, setOpenFitSections] = useState<Record<string, boolean>>({
+    'Oversized (Baggy)': true,
+    'Normal Fit': true,
+  });
+
+  const toggleFitSection = (fitName: string) => {
+    setOpenFitSections((prev) => ({
+      ...prev,
+      [fitName]: !prev[fitName]
+    }));
+  };
+
   const toggleSubcategory = (subcat: string) => {
     onFilterChange({
       ...filters,
       subcategory: filters.subcategory === subcat ? undefined : subcat
+    });
+  };
+
+  const selectFitAndSubcategory = (fitName: string, subcatName?: string) => {
+    const nextFits = [fitName];
+    onFilterChange({
+      ...filters,
+      fits: nextFits,
+      subcategory: subcatName
     });
   };
 
@@ -97,39 +118,114 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
     filters.fabrics.length +
     (filters.priceRange[0] > 0 || filters.priceRange[1] < 2500 ? 1 : 0);
 
+  const shirtStylesList = ['Tie & Dye', 'Acid Wash', 'Plain', 'Printed'];
+  const tshirtStylesList = ['Acid Wash', 'Tie & Dye', 'Plain', 'Printed'];
+
   const filterContent = (
     <div className="space-y-6">
-      {/* Category / Subcategories */}
+      {/* Category / Subcategories Hierarchical Tree */}
       <div>
         <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-3">
-          Category Styles
+          Category Fits & Styles
         </h4>
-        <div className="space-y-1.5">
+        <div className="space-y-2">
           <button
             type="button"
-            onClick={() => onFilterChange({ ...filters, subcategory: undefined })}
-            className={`w-full flex items-center justify-between py-1.5 px-2.5 rounded-lg text-xs font-medium text-left transition-colors ${
-              !filters.subcategory
-                ? 'bg-slate-950 text-white font-semibold'
-                : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
+            onClick={() => onFilterChange({ ...filters, subcategory: undefined, fits: [] })}
+            className={`w-full flex items-center justify-between py-2 px-2.5 rounded-xl text-xs font-bold text-left transition-colors border ${
+              !filters.subcategory && filters.fits.length === 0
+                ? 'bg-slate-950 text-white border-slate-950 shadow-xs'
+                : 'bg-white text-slate-700 border-slate-200 hover:border-slate-400'
             }`}
           >
             <span>All {categoryType === 'shirts' ? 'Shirts' : categoryType === 'tshirts' ? 'T-Shirts' : 'Shorts'}</span>
           </button>
-          {subcategories.map((subcat) => (
-            <button
-              key={subcat}
-              type="button"
-              onClick={() => toggleSubcategory(subcat)}
-              className={`w-full flex items-center justify-between py-1.5 px-2.5 rounded-lg text-xs font-medium text-left transition-colors ${
-                filters.subcategory === subcat
-                  ? 'bg-slate-950 text-white font-semibold'
-                  : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
-              }`}
-            >
-              <span>{subcat}</span>
-            </button>
-          ))}
+
+          {/* Hierarchical Fits for Shirts / T-Shirts */}
+          {(categoryType === 'shirts' || categoryType === 'tshirts') && (
+            <div className="space-y-2 pt-1">
+              {['Oversized (Baggy)', 'Normal Fit'].map((fitName) => {
+                const isFitSelected = filters.fits.includes(fitName) || filters.subcategory === fitName;
+                const isExpanded = openFitSections[fitName];
+                const availableStyles = categoryType === 'shirts' ? shirtStylesList : tshirtStylesList;
+
+                return (
+                  <div
+                    key={fitName}
+                    className={`rounded-xl border transition-all overflow-hidden ${
+                      isFitSelected ? 'border-slate-950 bg-slate-50/80' : 'border-slate-200 bg-white'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between p-2">
+                      <button
+                        type="button"
+                        onClick={() => toggleSubcategory(fitName)}
+                        className={`flex-1 text-left text-xs font-bold ${
+                          isFitSelected ? 'text-slate-950 font-black' : 'text-slate-700 hover:text-black'
+                        }`}
+                      >
+                        • {fitName}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => toggleFitSection(fitName)}
+                        className="p-1 text-slate-400 hover:text-black"
+                        aria-label={`Toggle ${fitName} sub-styles`}
+                      >
+                        <ChevronDown
+                          className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                            isExpanded ? 'rotate-180 text-black' : ''
+                          }`}
+                        />
+                      </button>
+                    </div>
+
+                    {/* Styles revealed only when fit is expanded */}
+                    {isExpanded && (
+                      <div className="px-2.5 pb-2 pt-1 border-t border-slate-100 bg-white/80 space-y-1">
+                        <div className="text-[10px] font-extrabold uppercase text-slate-400 mb-1">
+                          Available Styles:
+                        </div>
+                        {availableStyles.map((st) => {
+                          const isStyleSelected = filters.subcategory === st;
+                          return (
+                            <button
+                              key={st}
+                              type="button"
+                              onClick={() => toggleSubcategory(st)}
+                              className={`w-full flex items-center justify-between py-1 px-2 rounded-md text-xs transition-colors text-left ${
+                                isStyleSelected
+                                  ? 'bg-slate-950 text-white font-bold'
+                                  : 'text-slate-600 hover:text-black hover:bg-slate-100'
+                              }`}
+                            >
+                              <span>- {st}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {categoryType === 'shorts' &&
+            subcategories.map((subcat) => (
+              <button
+                key={subcat}
+                type="button"
+                onClick={() => toggleSubcategory(subcat)}
+                className={`w-full flex items-center justify-between py-1.5 px-2.5 rounded-lg text-xs font-medium text-left transition-colors ${
+                  filters.subcategory === subcat
+                    ? 'bg-slate-950 text-white font-semibold'
+                    : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
+                }`}
+              >
+                <span>{subcat}</span>
+              </button>
+            ))}
         </div>
       </div>
 
