@@ -34,7 +34,7 @@ export const ContactPage: React.FC = () => {
   return (
     <div className="bg-transparent min-h-screen text-[#171717] pb-20">
       {/* Header Banner */}
-      <div className="bg-[#EDE7DF]/80 backdrop-blur-md border-b border-[#E3DDD5] py-10 sm:py-14">
+      <div className="bg-white/50 backdrop-blur-md border-b border-black/5 py-10 sm:py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3">
           <Breadcrumbs items={[{ label: 'Contact Us' }]} />
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFFFFF]/80 border border-[#E6E3DF] text-[#171717] text-[11px] font-bold uppercase tracking-widest">

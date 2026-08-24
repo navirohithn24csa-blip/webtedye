@@ -187,7 +187,7 @@ export const CollectionsPage: React.FC = () => {
   return (
     <div className="bg-transparent min-h-screen text-[#171717] pb-24">
       {/* Header Banner */}
-      <div className="relative overflow-hidden bg-[#EDE7DF]/80 backdrop-blur-md border-b border-[#E3DDD5] py-10 sm:py-14">
+      <div className="relative overflow-hidden bg-white/50 backdrop-blur-md border-b border-black/5 py-10 sm:py-14">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3">
           <Breadcrumbs items={[{ label: 'Collections' }]} />
           <h1 className="text-3xl sm:text-5xl font-display font-black text-[#171717] uppercase tracking-tight">

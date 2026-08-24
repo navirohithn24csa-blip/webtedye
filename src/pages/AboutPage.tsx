@@ -132,7 +132,7 @@ export const AboutPage: React.FC = () => {
       {/* ========================================================================= */}
       {/* 1. ABOUT US HERO BANNER                                                   */}
       {/* ========================================================================= */}
-      <div className="bg-[#EDE7DF]/80 backdrop-blur-md border-b border-[#E3DDD5] py-12 sm:py-16">
+      <div className="bg-white/50 backdrop-blur-md border-b border-black/5 py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
           <Breadcrumbs items={[{ label: 'About Us' }]} />
 

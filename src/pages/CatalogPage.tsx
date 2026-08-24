@@ -338,7 +338,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ forcedCategory }) => {
   return (
     <div className="bg-transparent min-h-screen text-[#171717] pb-20">
       {/* Top Banner / Header */}
-      <div className="bg-[#EDE7DF]/80 backdrop-blur-md border-b border-[#E3DDD5] py-8 sm:py-12">
+      <div className="bg-white/50 backdrop-blur-md border-b border-black/5 py-8 sm:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3">
           <Breadcrumbs items={breadcrumbItems} />
 
