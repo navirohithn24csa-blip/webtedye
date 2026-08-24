@@ -8,14 +8,12 @@ import {
   Scissors,
   Star,
   Sparkles,
-  Layers,
-  Flame,
   CheckCircle2
 } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 
 export const HomePage: React.FC = () => {
-  const { settings, products } = useStore();
+  const { settings } = useStore();
 
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
@@ -36,51 +34,6 @@ export const HomePage: React.FC = () => {
   const whatsappUrl = `https://wa.me/${cleanWhatsApp}?text=${encodeURIComponent(
     `Hello ${settings.brandName || 'SD TRENDYZ'}, I would like to enquire about your products.`
   )}`;
-
-  const highlightedCollections = [
-    {
-      title: 'Oversized (Baggy) Shirts',
-      subtitle: 'Drop-shoulder boxy cuts & Cuban resort collars',
-      path: '/collections/shirts/oversized',
-      image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=800&auto=format&fit=crop',
-      badge: 'Drop Shoulder'
-    },
-    {
-      title: 'Normal Fit Shirts',
-      subtitle: 'Classic regular fits & crisp button-down everyday staples',
-      path: '/collections/shirts/normal-fit',
-      image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=800&auto=format&fit=crop',
-      badge: 'Classic Fit'
-    },
-    {
-      title: 'Oversized (Baggy) T-Shirts',
-      subtitle: 'Heavy 240 GSM dense cotton & drop-shoulder streetwear cuts',
-      path: '/collections/tshirts/oversized',
-      image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop',
-      badge: '240 GSM Heavy'
-    },
-    {
-      title: 'Normal Fit T-Shirts',
-      subtitle: 'Classic crew neck tees in ultra-soft bio-washed combed jersey',
-      path: '/collections/tshirts/normal-fit',
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800&auto=format&fit=crop',
-      badge: 'Everyday Crew'
-    },
-    {
-      title: 'Tie & Dye Artisanal Line',
-      subtitle: 'Hand-swirled spiral, pastel, & indigo cloud dye patterns',
-      path: '/collections/shirts/tie-dye',
-      image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=800&auto=format&fit=crop',
-      badge: 'Artisanal Swirl'
-    },
-    {
-      title: 'Acid Wash Mineral Fades',
-      subtitle: 'Stone-washed distressed overshirts & vintage mineral fades',
-      path: '/collections/tshirts/acid-wash',
-      image: 'https://images.unsplash.com/photo-1578932750294-f5075e85f44a?q=80&w=800&auto=format&fit=crop',
-      badge: 'Vintage Wash'
-    }
-  ];
 
   return (
     <div className="bg-transparent text-[#171717] pb-16 space-y-12 sm:space-y-16">
@@ -143,42 +96,65 @@ export const HomePage: React.FC = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-3 flex flex-wrap items-center gap-3.5">
+              <div className="flex flex-wrap items-center gap-4 pt-2">
                 <Link
                   to="/collections"
-                  className="px-6 py-3.5 bg-[#171717] hover:bg-black text-[#FFFFFF] text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5 inline-flex items-center gap-2"
+                  className="px-6 py-3.5 bg-[#171717] hover:bg-black text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-md flex items-center gap-2 hover:scale-105"
                 >
                   <span>EXPLORE COLLECTIONS</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
-                <Link
-                  to="/contact"
-                  className="px-6 py-3.5 bg-white/80 hover:bg-white border border-[#171717] text-[#171717] text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-xs hover:-translate-y-0.5 inline-flex items-center gap-2"
+
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3.5 bg-white hover:bg-slate-50 text-[#171717] border border-[#D5CEC4] rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-xs flex items-center gap-2 hover:scale-105"
                 >
-                  <span>CONTACT US</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
+                  <MessageCircle className="w-4 h-4 text-emerald-600" />
+                  <span>DIRECT ENQUIRY</span>
+                </a>
+              </div>
+
+              {/* Trust Micro-Badges */}
+              <div className="grid grid-cols-3 gap-3 pt-4 border-t border-[#D5CEC4]">
+                <div>
+                  <p className="text-sm font-bold text-[#171717]">100%</p>
+                  <p className="text-[11px] text-[#737373]">Combed Cotton</p>
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-[#171717]">220–240 GSM</p>
+                  <p className="text-[11px] text-[#737373]">Heavyweight Fabric</p>
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-[#171717]">Bhavani</p>
+                  <p className="text-[11px] text-[#737373]">Tamil Nadu Workshop</p>
+                </div>
               </div>
             </div>
 
-            {/* Right Apparel Stage with Interactive 3D Parallax Tilt */}
-            <div className="lg:col-span-6 perspective-1000">
+            {/* Right Hero Visual Showcase Card with Parallax Mouse Tilt */}
+            <div className="lg:col-span-6 flex justify-center perspective-1000">
               <div
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
                 style={{
-                  transform: `rotateX(${tilt.y}deg) rotateY(${tilt.x}deg)`,
-                  transition: tilt.x === 0 ? 'transform 0.5s ease-out' : 'transform 0.08s ease-out',
+                  transform: `rotateY(${tilt.x}deg) rotateX(${tilt.y}deg)`,
+                  transition: 'transform 0.15s ease-out',
                 }}
-                className="relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-white/60 bg-gradient-to-tr from-[#EDE7DF] to-white/90 transform-3d"
+                className="relative w-full max-w-lg aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl bg-[#171717] border border-[#D5CEC4] transform-3d group cursor-pointer"
               >
+                {/* Hero Feature Image */}
                 <img
-                  src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?q=80&w=1200&auto=format&fit=crop"
-                  alt="SD TRENDYZ Clothing Collection"
-                  className="w-full h-full object-cover object-center scale-105 transition-transform duration-700 hover:scale-110"
+                  src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=1200&auto=format&fit=crop"
+                  alt="SD TRENDYZ Premium Streetwear Collection"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out opacity-90"
                 />
 
-                {/* 3D Floating Interactive Feature Card */}
+                {/* Subtle Gradient Overlays */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+
+                {/* Floating Interactive Feature Card */}
                 <div
                   style={{ transform: 'translateZ(30px)' }}
                   className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 p-4 rounded-2xl bg-white/90 backdrop-blur-xl border border-white/80 shadow-2xl max-w-[250px] space-y-2.5 transition-transform"
@@ -208,19 +184,19 @@ export const HomePage: React.FC = () => {
                       <Star className="w-3.5 h-3.5" />
                     </div>
                     <div>
-                      <p className="text-xs font-bold text-[#171717]">3D Dynamic Visuals</p>
-                      <p className="text-[10px] text-[#737373] leading-tight">Interactive moving color UI</p>
+                      <p className="text-xs font-bold text-[#171717]">Artisanal Tie & Dye</p>
+                      <p className="text-[10px] text-[#737373] leading-tight">Handcrafted unique motifs</p>
                     </div>
                   </div>
                 </div>
 
-                {/* Floating 3D Badge (Top Left) */}
+                {/* Floating Badge (Top Left) */}
                 <div
                   style={{ transform: 'translateZ(40px)' }}
                   className="absolute top-4 left-4 sm:top-6 sm:left-6 px-3.5 py-2 rounded-xl bg-black/85 backdrop-blur-md text-white border border-white/20 shadow-lg flex items-center gap-2"
                 >
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                  <span className="text-xs font-bold uppercase tracking-wider">Live 3D Motion</span>
+                  <span className="text-xs font-bold uppercase tracking-wider">Premium Series</span>
                 </div>
               </div>
             </div>
@@ -229,76 +205,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ========================================================================= */}
-      {/* 2. 3D FEATURED COLLECTIONS GRID                                           */}
-      {/* ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <div>
-              <div className="text-xs font-bold uppercase tracking-widest text-[#737373] flex items-center gap-1.5">
-                <Layers className="w-3.5 h-3.5 text-amber-600" />
-                <span>EXPLORE BY SILHOUETTE & STYLE</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-[#171717] mt-1">
-                Curated Collections
-              </h2>
-            </div>
-            <Link
-              to="/collections"
-              className="text-xs font-bold uppercase tracking-wider text-[#171717] hover:text-amber-700 flex items-center gap-1 group"
-            >
-              <span>View All Collections</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {highlightedCollections.map((item, idx) => (
-              <Link
-                key={idx}
-                to={item.path}
-                className="group relative rounded-3xl overflow-hidden bg-white border border-[#E3DDD5] shadow-xs hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5 flex flex-col"
-              >
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#EDE7DF]">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
-                  
-                  {/* Tag badge */}
-                  <div className="absolute top-3 left-3">
-                    <span className="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md border shadow-xs bg-white/90 text-[#171717] border-[#D5CEC4] backdrop-blur-xs">
-                      {item.badge}
-                    </span>
-                  </div>
-
-                  <div className="absolute bottom-3 left-3 right-3 text-white">
-                    <p className="text-xs font-medium text-white/80">{item.subtitle}</p>
-                  </div>
-                </div>
-
-                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3">
-                  <div>
-                    <h3 className="text-base font-display font-bold text-[#171717] group-hover:text-amber-700 transition-colors">
-                      {item.title}
-                    </h3>
-                  </div>
-
-                  <div className="pt-2 border-t border-[#F0ECE6] flex items-center justify-between text-xs font-bold text-[#171717]">
-                    <span>EXPLORE NOW</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#171717]" />
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 3. CRAFTSMANSHIP & QUALITY PROMISES                                       */}
+      {/* 2. CRAFTSMANSHIP & QUALITY PROMISES                                       */}
       {/* ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#171717] via-[#222222] to-[#111111] text-white p-8 sm:p-10 lg:p-12 shadow-xl border border-white/10">
@@ -340,7 +247,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ========================================================================= */}
-      {/* 4. CONTACT / QUESTION BANNER                                              */}
+      {/* 3. CONTACT / QUESTION BANNER                                              */}
       {/* ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden bg-[#EDE7DF]/90 backdrop-blur-md p-6 sm:p-8 rounded-3xl border border-[#E3DDD5] flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
