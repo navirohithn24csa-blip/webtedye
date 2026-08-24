@@ -128,11 +128,11 @@ export const AboutPage: React.FC = () => {
   ];
 
   return (
-    <div className="bg-[#F7F5F2] min-h-screen text-[#171717] pb-20">
+    <div className="bg-transparent min-h-screen text-[#171717] pb-20">
       {/* ========================================================================= */}
       {/* 1. ABOUT US HERO BANNER                                                   */}
       {/* ========================================================================= */}
-      <div className="bg-[#EDE7DF] border-b border-[#E3DDD5] py-12 sm:py-16">
+      <div className="bg-[#EDE7DF]/80 backdrop-blur-md border-b border-[#E3DDD5] py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
           <Breadcrumbs items={[{ label: 'About Us' }]} />
 
