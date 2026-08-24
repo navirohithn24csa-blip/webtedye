@@ -5,9 +5,9 @@ export const INITIAL_CATEGORIES: Category[] = [
     id: 'cat-shirts',
     name: 'Shirts',
     slug: 'shirts',
-    description: 'Resort cuban collars, vintage acid wash overshirts, crisp oxford cotton, and vibrant tie-dye button-downs.',
+    description: 'Oversized baggy cuts, normal fit essentials, resort cuban collars, vintage acid wash overshirts, and vibrant tie-dye button-downs.',
     imageUrl: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=1000&auto=format&fit=crop',
-    subcategories: ['Tie & Dye', 'Acid Wash', 'Plain', 'Printed'],
+    subcategories: ['Oversized (Baggy)', 'Normal Fit', 'Tie & Dye', 'Acid Wash', 'Plain', 'Printed'],
     displayOrder: 1,
     status: 'active'
   },
@@ -15,9 +15,9 @@ export const INITIAL_CATEGORIES: Category[] = [
     id: 'cat-tshirts',
     name: 'T-Shirts',
     slug: 'tshirts',
-    description: 'Everyday essentials in heavy 220 GSM combed cotton, vintage acid washes, artisanal tie-dye swirls, and minimal graphics.',
+    description: 'Oversized baggy streetwear tees, normal fit basics, vintage acid washes, artisanal tie-dye swirls, and minimal graphics.',
     imageUrl: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1000&auto=format&fit=crop',
-    subcategories: ['Tie & Dye', 'Acid Wash', 'Plain', 'Printed'],
+    subcategories: ['Oversized (Baggy)', 'Normal Fit', 'Acid Wash', 'Tie & Dye', 'Plain', 'Printed'],
     displayOrder: 2,
     status: 'active'
   },
@@ -35,12 +35,30 @@ export const INITIAL_CATEGORIES: Category[] = [
 
 export const INITIAL_COLLECTIONS: Collection[] = [
   {
+    id: 'col-oversized-shirts',
+    name: 'Oversized (Baggy) Shirts',
+    slug: 'shirts/oversized',
+    description: 'Drop-shoulder relaxed silhouettes, breezy oversized cuts, and contemporary boxy drape.',
+    imageUrl: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=1000&auto=format&fit=crop',
+    displayOrder: 1,
+    status: 'active'
+  },
+  {
+    id: 'col-normalfit-shirts',
+    name: 'Normal Fit Shirts',
+    slug: 'shirts/normal-fit',
+    description: 'Classic regular fit, structured everyday button-down shirts, and tailored essentials.',
+    imageUrl: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=1000&auto=format&fit=crop',
+    displayOrder: 2,
+    status: 'active'
+  },
+  {
     id: 'col-tiedye-shirts',
     name: 'Tie & Dye Shirts',
     slug: 'shirts/tie-dye',
     description: 'Artisanal swirl, dip-dye, and marble-washed resort shirts tailored for vibrant casual styling.',
-    imageUrl: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=1000&auto=format&fit=crop',
-    displayOrder: 1,
+    imageUrl: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=1000&auto=format&fit=crop',
+    displayOrder: 3,
     status: 'active'
   },
   {
@@ -49,7 +67,7 @@ export const INITIAL_COLLECTIONS: Collection[] = [
     slug: 'shirts/acid-wash',
     description: 'Vintage mineral-washed, distressed twill, and stone-washed cotton overshirts with rich lived-in texture.',
     imageUrl: 'https://images.unsplash.com/photo-1578932750294-f5075e85f44a?q=80&w=1000&auto=format&fit=crop',
-    displayOrder: 2,
+    displayOrder: 4,
     status: 'active'
   },
   {
@@ -58,7 +76,7 @@ export const INITIAL_COLLECTIONS: Collection[] = [
     slug: 'shirts/plain',
     description: 'Clean solid oxford cotton, breathable linen-blend, and tailored poplin button-down shirts.',
     imageUrl: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=1000&auto=format&fit=crop',
-    displayOrder: 3,
+    displayOrder: 5,
     status: 'active'
   },
   {
@@ -67,16 +85,25 @@ export const INITIAL_COLLECTIONS: Collection[] = [
     slug: 'shirts/printed',
     description: 'Bold botanical floral prints, retro geometric cuban collar shirts, and abstract artistic patterns.',
     imageUrl: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=1000&auto=format&fit=crop',
-    displayOrder: 4,
+    displayOrder: 6,
     status: 'active'
   },
   {
-    id: 'col-tiedye-tshirts',
-    name: 'Tie & Dye T-Shirts',
-    slug: 'tshirts/tie-dye',
-    description: 'Vibrant spiral patterns, muted pastel swirls, and indigo cloud tie-dye heavyweight tees.',
+    id: 'col-oversized-tshirts',
+    name: 'Oversized (Baggy) T-Shirts',
+    slug: 'tshirts/oversized',
+    description: 'Heavyweight drop-shoulder streetwear tees, boxy silhouettes, and relaxed drape.',
     imageUrl: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=1000&auto=format&fit=crop',
-    displayOrder: 5,
+    displayOrder: 7,
+    status: 'active'
+  },
+  {
+    id: 'col-normalfit-tshirts',
+    name: 'Normal Fit T-Shirts',
+    slug: 'tshirts/normal-fit',
+    description: 'Everyday regular fit, super-combed cotton crew tees, and timeless casual silhouettes.',
+    imageUrl: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1000&auto=format&fit=crop',
+    displayOrder: 8,
     status: 'active'
   },
   {
@@ -85,7 +112,16 @@ export const INITIAL_COLLECTIONS: Collection[] = [
     slug: 'tshirts/acid-wash',
     description: 'Heavy 240 GSM stone-washed tees with vintage fades, soft distressed hems, and relaxed boxy cuts.',
     imageUrl: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=1000&auto=format&fit=crop',
-    displayOrder: 6,
+    displayOrder: 9,
+    status: 'active'
+  },
+  {
+    id: 'col-tiedye-tshirts',
+    name: 'Tie & Dye T-Shirts',
+    slug: 'tshirts/tie-dye',
+    description: 'Vibrant spiral patterns, muted pastel swirls, and indigo cloud tie-dye heavyweight tees.',
+    imageUrl: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=1000&auto=format&fit=crop',
+    displayOrder: 10,
     status: 'active'
   },
   {
@@ -94,7 +130,7 @@ export const INITIAL_COLLECTIONS: Collection[] = [
     slug: 'tshirts/plain',
     description: 'Minimal solid colorways in 100% super-combed cotton, ribbed crew necks, and drop-shoulder silhouettes.',
     imageUrl: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1000&auto=format&fit=crop',
-    displayOrder: 7,
+    displayOrder: 11,
     status: 'active'
   },
   {
@@ -103,7 +139,7 @@ export const INITIAL_COLLECTIONS: Collection[] = [
     slug: 'tshirts/printed',
     description: 'Understated typographic chest graphics, retro vintage art, and modern streetwear screen prints.',
     imageUrl: 'https://images.unsplash.com/photo-1507680434517-d4566d617327?q=80&w=1000&auto=format&fit=crop',
-    displayOrder: 8,
+    displayOrder: 12,
     status: 'active'
   }
 ];
@@ -120,7 +156,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'shirts',
     subcategory: 'Tie & Dye',
     styleType: 'tie-dye',
-    collectionIds: ['col-tiedye-shirts'],
+    collectionIds: ['col-tiedye-shirts', 'col-oversized-shirts'],
     sellingPrice: 999,
     originalPrice: 1299,
     discountPercentage: 23,
@@ -155,7 +191,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { size: 'XXL', available: false }
     ],
     specifications: {
-      fit: 'Relaxed Resort Fit',
+      fit: 'Oversized (Baggy)',
       fabric: 'Cotton Rayon Blend',
       gsm: '160 GSM',
       sleeve: 'Half Sleeve',
@@ -180,7 +216,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'shirts',
     subcategory: 'Tie & Dye',
     styleType: 'tie-dye',
-    collectionIds: ['col-tiedye-shirts'],
+    collectionIds: ['col-tiedye-shirts', 'col-normalfit-shirts'],
     sellingPrice: 1099,
     originalPrice: 1399,
     discountPercentage: 21,
@@ -214,7 +250,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { size: 'XXL', available: true }
     ],
     specifications: {
-      fit: 'Regular Fit',
+      fit: 'Normal Fit',
       fabric: '100% Combed Cotton Poplin',
       gsm: '170 GSM',
       sleeve: 'Full Sleeve / Roll-up Tabs',
@@ -242,7 +278,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'shirts',
     subcategory: 'Acid Wash',
     styleType: 'acid-wash',
-    collectionIds: ['col-acidwash-shirts'],
+    collectionIds: ['col-acidwash-shirts', 'col-oversized-shirts'],
     sellingPrice: 1299,
     originalPrice: 1599,
     discountPercentage: 19,
@@ -276,7 +312,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { size: 'XXL', available: true }
     ],
     specifications: {
-      fit: 'Relaxed Overshirt Fit',
+      fit: 'Oversized (Baggy)',
       fabric: '100% Heavy Cotton Denim',
       gsm: '210 GSM',
       sleeve: 'Full Sleeve',
@@ -301,7 +337,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'shirts',
     subcategory: 'Acid Wash',
     styleType: 'acid-wash',
-    collectionIds: ['col-acidwash-shirts'],
+    collectionIds: ['col-acidwash-shirts', 'col-normalfit-shirts'],
     sellingPrice: 1149,
     originalPrice: 1449,
     discountPercentage: 20,
@@ -335,7 +371,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { size: 'XXL', available: false }
     ],
     specifications: {
-      fit: 'Relaxed Boxy Fit',
+      fit: 'Normal Fit',
       fabric: '100% Cotton Twill',
       gsm: '230 GSM',
       sleeve: 'Full Sleeve',
@@ -362,7 +398,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'shirts',
     subcategory: 'Plain',
     styleType: 'plain',
-    collectionIds: ['col-plain-shirts'],
+    collectionIds: ['col-plain-shirts', 'col-normalfit-shirts'],
     sellingPrice: 899,
     originalPrice: 1199,
     discountPercentage: 25,
@@ -397,7 +433,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { size: 'XXL', available: true }
     ],
     specifications: {
-      fit: 'Tailored Regular Fit',
+      fit: 'Normal Fit',
       fabric: '100% Combed Oxford Cotton',
       gsm: '180 GSM',
       sleeve: 'Full Sleeve with 2-Button Cuffs',
@@ -422,7 +458,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'shirts',
     subcategory: 'Plain',
     styleType: 'plain',
-    collectionIds: ['col-plain-shirts'],
+    collectionIds: ['col-plain-shirts', 'col-oversized-shirts'],
     sellingPrice: 999,
     originalPrice: 1299,
     discountPercentage: 23,
@@ -457,7 +493,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { size: 'XXL', available: false }
     ],
     specifications: {
-      fit: 'Relaxed Fit',
+      fit: 'Oversized (Baggy)',
       fabric: '55% Linen, 45% Cotton',
       gsm: '160 GSM',
       sleeve: 'Half Sleeve',
@@ -485,7 +521,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'shirts',
     subcategory: 'Printed',
     styleType: 'printed',
-    collectionIds: ['col-printed-shirts'],
+    collectionIds: ['col-printed-shirts', 'col-oversized-shirts'],
     sellingPrice: 949,
     originalPrice: 1249,
     discountPercentage: 24,
@@ -520,7 +556,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { size: 'XXL', available: true }
     ],
     specifications: {
-      fit: 'Relaxed Cuban Fit',
+      fit: 'Oversized (Baggy)',
       fabric: '100% Viscose Twill',
       gsm: '150 GSM',
       sleeve: 'Half Sleeve',
@@ -545,7 +581,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'shirts',
     subcategory: 'Printed',
     styleType: 'printed',
-    collectionIds: ['col-printed-shirts'],
+    collectionIds: ['col-printed-shirts', 'col-normalfit-shirts'],
     sellingPrice: 899,
     originalPrice: 1199,
     discountPercentage: 25,
@@ -579,7 +615,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { size: 'XXL', available: false }
     ],
     specifications: {
-      fit: 'Regular Fit',
+      fit: 'Normal Fit',
       fabric: '100% Combed Cotton',
       gsm: '160 GSM',
       sleeve: 'Half Sleeve',
@@ -606,7 +642,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'tshirts',
     subcategory: 'Tie & Dye',
     styleType: 'tie-dye',
-    collectionIds: ['col-tiedye-tshirts'],
+    collectionIds: ['col-tiedye-tshirts', 'col-oversized-tshirts'],
     sellingPrice: 799,
     originalPrice: 999,
     discountPercentage: 20,
@@ -640,7 +676,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { size: 'XXL', available: true }
     ],
     specifications: {
-      fit: 'Oversized Boxy Fit',
+      fit: 'Oversized (Baggy)',
       fabric: '100% Combed Cotton',
       gsm: '220 GSM',
       sleeve: 'Half Sleeve (Drop Shoulder)',
@@ -665,7 +701,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'tshirts',
     subcategory: 'Tie & Dye',
     styleType: 'tie-dye',
-    collectionIds: ['col-tiedye-tshirts'],
+    collectionIds: ['col-tiedye-tshirts', 'col-normalfit-tshirts'],
     sellingPrice: 849,
     originalPrice: 1049,
     discountPercentage: 19,
@@ -699,7 +735,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { size: 'XXL', available: false }
     ],
     specifications: {
-      fit: 'Relaxed Fit',
+      fit: 'Normal Fit',
       fabric: '100% Organic Cotton',
       gsm: '200 GSM',
       sleeve: 'Half Sleeve',
@@ -726,7 +762,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'tshirts',
     subcategory: 'Acid Wash',
     styleType: 'acid-wash',
-    collectionIds: ['col-acidwash-tshirts'],
+    collectionIds: ['col-acidwash-tshirts', 'col-oversized-tshirts'],
     sellingPrice: 899,
     originalPrice: 1149,
     discountPercentage: 22,
@@ -761,7 +797,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { size: 'XXL', available: true }
     ],
     specifications: {
-      fit: 'Oversized Boxy Fit',
+      fit: 'Oversized (Baggy)',
       fabric: '100% Heavy Combed Cotton',
       gsm: '240 GSM',
       sleeve: 'Half Sleeve (Drop Shoulder)',
@@ -786,7 +822,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'tshirts',
     subcategory: 'Acid Wash',
     styleType: 'acid-wash',
-    collectionIds: ['col-acidwash-tshirts'],
+    collectionIds: ['col-acidwash-tshirts', 'col-normalfit-tshirts'],
     sellingPrice: 849,
     originalPrice: 1049,
     discountPercentage: 19,
@@ -820,7 +856,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { size: 'XXL', available: false }
     ],
     specifications: {
-      fit: 'Relaxed Fit',
+      fit: 'Normal Fit',
       fabric: '100% Bio-Washed Cotton',
       gsm: '210 GSM',
       sleeve: 'Half Sleeve',
@@ -847,7 +883,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'tshirts',
     subcategory: 'Plain',
     styleType: 'plain',
-    collectionIds: ['col-plain-tshirts'],
+    collectionIds: ['col-plain-tshirts', 'col-oversized-tshirts'],
     sellingPrice: 699,
     originalPrice: 899,
     discountPercentage: 22,
@@ -883,7 +919,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { size: 'XXL', available: true }
     ],
     specifications: {
-      fit: 'Oversized Boxy Fit',
+      fit: 'Oversized (Baggy)',
       fabric: '100% Combed Cotton',
       gsm: '220 GSM',
       sleeve: 'Half Sleeve (Drop Shoulder)',
@@ -908,7 +944,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'tshirts',
     subcategory: 'Plain',
     styleType: 'plain',
-    collectionIds: ['col-plain-tshirts'],
+    collectionIds: ['col-plain-tshirts', 'col-normalfit-tshirts'],
     sellingPrice: 599,
     originalPrice: 749,
     discountPercentage: 20,
@@ -943,7 +979,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { size: 'XXL', available: true }
     ],
     specifications: {
-      fit: 'Regular Fit',
+      fit: 'Normal Fit',
       fabric: '100% Bio-Washed Cotton',
       gsm: '180 GSM',
       sleeve: 'Half Sleeve',
@@ -970,7 +1006,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'tshirts',
     subcategory: 'Printed',
     styleType: 'printed',
-    collectionIds: ['col-printed-tshirts'],
+    collectionIds: ['col-printed-tshirts', 'col-oversized-tshirts'],
     sellingPrice: 749,
     originalPrice: 949,
     discountPercentage: 21,
@@ -1005,7 +1041,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { size: 'XXL', available: false }
     ],
     specifications: {
-      fit: 'Relaxed Drop-Shoulder Fit',
+      fit: 'Oversized (Baggy)',
       fabric: '100% Organic Combed Cotton',
       gsm: '200 GSM',
       sleeve: 'Half Sleeve',
@@ -1030,7 +1066,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category: 'tshirts',
     subcategory: 'Printed',
     styleType: 'printed',
-    collectionIds: ['col-printed-tshirts'],
+    collectionIds: ['col-printed-tshirts', 'col-normalfit-tshirts'],
     sellingPrice: 799,
     originalPrice: 999,
     discountPercentage: 20,
@@ -1064,7 +1100,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { size: 'XXL', available: true }
     ],
     specifications: {
-      fit: 'Boxy Fit',
+      fit: 'Normal Fit',
       fabric: '100% Combed Cotton',
       gsm: '220 GSM',
       sleeve: 'Half Sleeve',

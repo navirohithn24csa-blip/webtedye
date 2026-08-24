@@ -27,7 +27,8 @@ const COLOR_OPTIONS = [
   { name: 'Charcoal', hex: '#374151' }
 ];
 
-const FIT_OPTIONS_TSHIRTS = ['Oversized', 'Regular Fit', 'Slim Fit', 'Relaxed Fit', 'Athletic'];
+const FIT_OPTIONS_SHIRTS = ['Oversized (Baggy)', 'Normal Fit', 'Relaxed Fit', 'Slim Fit'];
+const FIT_OPTIONS_TSHIRTS = ['Oversized (Baggy)', 'Normal Fit', 'Regular Fit', 'Relaxed Fit', 'Athletic'];
 const FIT_OPTIONS_SHORTS = ['Athletic', 'Relaxed Fit', 'Regular Fit', 'Straight Fit'];
 
 const FABRIC_OPTIONS = ['100% Cotton', 'French Terry', 'Piqué Cotton', 'Dry Fit', 'Polyester Mesh', 'Cotton Linen'];
@@ -113,7 +114,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
             }`}
           >
-            <span>All {categoryType === 'tshirts' ? 'T-Shirts' : 'Shorts'}</span>
+            <span>All {categoryType === 'shirts' ? 'Shirts' : categoryType === 'tshirts' ? 'T-Shirts' : 'Shorts'}</span>
           </button>
           {subcategories.map((subcat) => (
             <button
@@ -237,7 +238,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           Fit Type
         </h4>
         <div className="space-y-1.5">
-          {(categoryType === 'tshirts' ? FIT_OPTIONS_TSHIRTS : FIT_OPTIONS_SHORTS).map((fit) => {
+          {(categoryType === 'shirts' ? FIT_OPTIONS_SHIRTS : categoryType === 'tshirts' ? FIT_OPTIONS_TSHIRTS : FIT_OPTIONS_SHORTS).map((fit) => {
             const isSelected = filters.fits.includes(fit);
             return (
               <label

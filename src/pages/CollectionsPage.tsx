@@ -6,10 +6,22 @@ import { ArrowRight, Sparkles, Shirt, Layers } from 'lucide-react';
 export const CollectionsPage: React.FC = () => {
   const shirtStyles = [
     {
+      title: 'Oversized (Baggy) Shirts',
+      path: '/collections/shirts/oversized',
+      description: 'Drop-shoulder relaxed silhouettes and breezy oversized cuts.',
+      image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=800&auto=format&fit=crop'
+    },
+    {
+      title: 'Normal Fit Shirts',
+      path: '/collections/shirts/normal-fit',
+      description: 'Classic regular fit, structured everyday shirts and tailored essentials.',
+      image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=800&auto=format&fit=crop'
+    },
+    {
       title: 'Tie & Dye Shirts',
       path: '/collections/shirts/tie-dye',
       description: 'Artisanal swirl, dip-dye, and marble-washed resort shirts.',
-      image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=800&auto=format&fit=crop'
+      image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=800&auto=format&fit=crop'
     },
     {
       title: 'Acid Wash Shirts',
@@ -33,16 +45,28 @@ export const CollectionsPage: React.FC = () => {
 
   const tshirtStyles = [
     {
-      title: 'Tie & Dye T-Shirts',
-      path: '/collections/tshirts/tie-dye',
-      description: 'Vibrant pastel swirls and indigo cloud tie-dye heavyweight tees.',
+      title: 'Oversized (Baggy) T-Shirts',
+      path: '/collections/tshirts/oversized',
+      description: 'Heavyweight drop-shoulder baggy streetwear tees.',
       image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop'
+    },
+    {
+      title: 'Normal Fit T-Shirts',
+      path: '/collections/tshirts/normal-fit',
+      description: 'Classic regular fit and super-soft everyday crew tees.',
+      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800&auto=format&fit=crop'
     },
     {
       title: 'Acid Wash T-Shirts',
       path: '/collections/tshirts/acid-wash',
       description: 'Heavy 240 GSM stone-washed tees with vintage mineral fades.',
       image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=800&auto=format&fit=crop'
+    },
+    {
+      title: 'Tie & Dye T-Shirts',
+      path: '/collections/tshirts/tie-dye',
+      description: 'Vibrant pastel swirls and indigo cloud tie-dye heavyweight tees.',
+      image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop'
     },
     {
       title: 'Plain T-Shirts',
@@ -68,7 +92,7 @@ export const CollectionsPage: React.FC = () => {
             SD TRENDYZ Collections
           </h1>
           <p className="text-xs sm:text-base text-[#555555] max-w-2xl leading-relaxed">
-            Explore our curated ranges of Shirts and T-Shirts across Tie & Dye, Acid Wash, Plain, and Printed styles.
+            Explore our curated ranges of Shirts and T-Shirts across Oversized (Baggy), Normal Fit, Tie & Dye, Acid Wash, Plain, and Printed styles.
           </p>
         </div>
       </div>
@@ -86,7 +110,7 @@ export const CollectionsPage: React.FC = () => {
                   Shirts Collections
                 </h2>
                 <p className="text-xs text-[#737373]">
-                  Resort cuban collars, vintage acid washes, oxford cotton, and printed styles.
+                  Oversized baggy cuts, normal fit essentials, resort cuban collars, and vintage acid washes.
                 </p>
               </div>
             </div>
@@ -99,7 +123,7 @@ export const CollectionsPage: React.FC = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {shirtStyles.map((item) => (
               <Link
                 key={item.title}
@@ -142,7 +166,7 @@ export const CollectionsPage: React.FC = () => {
                   T-Shirts Collections
                 </h2>
                 <p className="text-xs text-[#737373]">
-                  Heavy 220 GSM combed cotton, stone-washed finishes, artisanal dyes, and graphics.
+                  Oversized baggy silhouettes, normal fit basics, vintage acid wash, and artisanal tie-dye.
                 </p>
               </div>
             </div>
@@ -155,7 +179,7 @@ export const CollectionsPage: React.FC = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {tshirtStyles.map((item) => (
               <Link
                 key={item.title}

@@ -47,6 +47,8 @@ export const Navbar: React.FC = () => {
       categorySlug: 'shirts',
       icon: Shirt,
       items: [
+        { label: 'Oversized (Baggy)', path: '/collections/shirts/oversized', description: 'Drop-shoulder relaxed & baggy silhouettes' },
+        { label: 'Normal Fit', path: '/collections/shirts/normal-fit', description: 'Classic regular & structured tailored fit' },
         { label: 'Tie & Dye', path: '/collections/shirts/tie-dye', description: 'Artisanal swirl & dip-dye' },
         { label: 'Acid Wash', path: '/collections/shirts/acid-wash', description: 'Vintage mineral & distressed wash' },
         { label: 'Plain', path: '/collections/shirts/plain', description: 'Solid Oxford cotton & linen' },
@@ -58,8 +60,10 @@ export const Navbar: React.FC = () => {
       categorySlug: 'tshirts',
       icon: Layers,
       items: [
-        { label: 'Tie & Dye', path: '/collections/tshirts/tie-dye', description: 'Pastel swirls & indigo cloud' },
+        { label: 'Oversized (Baggy)', path: '/collections/tshirts/oversized', description: 'Heavyweight drop-shoulder baggy streetwear' },
+        { label: 'Normal Fit', path: '/collections/tshirts/normal-fit', description: 'Everyday regular & classic crew neck fit' },
         { label: 'Acid Wash', path: '/collections/tshirts/acid-wash', description: '240 GSM heavy mineral wash' },
+        { label: 'Tie & Dye', path: '/collections/tshirts/tie-dye', description: 'Pastel swirls & indigo cloud' },
         { label: 'Plain', path: '/collections/tshirts/plain', description: 'Super-combed cotton essentials' },
         { label: 'Printed', path: '/collections/tshirts/printed', description: 'Minimal typo & retro artwork' },
       ],
@@ -137,7 +141,7 @@ export const Navbar: React.FC = () => {
 
                 {/* Desktop Mega Dropdown Panel */}
                 {isCollectionsHovered && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-50 w-[580px]">
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-50 w-[640px]">
                     <div className="bg-[#FFFFFF] rounded-2xl shadow-xl border border-[#E6E3DF] p-6 text-[#171717] animate-in fade-in slide-in-from-top-2 duration-200">
                       {/* Header row in dropdown */}
                       <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#F4F2EF]">
@@ -325,6 +329,22 @@ export const Navbar: React.FC = () => {
                         <ul className="pl-2 space-y-1.5 pt-1 border-t border-[#E6E3DF]">
                           <li>
                             <Link
+                              to="/collections/shirts/oversized"
+                              className="block text-xs font-bold text-[#555555] hover:text-[#171717] py-1"
+                            >
+                              • Oversized (Baggy)
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/collections/shirts/normal-fit"
+                              className="block text-xs font-bold text-[#555555] hover:text-[#171717] py-1"
+                            >
+                              • Normal Fit
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
                               to="/collections/shirts/tie-dye"
                               className="block text-xs font-bold text-[#555555] hover:text-[#171717] py-1"
                             >
@@ -381,10 +401,18 @@ export const Navbar: React.FC = () => {
                         <ul className="pl-2 space-y-1.5 pt-1 border-t border-[#E6E3DF]">
                           <li>
                             <Link
-                              to="/collections/tshirts/tie-dye"
+                              to="/collections/tshirts/oversized"
                               className="block text-xs font-bold text-[#555555] hover:text-[#171717] py-1"
                             >
-                              • Tie & Dye
+                              • Oversized (Baggy)
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/collections/tshirts/normal-fit"
+                              className="block text-xs font-bold text-[#555555] hover:text-[#171717] py-1"
+                            >
+                              • Normal Fit
                             </Link>
                           </li>
                           <li>
@@ -393,6 +421,14 @@ export const Navbar: React.FC = () => {
                               className="block text-xs font-bold text-[#555555] hover:text-[#171717] py-1"
                             >
                               • Acid Wash
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/collections/tshirts/tie-dye"
+                              className="block text-xs font-bold text-[#555555] hover:text-[#171717] py-1"
+                            >
+                              • Tie & Dye
                             </Link>
                           </li>
                           <li>
