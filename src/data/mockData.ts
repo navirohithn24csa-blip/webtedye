@@ -1254,7 +1254,7 @@ export const INITIAL_WEBSITE_SETTINGS: WebsiteSettings = {
     email: 'balasri3333@gmail.com',
     address: '12/152, Erappanaickanpalayam, Mylambadi, Bhavani, Tamil Nadu - 638314',
     businessHours: 'Monday – Saturday: 10:00 AM – 8:00 PM IST',
-    mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.3456789!2d76.9558!3d11.0168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba859af2f971cb5%3A0x2fc1c81e183ed282!2sCoimbatore%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin'
+    mapEmbedUrl: 'https://maps.google.com/maps?q=12%2F152+Erappanaickanpalayam,+Mylambadi,+Bhavani,+Tamil+Nadu&t=&z=14&ie=UTF8&iwloc=&output=embed'
   },
   socials: {
     instagram: 'https://instagram.com/sdtrendyz',

@@ -146,7 +146,17 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const saved = localStorage.getItem(STORAGE_KEYS.SETTINGS);
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        if (
+          parsed.contact &&
+          (!parsed.contact.address ||
+            parsed.contact.address.includes('Coimbatore') ||
+            parsed.contact.address.includes('Fashion Street'))
+        ) {
+          parsed.contact.address = INITIAL_WEBSITE_SETTINGS.contact.address;
+          parsed.contact.mapEmbedUrl = INITIAL_WEBSITE_SETTINGS.contact.mapEmbedUrl;
+        }
+        return parsed;
       } catch (e) {
         console.error('Failed to parse settings', e);
       }
