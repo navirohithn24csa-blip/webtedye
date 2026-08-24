@@ -51,9 +51,16 @@ export const AdminLayout: React.FC = () => {
           >
             {isMobileNavOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
-          <span className="font-display font-bold text-base tracking-tight uppercase">
-            {settings.brandName || 'SD TRENDYZ'} <span className="text-slate-400 font-normal text-xs">Admin</span>
-          </span>
+          <div className="flex items-center gap-2">
+            <img
+              src={settings.logoUrl || '/logo.png'}
+              alt={settings.brandName || 'SD TRENDYZ'}
+              className="w-7 h-7 rounded-full object-cover border border-slate-700"
+            />
+            <span className="font-display font-bold text-base tracking-tight uppercase">
+              {settings.brandName || 'SD TRENDYZ'} <span className="text-slate-400 font-normal text-xs">Admin</span>
+            </span>
+          </div>
         </div>
 
         <Link
@@ -75,14 +82,21 @@ export const AdminLayout: React.FC = () => {
         <div className="space-y-6">
           {/* Brand & Portal Header */}
           <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-            <div>
-              <h2 className="font-display font-bold text-white text-base tracking-tight uppercase">
-                {settings.brandName || 'SD TRENDYZ'}
-              </h2>
-              <p className="text-[11px] text-slate-400 font-medium flex items-center gap-1 mt-0.5">
-                <Lock className="w-3 h-3 text-emerald-400" />
-                <span>Catalog Control Hub</span>
-              </p>
+            <div className="flex items-center gap-2.5">
+              <img
+                src={settings.logoUrl || '/logo.png'}
+                alt={settings.brandName || 'SD TRENDYZ'}
+                className="w-8 h-8 rounded-full object-cover border border-slate-700"
+              />
+              <div>
+                <h2 className="font-display font-bold text-white text-base tracking-tight uppercase">
+                  {settings.brandName || 'SD TRENDYZ'}
+                </h2>
+                <p className="text-[11px] text-slate-400 font-medium flex items-center gap-1 mt-0.5">
+                  <Lock className="w-3 h-3 text-emerald-400" />
+                  <span>Catalog Control Hub</span>
+                </p>
+              </div>
             </div>
             <button
               onClick={() => setIsMobileNavOpen(false)}

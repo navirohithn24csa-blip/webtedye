@@ -27,7 +27,12 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-12 border-b border-[#222222]">
           {/* Column 1: Brand Info (Spans 4 cols on lg) */}
           <div className="lg:col-span-4 space-y-3">
-            <Link to="/" className="inline-block">
+            <Link to="/" className="inline-flex items-center gap-3 group">
+              <img
+                src={settings.logoUrl || '/logo.png'}
+                alt={settings.brandName || 'SD TRENDYZ'}
+                className="w-10 h-10 rounded-full object-cover border border-white/20 shadow-md group-hover:scale-105 transition-transform shrink-0"
+              />
               <span className="font-display font-black text-2xl tracking-tight text-white uppercase">
                 {settings.brandName || 'SD TRENDYZ'}
               </span>

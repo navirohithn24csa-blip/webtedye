@@ -146,7 +146,12 @@ export const Navbar: React.FC = () => {
 
             {/* Brand Logo (Left on Desktop, Center on Mobile) */}
             <div className="flex-1 lg:flex-none text-center lg:text-left">
-              <Link to="/" className="inline-block group">
+              <Link to="/" className="inline-flex items-center gap-2.5 group">
+                <img
+                  src={settings.logoUrl || '/logo.png'}
+                  alt={settings.brandName || 'SD TRENDYZ'}
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border border-[#D5CEC4] shadow-xs group-hover:scale-105 transition-transform shrink-0"
+                />
                 <span className="font-display font-black text-xl sm:text-2xl tracking-tight text-[#171717] uppercase">
                   {settings.brandName || 'SD TRENDYZ'}
                 </span>
@@ -385,9 +390,20 @@ export const Navbar: React.FC = () => {
           <div className="fixed inset-y-0 left-0 w-4/5 max-w-sm bg-white shadow-2xl z-10 flex flex-col animate-in slide-in-from-left duration-300">
             {/* Drawer Header */}
             <div className="flex items-center justify-between px-6 py-5 border-b border-[#EAE8E4]">
-              <span className="font-display font-black text-lg tracking-tight uppercase text-[#171717]">
-                {settings.brandName || 'SD TRENDYZ'}
-              </span>
+              <Link
+                to="/"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center gap-2.5"
+              >
+                <img
+                  src={settings.logoUrl || '/logo.png'}
+                  alt={settings.brandName || 'SD TRENDYZ'}
+                  className="w-8 h-8 rounded-full object-cover border border-[#D5CEC4] shadow-xs shrink-0"
+                />
+                <span className="font-display font-black text-lg tracking-tight uppercase text-[#171717]">
+                  {settings.brandName || 'SD TRENDYZ'}
+                </span>
+              </Link>
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(false)}

@@ -156,6 +156,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           parsed.contact.address = INITIAL_WEBSITE_SETTINGS.contact.address;
           parsed.contact.mapEmbedUrl = INITIAL_WEBSITE_SETTINGS.contact.mapEmbedUrl;
         }
+        parsed.logoUrl = parsed.logoUrl || '/logo.png';
         return parsed;
       } catch (e) {
         console.error('Failed to parse settings', e);

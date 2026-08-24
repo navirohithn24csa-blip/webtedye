@@ -31,8 +31,12 @@ export const AdminLoginPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-slate-100">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center space-y-3">
-        <div className="w-12 h-12 bg-white/10 text-white rounded-2xl flex items-center justify-center mx-auto border border-white/20 shadow-md">
-          <Lock className="w-6 h-6" />
+        <div className="w-16 h-16 rounded-full overflow-hidden mx-auto border-2 border-white/20 shadow-lg">
+          <img
+            src={settings.logoUrl || '/logo.png'}
+            alt={settings.brandName || 'SD TRENDYZ'}
+            className="w-full h-full object-cover"
+          />
         </div>
         <h2 className="text-2xl sm:text-3xl font-display font-extrabold tracking-tight uppercase">
           {settings.brandName || 'SD TRENDYZ'}

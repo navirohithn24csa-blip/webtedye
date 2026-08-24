@@ -1243,6 +1243,7 @@ export const INITIAL_WEBSITE_SETTINGS: WebsiteSettings = {
   brandName: 'SD TRENDYZ',
   tagline: 'Modern Shirts & T-Shirts Catalog',
   logoText: 'SD TRENDYZ',
+  logoUrl: '/logo.png',
   announcement: {
     enabled: true,
     text: 'NEW ARRIVALS ARE HERE — Explore Our Latest Collection'
