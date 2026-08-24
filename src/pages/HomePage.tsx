@@ -13,18 +13,16 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
-import { Interactive3DBackground } from '../components/common/Interactive3DBackground';
 
 export const HomePage: React.FC = () => {
   const { settings, products } = useStore();
 
-  // 3D Card Parallax Mouse Tilt State
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20; // -10 to +10 deg
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * -20; // -10 to +10 deg
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 12;
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * -12;
     setTilt({ x, y });
   };
 
@@ -44,64 +42,71 @@ export const HomePage: React.FC = () => {
       title: 'Oversized (Baggy) Shirts',
       subtitle: 'Drop-shoulder boxy cuts & Cuban resort collars',
       path: '/collections/shirts/oversized',
-      tag: 'Streetwear Must-Have',
       image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=800&auto=format&fit=crop',
-      color: 'from-amber-500/20 to-orange-500/10',
-      badgeColor: 'bg-amber-100 text-amber-900 border-amber-300'
+      badge: 'Drop Shoulder'
     },
     {
       title: 'Normal Fit Shirts',
-      subtitle: 'Classic Oxford weaves & everyday tailored basics',
+      subtitle: 'Classic regular fits & crisp button-down everyday staples',
       path: '/collections/shirts/normal-fit',
-      tag: 'Classic Essentials',
       image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=800&auto=format&fit=crop',
-      color: 'from-blue-500/20 to-indigo-500/10',
-      badgeColor: 'bg-blue-100 text-blue-900 border-blue-300'
+      badge: 'Classic Fit'
     },
     {
       title: 'Oversized (Baggy) T-Shirts',
-      subtitle: 'Heavy 220–240 GSM combed cotton streetwear',
+      subtitle: 'Heavy 240 GSM dense cotton & drop-shoulder streetwear cuts',
       path: '/collections/tshirts/oversized',
-      tag: 'Top Trending',
       image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop',
-      color: 'from-purple-500/20 to-pink-500/10',
-      badgeColor: 'bg-purple-100 text-purple-900 border-purple-300'
+      badge: '240 GSM Heavy'
     },
     {
-      title: 'Tie & Dye & Acid Wash',
-      subtitle: 'Artisanal cold-dyed swirls & marbled fades',
+      title: 'Normal Fit T-Shirts',
+      subtitle: 'Classic crew neck tees in ultra-soft bio-washed combed jersey',
+      path: '/collections/tshirts/normal-fit',
+      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800&auto=format&fit=crop',
+      badge: 'Everyday Crew'
+    },
+    {
+      title: 'Tie & Dye Artisanal Line',
+      subtitle: 'Hand-swirled spiral, pastel, & indigo cloud dye patterns',
+      path: '/collections/shirts/tie-dye',
+      image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=800&auto=format&fit=crop',
+      badge: 'Artisanal Swirl'
+    },
+    {
+      title: 'Acid Wash Mineral Fades',
+      subtitle: 'Stone-washed distressed overshirts & vintage mineral fades',
       path: '/collections/tshirts/acid-wash',
-      tag: 'Artisanal Series',
-      image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=800&auto=format&fit=crop',
-      color: 'from-emerald-500/20 to-teal-500/10',
-      badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300'
+      image: 'https://images.unsplash.com/photo-1578932750294-f5075e85f44a?q=80&w=800&auto=format&fit=crop',
+      badge: 'Vintage Wash'
     }
   ];
 
   return (
     <div className="bg-transparent text-[#171717] pb-16 space-y-12 sm:space-y-16">
       {/* ========================================================================= */}
-      {/* 1. 3D INTERACTIVE HERO SECTION                                            */}
+      {/* 1. MODERN LUXURY HERO SECTION                                             */}
       {/* ========================================================================= */}
       <section className="relative w-full overflow-hidden bg-[#EDE7DF]/80 backdrop-blur-md pt-10 pb-14 lg:pt-16 lg:pb-20 border-b border-[#E3DDD5]/80">
-        {/* 3D Moving Color Mesh & Dynamic Lighting */}
-        <Interactive3DBackground className="opacity-90" intensity="subtle" interactive={true} />
+        {/* Soft Ambient Hero Highlights */}
+        <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-gradient-to-bl from-amber-200/40 via-orange-100/20 to-transparent rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-1/4 -mb-12 w-80 h-80 bg-gradient-to-tr from-stone-300/40 via-amber-100/20 to-transparent rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* Left Content */}
             <div className="lg:col-span-6 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-[#D5CEC4] shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-amber-600 animate-spin" style={{ animationDuration: '6s' }} />
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-[#D5CEC4] shadow-xs">
+                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
                 <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#171717]">
-                  {settings.brandName || 'SD TRENDYZ'} • 3D PREMIUM CATALOG
+                  {settings.brandName || 'SD TRENDYZ'} • PREMIUM APPAREL CATALOG
                 </span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-black text-[#171717] tracking-tight leading-[1.04]">
                 Everyday Style.<br />
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#171717] via-[#3B4252] to-[#D97706] animate-gradient-3d">
-                  Made Better in 3D.
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#171717] via-[#333333] to-[#886633]">
+                  Crafted with Distinction.
                 </span>
               </h1>
 
@@ -264,8 +269,8 @@ export const HomePage: React.FC = () => {
                   
                   {/* Tag badge */}
                   <div className="absolute top-3 left-3">
-                    <span className={`text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md border shadow-xs ${item.badgeColor}`}>
-                      {item.tag}
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md border shadow-xs bg-white/90 text-[#171717] border-[#D5CEC4] backdrop-blur-xs">
+                      {item.badge}
                     </span>
                   </div>
 
@@ -293,11 +298,12 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ========================================================================= */}
-      {/* 3. 3D CRAFTSMANSHIP & QUALITY PROMISES                                     */}
+      {/* 3. CRAFTSMANSHIP & QUALITY PROMISES                                       */}
       {/* ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#171717] via-[#242831] to-[#171717] text-white p-8 sm:p-10 lg:p-12 shadow-xl border border-white/10">
-          <Interactive3DBackground className="opacity-40" intensity="dark" interactive={true} />
+        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#171717] via-[#222222] to-[#111111] text-white p-8 sm:p-10 lg:p-12 shadow-xl border border-white/10">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-white/10">
             <div className="space-y-2 md:pr-6 pt-4 md:pt-0">

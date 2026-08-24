@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumbs } from '../components/common/Breadcrumbs';
 import { ArrowRight, ChevronDown, Sparkles, Shirt, Layers } from 'lucide-react';
-import { Interactive3DBackground } from '../components/common/Interactive3DBackground';
 
 interface StyleCard {
   title: string;
@@ -186,10 +185,9 @@ export const CollectionsPage: React.FC = () => {
   ];
 
   return (
-    <div className="bg-[#F7F5F2] min-h-screen text-[#171717] pb-24">
-      {/* Header Banner with 3D Dynamic Background */}
+    <div className="bg-transparent min-h-screen text-[#171717] pb-24">
+      {/* Header Banner */}
       <div className="relative overflow-hidden bg-[#EDE7DF]/80 backdrop-blur-md border-b border-[#E3DDD5] py-10 sm:py-14">
-        <Interactive3DBackground className="opacity-70" intensity="subtle" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3">
           <Breadcrumbs items={[{ label: 'Collections' }]} />
           <h1 className="text-3xl sm:text-5xl font-display font-black text-[#171717] uppercase tracking-tight">
