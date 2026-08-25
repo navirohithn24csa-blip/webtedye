@@ -1250,7 +1250,7 @@ export const INITIAL_WEBSITE_SETTINGS: WebsiteSettings = {
   },
   contact: {
     phone: '+91 90877 04111',
-    secondaryPhone: '+91 90877 04111',
+    secondaryPhone: '+91 97877 04111',
     whatsappNumber: '+919087704111',
     email: 'balasri3333@gmail.com',
     address: '12/152, Erappanaickanpalayam, Mylambadi, Bhavani, Tamil Nadu - 638314',

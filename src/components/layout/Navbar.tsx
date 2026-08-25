@@ -645,8 +645,8 @@ export const Navbar: React.FC = () => {
                   {settings.contact.phone || '+91 90877 04111'}
                 </a>
                 <span className="text-[#A3A3A3] mx-1.5">•</span>
-                <a href={`tel:${(settings.contact.secondaryPhone || '+91 90877 04111').replace(/\s+/g, '')}`} className="hover:underline">
-                  {settings.contact.secondaryPhone || '+91 90877 04111'}
+                <a href={`tel:${(settings.contact.secondaryPhone || '+91 97877 04111').replace(/\s+/g, '')}`} className="hover:underline">
+                  {settings.contact.secondaryPhone || '+91 97877 04111'}
                 </a>
               </p>
               <p>{settings.contact.email || 'balasri3333@gmail.com'}</p>

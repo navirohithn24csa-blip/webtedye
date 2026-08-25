@@ -10,13 +10,12 @@ export const ContactPage: React.FC = () => {
     {
       name: 'UDHAYA DHARSAN',
       role: 'Operations & Customer Inquiries',
-      phone: '+91 90877 04111',
-      cleanPhone: '919087704111',
-      whatsapp: '+91 90877 04111',
+      phone: '+91 97877 04111',
+      cleanPhone: '919787704111',
+      whatsapp: '+91 97877 04111',
       email: undefined,
       badge: 'Manufacturing & Operations Lead',
       initials: 'UD',
-      image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop',
       color: 'bg-[#171717]',
     },
     {
@@ -28,7 +27,6 @@ export const ContactPage: React.FC = () => {
       email: 'balasri3333@gmail.com',
       badge: 'Wholesale & Client Relations Lead',
       initials: 'BS',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop',
       color: 'bg-[#171717]',
     },
   ];
@@ -110,7 +108,7 @@ export const ContactPage: React.FC = () => {
               </div>
               <a
                 href={`https://wa.me/919087704111?text=${encodeURIComponent(
-                  'Hello Udhaya Dharsan, I would like assistance with a Retail order / sizing for SD TRENDYZ.'
+                  'Hello SD TRENDYZ, I am interested in placing a Retail Order / sizing assistance.'
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -174,18 +172,8 @@ export const ContactPage: React.FC = () => {
                   <div className="space-y-5">
                     <div className="flex items-center justify-between pb-4 border-b border-slate-100">
                       <div className="flex items-center gap-3.5">
-                        <div className="w-14 h-14 rounded-2xl overflow-hidden border border-slate-200 shadow-2xs shrink-0 bg-slate-100">
-                          {contact.image ? (
-                            <img
-                              src={contact.image}
-                              alt={contact.name}
-                              className="w-full h-full object-cover object-center"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center font-display font-black text-lg text-slate-900">
-                              {contact.initials}
-                            </div>
-                          )}
+                        <div className="w-13 h-13 rounded-2xl bg-slate-100 text-slate-900 border border-slate-200 flex items-center justify-center font-display font-black text-lg shadow-2xs shrink-0">
+                          {contact.initials}
                         </div>
                         <div>
                           <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-slate-500">
