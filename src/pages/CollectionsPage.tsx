@@ -187,7 +187,7 @@ export const CollectionsPage: React.FC = () => {
   return (
     <div className="bg-transparent min-h-screen text-[#171717] pb-24">
       {/* Header Banner */}
-      <div className="relative overflow-hidden bg-white/50 backdrop-blur-md border-b border-black/5 py-10 sm:py-14">
+      <div className="relative overflow-hidden bg-white/85 backdrop-blur-md border-b border-[#E6E3DF] py-10 sm:py-14">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3">
           <Breadcrumbs items={[{ label: 'Collections' }]} />
           <h1 className="text-3xl sm:text-5xl font-display font-black text-[#171717] uppercase tracking-tight">
@@ -206,7 +206,7 @@ export const CollectionsPage: React.FC = () => {
         <section className="space-y-8">
           <div className="flex items-center justify-between pb-4 border-b border-[#E6E3DF]">
             <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-2xl bg-[#EDE7DF] flex items-center justify-center text-[#171717] border border-[#D5CEC4] shadow-xs">
+              <div className="w-11 h-11 rounded-2xl bg-[#F4F2EF] flex items-center justify-center text-[#171717] border border-[#E6E3DF] shadow-2xs">
                 <Shirt className="w-6 h-6" />
               </div>
               <div>
@@ -233,21 +233,21 @@ export const CollectionsPage: React.FC = () => {
               return (
                 <div
                   key={fit.id}
-                  className={`rounded-3xl border transition-all duration-300 overflow-hidden bg-white shadow-xs ${
-                    isExpanded ? 'border-[#171717] ring-1 ring-[#171717]' : 'border-[#E3DDD5] hover:border-[#B5ADA4]'
+                  className={`rounded-3xl border transition-all duration-300 overflow-hidden bg-white shadow-sm ${
+                    isExpanded ? 'border-[#171717] ring-1 ring-[#171717]' : 'border-[#E6E3DF] hover:border-slate-400'
                   }`}
                 >
                   {/* Fit Header Row */}
                   <div className="p-6 sm:p-7 flex flex-col justify-between space-y-4">
                     <div className="flex items-start justify-between gap-4">
                       <div className="space-y-1">
-                        <span className="text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md bg-[#EDE7DF] text-[#171717] border border-[#D5CEC4]">
+                        <span className="text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md bg-[#F4F2EF] text-[#555555] border border-[#E6E3DF]">
                           {fit.badge}
                         </span>
                         <h3 className="text-xl sm:text-2xl font-display font-bold text-[#171717] pt-1">
                           {fit.fitName} Shirts
                         </h3>
-                        <p className="text-xs text-[#666666] leading-relaxed max-w-sm">
+                        <p className="text-xs text-[#555555] leading-relaxed max-w-sm">
                           {fit.description}
                         </p>
                       </div>
@@ -255,7 +255,7 @@ export const CollectionsPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => setExpandedShirtFit(isExpanded ? null : fit.id)}
-                        className="p-2.5 rounded-2xl bg-[#F7F5F2] hover:bg-[#EAE6DF] text-[#171717] transition-all flex items-center gap-1.5 shrink-0 border border-[#E3DDD5]"
+                        className="p-2.5 rounded-2xl bg-[#F4F2EF] hover:bg-[#EAE8E4] text-[#171717] transition-all flex items-center gap-1.5 shrink-0 border border-[#E6E3DF]"
                         aria-label={`Toggle styles for ${fit.fitName}`}
                       >
                         <span className="text-xs font-bold uppercase tracking-wider hidden sm:inline">
@@ -263,7 +263,7 @@ export const CollectionsPage: React.FC = () => {
                         </span>
                         <ChevronDown
                           className={`w-4 h-4 transition-transform duration-300 ${
-                            isExpanded ? 'rotate-180 text-black' : 'text-[#737373]'
+                            isExpanded ? 'rotate-180 text-black' : 'text-slate-400'
                           }`}
                         />
                       </button>
@@ -280,7 +280,7 @@ export const CollectionsPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => setExpandedShirtFit(isExpanded ? null : fit.id)}
-                        className="text-xs font-bold text-[#555555] hover:text-[#171717] underline decoration-dotted"
+                        className="text-xs font-bold text-[#737373] hover:text-[#171717] underline decoration-dotted"
                       >
                         {isExpanded ? 'Collapse' : `Show ${fit.styles.length} Styles ↓`}
                       </button>
@@ -292,7 +292,7 @@ export const CollectionsPage: React.FC = () => {
                     <div className="bg-[#F7F5F2]/90 border-t border-[#E6E3DF] p-6 animate-in fade-in slide-in-from-top-2 duration-300 space-y-4">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1.5">
-                          <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                          <Sparkles className="w-3.5 h-3.5 text-amber-500" />
                           <span className="text-xs font-black uppercase tracking-wider text-[#171717]">
                             {fit.fitName} Styles:
                           </span>
@@ -307,26 +307,26 @@ export const CollectionsPage: React.FC = () => {
                           <Link
                             key={style.title}
                             to={style.path}
-                            className="group relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xs bg-[#171717] flex flex-col justify-end p-4 text-white transition-all duration-300 hover:shadow-lg border border-[#E3DDD5]"
+                            className="group relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xs bg-[#171717] flex flex-col justify-end p-4 text-white transition-all duration-300 hover:shadow-lg border border-[#E6E3DF]"
                           >
                             <img
                               src={style.image}
                               alt={style.title}
-                              className="absolute inset-0 w-full h-full object-cover object-center opacity-75 group-hover:scale-108 transition-transform duration-500"
+                              className="absolute inset-0 w-full h-full object-cover object-center opacity-85 group-hover:scale-108 transition-transform duration-500"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
                             <div className="relative z-10 space-y-1">
-                              <span className="inline-block text-[9px] font-extrabold uppercase px-2 py-0.5 rounded bg-white/90 text-[#171717] mb-1">
+                              <span className="inline-block text-[9px] font-extrabold uppercase px-2 py-0.5 rounded bg-white text-[#171717] mb-1">
                                 {style.tag}
                               </span>
                               <h4 className="text-sm font-display font-bold tracking-tight text-white group-hover:translate-x-1 transition-transform">
                                 {style.title}
                               </h4>
-                              <p className="text-[11px] text-slate-300 line-clamp-1 leading-snug">
+                              <p className="text-[11px] text-slate-200 line-clamp-1 leading-snug">
                                 {style.description}
                               </p>
-                              <div className="pt-1 inline-flex items-center gap-1 text-[11px] font-bold text-amber-300 group-hover:text-white uppercase tracking-wider">
+                              <div className="pt-1 inline-flex items-center gap-1 text-[11px] font-bold text-white uppercase tracking-wider">
                                 <span>Shop Style</span>
                                 <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                               </div>
@@ -348,7 +348,7 @@ export const CollectionsPage: React.FC = () => {
         <section className="space-y-8">
           <div className="flex items-center justify-between pb-4 border-b border-[#E6E3DF]">
             <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-2xl bg-[#EAF0EC] flex items-center justify-center text-[#171717] border border-[#DFE7E1] shadow-xs">
+              <div className="w-11 h-11 rounded-2xl bg-[#F4F2EF] flex items-center justify-center text-[#171717] border border-[#E6E3DF] shadow-2xs">
                 <Layers className="w-6 h-6" />
               </div>
               <div>
@@ -375,21 +375,21 @@ export const CollectionsPage: React.FC = () => {
               return (
                 <div
                   key={fit.id}
-                  className={`rounded-3xl border transition-all duration-300 overflow-hidden bg-white shadow-xs ${
-                    isExpanded ? 'border-[#171717] ring-1 ring-[#171717]' : 'border-[#E3DDD5] hover:border-[#B5ADA4]'
+                  className={`rounded-3xl border transition-all duration-300 overflow-hidden bg-white shadow-sm ${
+                    isExpanded ? 'border-[#171717] ring-1 ring-[#171717]' : 'border-[#E6E3DF] hover:border-slate-400'
                   }`}
                 >
                   {/* Fit Header Row */}
                   <div className="p-6 sm:p-7 flex flex-col justify-between space-y-4">
                     <div className="flex items-start justify-between gap-4">
                       <div className="space-y-1">
-                        <span className="text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md bg-[#EDE7DF] text-[#171717] border border-[#D5CEC4]">
+                        <span className="text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md bg-[#F4F2EF] text-[#555555] border border-[#E6E3DF]">
                           {fit.badge}
                         </span>
                         <h3 className="text-xl sm:text-2xl font-display font-bold text-[#171717] pt-1">
                           {fit.fitName} T-Shirts
                         </h3>
-                        <p className="text-xs text-[#666666] leading-relaxed max-w-sm">
+                        <p className="text-xs text-[#555555] leading-relaxed max-w-sm">
                           {fit.description}
                         </p>
                       </div>
@@ -397,7 +397,7 @@ export const CollectionsPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => setExpandedTshirtFit(isExpanded ? null : fit.id)}
-                        className="p-2.5 rounded-2xl bg-[#F7F5F2] hover:bg-[#EAE6DF] text-[#171717] transition-all flex items-center gap-1.5 shrink-0 border border-[#E3DDD5]"
+                        className="p-2.5 rounded-2xl bg-[#F4F2EF] hover:bg-[#EAE8E4] text-[#171717] transition-all flex items-center gap-1.5 shrink-0 border border-[#E6E3DF]"
                         aria-label={`Toggle styles for ${fit.fitName}`}
                       >
                         <span className="text-xs font-bold uppercase tracking-wider hidden sm:inline">
@@ -405,7 +405,7 @@ export const CollectionsPage: React.FC = () => {
                         </span>
                         <ChevronDown
                           className={`w-4 h-4 transition-transform duration-300 ${
-                            isExpanded ? 'rotate-180 text-black' : 'text-[#737373]'
+                            isExpanded ? 'rotate-180 text-black' : 'text-slate-400'
                           }`}
                         />
                       </button>
@@ -422,7 +422,7 @@ export const CollectionsPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => setExpandedTshirtFit(isExpanded ? null : fit.id)}
-                        className="text-xs font-bold text-[#555555] hover:text-[#171717] underline decoration-dotted"
+                        className="text-xs font-bold text-[#737373] hover:text-[#171717] underline decoration-dotted"
                       >
                         {isExpanded ? 'Collapse' : `Show ${fit.styles.length} Styles ↓`}
                       </button>
@@ -434,7 +434,7 @@ export const CollectionsPage: React.FC = () => {
                     <div className="bg-[#F7F5F2]/90 border-t border-[#E6E3DF] p-6 animate-in fade-in slide-in-from-top-2 duration-300 space-y-4">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1.5">
-                          <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                          <Sparkles className="w-3.5 h-3.5 text-amber-500" />
                           <span className="text-xs font-black uppercase tracking-wider text-[#171717]">
                             {fit.fitName} Styles:
                           </span>
@@ -449,26 +449,26 @@ export const CollectionsPage: React.FC = () => {
                           <Link
                             key={style.title}
                             to={style.path}
-                            className="group relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xs bg-[#171717] flex flex-col justify-end p-4 text-white transition-all duration-300 hover:shadow-lg border border-[#E3DDD5]"
+                            className="group relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xs bg-[#171717] flex flex-col justify-end p-4 text-white transition-all duration-300 hover:shadow-lg border border-[#E6E3DF]"
                           >
                             <img
                               src={style.image}
                               alt={style.title}
-                              className="absolute inset-0 w-full h-full object-cover object-center opacity-75 group-hover:scale-108 transition-transform duration-500"
+                              className="absolute inset-0 w-full h-full object-cover object-center opacity-85 group-hover:scale-108 transition-transform duration-500"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
                             <div className="relative z-10 space-y-1">
-                              <span className="inline-block text-[9px] font-extrabold uppercase px-2 py-0.5 rounded bg-white/90 text-[#171717] mb-1">
+                              <span className="inline-block text-[9px] font-extrabold uppercase px-2 py-0.5 rounded bg-white text-[#171717] mb-1">
                                 {style.tag}
                               </span>
                               <h4 className="text-sm font-display font-bold tracking-tight text-white group-hover:translate-x-1 transition-transform">
                                 {style.title}
                               </h4>
-                              <p className="text-[11px] text-slate-300 line-clamp-1 leading-snug">
+                              <p className="text-[11px] text-slate-200 line-clamp-1 leading-snug">
                                 {style.description}
                               </p>
-                              <div className="pt-1 inline-flex items-center gap-1 text-[11px] font-bold text-amber-300 group-hover:text-white uppercase tracking-wider">
+                              <div className="pt-1 inline-flex items-center gap-1 text-[11px] font-bold text-white uppercase tracking-wider">
                                 <span>Shop Style</span>
                                 <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                               </div>

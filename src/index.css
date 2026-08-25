@@ -7,11 +7,11 @@
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
-    background-color: #F7F5F2;
+    background-color: #FAFAF9;
   }
 
   body {
-    background-color: #F7F5F2;
+    background-color: #FAFAF9;
     color: #171717;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
@@ -139,7 +139,12 @@
   animation: grid-scan 8s linear infinite;
 }
 
+.bg-radial-vignette {
+  background: radial-gradient(circle at center, transparent 35%, rgba(6, 7, 19, 0.75) 100%);
+}
+
 /* Subtle image rendering */
 img {
   image-rendering: auto;
 }
+

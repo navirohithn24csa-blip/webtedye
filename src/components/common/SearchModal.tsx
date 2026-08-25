@@ -69,35 +69,35 @@ export const SearchModal: React.FC = () => {
     <div className="fixed inset-0 z-50 overflow-y-auto">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-slate-950/70 backdrop-blur-md transition-opacity"
+        className="fixed inset-0 bg-black/50 backdrop-blur-xs transition-opacity"
         onClick={() => setIsSearchOpen(false)}
       />
 
       {/* Modal Container */}
       <div className="min-h-screen px-4 text-center flex items-start justify-center pt-16 sm:pt-24 pb-12">
-        <div className="inline-block w-full max-w-2xl bg-white rounded-2xl text-left shadow-2xl transform transition-all relative z-10 overflow-hidden border border-slate-100">
+        <div className="inline-block w-full max-w-2xl bg-white rounded-2xl text-left shadow-2xl transform transition-all relative z-10 overflow-hidden border border-[#E6E3DF] text-[#171717]">
           {/* Search Header Bar */}
-          <div className="flex items-center px-6 py-4 border-b border-slate-100 gap-3">
-            <Search className="w-5 h-5 text-slate-400 shrink-0" />
+          <div className="flex items-center px-6 py-4 border-b border-[#EAE8E4] gap-3">
+            <Search className="w-5 h-5 text-[#171717] shrink-0" />
             <input
               ref={inputRef}
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search T-shirts, shorts, colors, fabrics, fits..."
-              className="w-full text-base sm:text-lg bg-transparent border-none focus:outline-none focus:ring-0 text-slate-900 placeholder:text-slate-400"
+              placeholder="Search T-shirts, shirts, colors, fabrics, fits..."
+              className="w-full text-base sm:text-lg bg-transparent border-none focus:outline-none focus:ring-0 text-[#171717] placeholder:text-slate-400 font-medium"
             />
             {searchTerm && (
               <button
                 onClick={() => setSearchTerm('')}
-                className="p-1 text-slate-400 hover:text-slate-600 rounded-full"
+                className="p-1 text-slate-400 hover:text-black rounded-full"
               >
                 <X className="w-4 h-4" />
               </button>
             )}
             <button
               onClick={() => setIsSearchOpen(false)}
-              className="px-2.5 py-1 text-xs font-semibold uppercase tracking-wider text-slate-500 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 rounded-md transition-colors"
+              className="px-2.5 py-1 text-xs font-semibold uppercase tracking-wider text-[#555555] hover:text-black bg-[#F4F2EF] hover:bg-[#EAE8E4] rounded-md transition-colors border border-[#E6E3DF]"
             >
               ESC
             </button>
@@ -105,8 +105,8 @@ export const SearchModal: React.FC = () => {
 
           {/* Quick Filter Tags (when search is empty) */}
           {!searchTerm && (
-            <div className="p-6 bg-slate-50/70">
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+            <div className="p-6 bg-[#F7F5F2]">
+              <p className="text-xs font-bold uppercase tracking-wider text-[#737373] mb-3">
                 Suggested Searches
               </p>
               <div className="flex flex-wrap gap-2">
@@ -114,7 +114,7 @@ export const SearchModal: React.FC = () => {
                   <button
                     key={term}
                     onClick={() => setSearchTerm(term)}
-                    className="px-3.5 py-1.5 bg-white border border-slate-200 hover:border-slate-400 text-xs font-medium text-slate-700 rounded-full transition-colors shadow-2xs"
+                    className="px-3.5 py-1.5 bg-white border border-[#E6E3DF] hover:border-slate-400 text-xs font-medium text-[#171717] rounded-full transition-colors shadow-2xs"
                   >
                     {term}
                   </button>
@@ -125,7 +125,7 @@ export const SearchModal: React.FC = () => {
 
           {/* Search Results List */}
           {searchTerm && (
-            <div className="max-h-[60vh] overflow-y-auto divide-y divide-slate-100 p-2">
+            <div className="max-h-[60vh] overflow-y-auto divide-y divide-[#EAE8E4] p-2 bg-white">
               {results.length > 0 ? (
                 results.map((product) => {
                   const img = product.images[0]?.url || '';
@@ -133,25 +133,25 @@ export const SearchModal: React.FC = () => {
                     <button
                       key={product.id}
                       onClick={() => handleSelectProduct(product.slug)}
-                      className="w-full flex items-center p-3 hover:bg-slate-50 rounded-xl transition-colors text-left group"
+                      className="w-full flex items-center p-3 hover:bg-[#F7F5F2] rounded-xl transition-colors text-left group"
                     >
                       <img
                         src={img}
                         alt={product.name}
-                        className="w-14 h-16 object-cover rounded-lg bg-slate-100 shrink-0 mr-4"
+                        className="w-14 h-16 object-cover rounded-lg bg-[#F4F2EF] shrink-0 mr-4 border border-[#E6E3DF]"
                       />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-0.5">
-                          <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                          <span className="text-[11px] font-semibold uppercase tracking-wider text-[#737373]">
                             {product.subcategory || product.category}
                           </span>
                           <span className="text-[11px] text-slate-400">· {product.sku}</span>
                         </div>
-                        <h4 className="text-sm font-semibold text-slate-900 truncate group-hover:text-slate-700">
+                        <h4 className="text-sm font-semibold text-[#171717] truncate group-hover:text-black">
                           {product.name}
                         </h4>
                         <div className="flex items-center gap-2 mt-1">
-                          <span className="text-xs font-bold text-slate-900">₹{product.sellingPrice}</span>
+                          <span className="text-xs font-bold text-[#171717]">₹{product.sellingPrice}</span>
                           {product.originalPrice && (
                             <span className="text-[11px] text-slate-400 line-through">
                               ₹{product.originalPrice}
@@ -161,14 +161,14 @@ export const SearchModal: React.FC = () => {
                             {product.colors.map((c) => (
                               <span
                                 key={c.id}
-                                className="w-2.5 h-2.5 rounded-full border border-slate-200"
+                                className="w-2.5 h-2.5 rounded-full border border-slate-300"
                                 style={{ backgroundColor: c.hex }}
                               />
                             ))}
                           </div>
                         </div>
                       </div>
-                      <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-slate-900 group-hover:translate-x-1 transition-all ml-3 shrink-0" />
+                      <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-black group-hover:translate-x-1 transition-all ml-3 shrink-0" />
                     </button>
                   );
                 })
@@ -182,9 +182,9 @@ export const SearchModal: React.FC = () => {
           )}
 
           {/* Modal Footer */}
-          <div className="px-6 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
-            <span>Search live across all T-shirts and Shorts</span>
-            <span className="flex items-center gap-1">
+          <div className="px-6 py-3 bg-[#F4F2EF] border-t border-[#EAE8E4] flex items-center justify-between text-xs text-[#737373]">
+            <span>Search live across all Shirts, T-shirts and Shorts</span>
+            <span className="flex items-center gap-1 text-[#171717] font-medium">
               Press <CornerDownLeft className="w-3 h-3" /> to navigate
             </span>
           </div>

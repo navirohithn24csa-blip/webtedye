@@ -126,8 +126,8 @@ export const Navbar: React.FC = () => {
       <header
         className={`sticky top-0 z-40 w-full transition-all duration-300 ${
           isScrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-xs border-b border-[#EAE8E4] py-3.5'
-            : 'bg-white border-b border-[#EAE8E4] py-4 lg:py-4.5'
+            ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-[#EAE8E4] py-3.5'
+            : 'bg-white/90 backdrop-blur-md border-b border-[#EAE8E4] py-4 lg:py-4.5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -198,7 +198,7 @@ export const Navbar: React.FC = () => {
                 {/* Desktop Mega Dropdown Panel */}
                 {isCollectionsHovered && (
                   <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-50 w-[640px]">
-                    <div className="bg-[#FFFFFF] rounded-2xl shadow-xl border border-[#E6E3DF] p-6 text-[#171717] animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="bg-white rounded-2xl shadow-2xl border border-[#E6E3DF] p-6 text-[#171717] animate-in fade-in slide-in-from-top-2 duration-200">
                       {/* Header row in dropdown */}
                       <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#F4F2EF]">
                         <div className="flex items-center gap-2">
@@ -317,6 +317,19 @@ export const Navbar: React.FC = () => {
               </div>
 
               <NavLink
+                to="/fabrics"
+                className={({ isActive }) =>
+                  `text-xs font-extrabold tracking-wider uppercase transition-colors relative py-1.5 ${
+                    isActive
+                      ? 'text-[#171717] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#171717]'
+                      : 'text-[#555555] hover:text-[#171717]'
+                  }`
+                }
+              >
+                FABRICS
+              </NavLink>
+
+              <NavLink
                 to="/about"
                 className={({ isActive }) =>
                   `text-xs font-extrabold tracking-wider uppercase transition-colors relative py-1.5 ${
@@ -387,7 +400,7 @@ export const Navbar: React.FC = () => {
           />
 
           {/* Drawer Content */}
-          <div className="fixed inset-y-0 left-0 w-4/5 max-w-sm bg-white shadow-2xl z-10 flex flex-col animate-in slide-in-from-left duration-300">
+          <div className="fixed inset-y-0 left-0 w-4/5 max-w-sm bg-white text-[#171717] border-r border-[#EAE8E4] shadow-2xl z-10 flex flex-col animate-in slide-in-from-left duration-300">
             {/* Drawer Header */}
             <div className="flex items-center justify-between px-6 py-5 border-b border-[#EAE8E4]">
               <Link
@@ -445,14 +458,14 @@ export const Navbar: React.FC = () => {
                 {mobileCollectionsExpanded && (
                   <div className="pl-3 space-y-3 pt-1">
                     {/* Shirts Sub-Accordion */}
-                    <div className="bg-[#F7F5F2] rounded-xl p-3 space-y-2">
+                    <div className="bg-[#F7F5F2] rounded-xl p-3 space-y-2 border border-[#E6E3DF]">
                       <button
                         type="button"
                         onClick={() => setMobileShirtsExpanded(!mobileShirtsExpanded)}
                         className="w-full flex items-center justify-between text-xs font-black uppercase tracking-wider text-[#171717]"
                       >
                         <span className="flex items-center gap-1.5">
-                          <Shirt className="w-3.5 h-3.5" />
+                          <Shirt className="w-3.5 h-3.5 text-[#171717]" />
                           <span>SHIRTS</span>
                         </span>
                         <ChevronDown
@@ -510,14 +523,14 @@ export const Navbar: React.FC = () => {
                     </div>
 
                     {/* T-Shirts Sub-Accordion */}
-                    <div className="bg-[#F7F5F2] rounded-xl p-3 space-y-2">
+                    <div className="bg-[#F7F5F2] rounded-xl p-3 space-y-2 border border-[#E6E3DF]">
                       <button
                         type="button"
                         onClick={() => setMobileTshirtsExpanded(!mobileTshirtsExpanded)}
                         className="w-full flex items-center justify-between text-xs font-black uppercase tracking-wider text-[#171717]"
                       >
                         <span className="flex items-center gap-1.5">
-                          <Layers className="w-3.5 h-3.5" />
+                          <Layers className="w-3.5 h-3.5 text-[#171717]" />
                           <span>T-SHIRTS</span>
                         </span>
                         <ChevronDown
@@ -578,7 +591,20 @@ export const Navbar: React.FC = () => {
               </div>
 
               <NavLink
+                to="/fabrics"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={({ isActive }) =>
+                  `flex items-center justify-between text-sm font-extrabold py-2 uppercase tracking-wider transition-colors ${
+                    isActive ? 'text-[#171717] pl-2 border-l-2 border-[#171717]' : 'text-[#555555] hover:text-[#171717]'
+                  }`
+                }
+              >
+                FABRICS
+              </NavLink>
+
+              <NavLink
                 to="/about"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className={({ isActive }) =>
                   `flex items-center justify-between text-sm font-extrabold py-2 uppercase tracking-wider transition-colors ${
                     isActive ? 'text-[#171717] pl-2 border-l-2 border-[#171717]' : 'text-[#555555] hover:text-[#171717]'
@@ -615,8 +641,8 @@ export const Navbar: React.FC = () => {
             {/* Drawer Footer */}
             <div className="p-4 bg-[#F4F2EF] border-t border-[#EAE8E4] text-xs text-[#555555] space-y-1">
               <p className="font-bold text-[#171717]">
-                <a href={`tel:${(settings.contact.phone || '+91 97877 04111').replace(/\s+/g, '')}`} className="hover:underline">
-                  {settings.contact.phone || '+91 97877 04111'}
+                <a href={`tel:${(settings.contact.phone || '+91 90877 04111').replace(/\s+/g, '')}`} className="hover:underline">
+                  {settings.contact.phone || '+91 90877 04111'}
                 </a>
                 <span className="text-[#A3A3A3] mx-1.5">•</span>
                 <a href={`tel:${(settings.contact.secondaryPhone || '+91 90877 04111').replace(/\s+/g, '')}`} className="hover:underline">

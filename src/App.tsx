@@ -6,6 +6,7 @@ import { HomePage } from './pages/HomePage';
 import { CatalogPage } from './pages/CatalogPage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
 import { CollectionsPage } from './pages/CollectionsPage';
+import { FabricsPage } from './pages/FabricsPage';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
@@ -60,6 +61,7 @@ export const App: React.FC = () => {
             <Route path="collections/:category/:style" element={<CatalogPage />} />
             <Route path="collections/:category" element={<CatalogPage />} />
             <Route path="collections/:slug" element={<CatalogPage />} />
+            <Route path="fabrics" element={<FabricsPage />} />
             <Route path="product/:slug" element={<ProductDetailPage />} />
             <Route path="about" element={<AboutPage />} />
             <Route path="contact" element={<ContactPage />} />

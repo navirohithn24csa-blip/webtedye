@@ -78,20 +78,20 @@ interface StoreContextType {
 const StoreContext = createContext<StoreContextType | undefined>(undefined);
 
 const STORAGE_KEYS = {
-  PRODUCTS: 'sd_trendyz_products_v5',
-  CATEGORIES: 'sd_trendyz_categories_v5',
-  COLLECTIONS: 'sd_trendyz_collections_v5',
-  HOMEPAGE: 'sd_trendyz_homepage_v5',
-  SETTINGS: 'sd_trendyz_settings_v5',
-  ENQUIRIES: 'sd_trendyz_enquiries_v5',
-  RECENTLY_VIEWED: 'sd_trendyz_recently_viewed_v5',
-  ADMIN_AUTH: 'sd_trendyz_admin_auth_session_v5'
+  PRODUCTS: 'sd_trendyz_products_v6',
+  CATEGORIES: 'sd_trendyz_categories_v6',
+  COLLECTIONS: 'sd_trendyz_collections_v6',
+  HOMEPAGE: 'sd_trendyz_homepage_v6',
+  SETTINGS: 'sd_trendyz_settings_v6',
+  ENQUIRIES: 'sd_trendyz_enquiries_v6',
+  RECENTLY_VIEWED: 'sd_trendyz_recently_viewed_v6',
+  ADMIN_AUTH: 'sd_trendyz_admin_auth_session_v6'
 };
 
 export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // 1. Products State
   const [products, setProducts] = useState<Product[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
+    const saved = localStorage.getItem(STORAGE_KEYS.PRODUCTS) || localStorage.getItem('sd_trendyz_products_v5');
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -104,7 +104,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   // 2. Categories State
   const [categories, setCategories] = useState<Category[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.CATEGORIES);
+    const saved = localStorage.getItem(STORAGE_KEYS.CATEGORIES) || localStorage.getItem('sd_trendyz_categories_v5');
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -117,7 +117,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   // 3. Collections State
   const [collections, setCollections] = useState<Collection[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.COLLECTIONS);
+    const saved = localStorage.getItem(STORAGE_KEYS.COLLECTIONS) || localStorage.getItem('sd_trendyz_collections_v5');
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -130,7 +130,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   // 4. Homepage Config State
   const [homepageConfig, setHomepageConfig] = useState<HomepageConfig>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.HOMEPAGE);
+    const saved = localStorage.getItem(STORAGE_KEYS.HOMEPAGE) || localStorage.getItem('sd_trendyz_homepage_v5');
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -143,7 +143,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   // 5. Settings State
   const [settings, setSettings] = useState<WebsiteSettings>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.SETTINGS);
+    const saved = localStorage.getItem(STORAGE_KEYS.SETTINGS) || localStorage.getItem('sd_trendyz_settings_v5');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -155,6 +155,20 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         ) {
           parsed.contact.address = INITIAL_WEBSITE_SETTINGS.contact.address;
           parsed.contact.mapEmbedUrl = INITIAL_WEBSITE_SETTINGS.contact.mapEmbedUrl;
+        }
+        if (parsed.contact) {
+          if (parsed.contact.phone && parsed.contact.phone.includes('97877')) {
+            parsed.contact.phone = '+91 90877 04111';
+          }
+          if (parsed.contact.whatsappNumber && parsed.contact.whatsappNumber.includes('97877')) {
+            parsed.contact.whatsappNumber = '+919087704111';
+          }
+          if (parsed.contact.secondaryPhone && parsed.contact.secondaryPhone.includes('97877')) {
+            parsed.contact.secondaryPhone = '+91 90877 04111';
+          }
+        }
+        if (parsed.socials && parsed.socials.whatsapp && parsed.socials.whatsapp.includes('97877')) {
+          parsed.socials.whatsapp = 'https://wa.me/919087704111';
         }
         parsed.logoUrl = parsed.logoUrl || '/logo.png';
         return parsed;

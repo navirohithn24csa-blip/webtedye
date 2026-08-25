@@ -23,11 +23,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, priority = fa
 
   return (
     <div
-      className="group relative flex flex-col h-full bg-[#FFFFFF] border border-[#E6E3DF] rounded-2xl p-3 sm:p-3.5 transition-all duration-300 hover:shadow-xs hover:border-[#D0CCC6]"
+      className="group relative flex flex-col h-full bg-white border border-[#E6E3DF] rounded-2xl p-3 sm:p-3.5 transition-all duration-300 hover:shadow-lg hover:border-[#CCCCCC] hover:-translate-y-0.5"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Product Image Stage with #F4F2EF Background */}
+      {/* Product Image Stage */}
       <Link
         to={`/product/${product.slug}`}
         className="block relative overflow-hidden rounded-xl bg-[#F4F2EF] aspect-[4/5] mb-3"
@@ -35,14 +35,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, priority = fa
         {/* Product Badge */}
         {product.badge && (
           <span
-            className={`absolute top-2.5 left-2.5 z-20 px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider rounded-md ${
+            className={`absolute top-2.5 left-2.5 z-20 px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider rounded-md shadow-xs ${
               product.badge === 'Sale'
                 ? 'bg-rose-600 text-white'
                 : product.badge === 'Bestseller'
-                ? 'bg-[#171717] text-amber-300'
+                ? 'bg-[#171717] text-white font-bold'
                 : product.badge === 'Limited'
-                ? 'bg-amber-600 text-white'
-                : 'bg-[#171717] text-white'
+                ? 'bg-amber-500 text-black font-bold'
+                : 'bg-indigo-600 text-white'
             }`}
           >
             {product.badge}
@@ -51,7 +51,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, priority = fa
 
         {/* Discount Badge on Right */}
         {product.discountPercentage && product.discountPercentage > 0 && (
-          <span className="absolute top-2.5 right-2.5 z-20 px-2 py-0.5 text-[9px] font-extrabold text-emerald-800 bg-emerald-100/90 rounded-md">
+          <span className="absolute top-2.5 right-2.5 z-20 px-2 py-0.5 text-[9px] font-extrabold text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-md">
             {product.discountPercentage}% OFF
           </span>
         )}
@@ -67,8 +67,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, priority = fa
         </div>
 
         {/* Desktop Overlay: View Details subtle action bar */}
-        <div className="hidden lg:flex absolute inset-x-3 bottom-3 z-20 items-center justify-center py-2 px-3 bg-[#FFFFFF]/95 backdrop-blur-sm text-[#1A1A1A] text-[11px] font-bold uppercase tracking-wider rounded-lg border border-[#E6E3DF] shadow-xs opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-          <span className="flex items-center gap-1.5">
+        <div className="hidden lg:flex absolute inset-x-3 bottom-3 z-20 items-center justify-center py-2 px-3 bg-white/95 backdrop-blur-md text-[#171717] text-[11px] font-bold uppercase tracking-wider rounded-lg border border-[#E6E3DF] shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+          <span className="flex items-center gap-1.5 text-[#171717]">
             <Eye className="w-3.5 h-3.5" />
             <span>View Details</span>
           </span>
@@ -77,17 +77,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, priority = fa
 
       {/* Card Info Section */}
       <div className="flex flex-col flex-1">
-        {/* Category / Subcategory: #737373 */}
+        {/* Category / Subcategory */}
         <p className="text-[10px] font-bold text-[#737373] uppercase tracking-widest mb-1 truncate">
           {product.subcategory || (product.category === 'tshirts' ? "Men's T-Shirt" : "Men's Shorts")}
         </p>
 
-        {/* Product Title: #1A1A1A */}
-        <h3 className="text-xs sm:text-sm font-bold text-[#1A1A1A] leading-snug mb-1.5 line-clamp-1 group-hover:text-[#555555] transition-colors">
+        {/* Product Title */}
+        <h3 className="text-xs sm:text-sm font-bold text-[#171717] leading-snug mb-1.5 line-clamp-1 group-hover:text-black transition-colors">
           <Link to={`/product/${product.slug}`}>{product.name}</Link>
         </h3>
 
-        {/* Price Row: #111111 */}
+        {/* Price Row */}
         <div className="flex items-center gap-2 mb-2.5">
           <span className="text-sm font-extrabold text-[#111111]">
             ₹{product.sellingPrice.toLocaleString('en-IN')}
@@ -100,14 +100,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, priority = fa
         </div>
 
         {/* Bottom Swatches & Available Sizes */}
-        <div className="mt-auto pt-2 flex items-center justify-between border-t border-[#F1ECE6]">
+        <div className="mt-auto pt-2 flex items-center justify-between border-t border-[#EAE8E4]">
           {/* Color Dots */}
           <div className="flex items-center space-x-1.5 py-0.5">
             {product.colors.slice(0, 4).map((color) => (
               <span
                 key={color.id}
                 title={color.name}
-                className="w-2.5 h-2.5 rounded-full border border-slate-300/90 shadow-2xs"
+                className="w-2.5 h-2.5 rounded-full border border-slate-300 shadow-2xs"
                 style={{ backgroundColor: color.hex }}
               />
             ))}

@@ -9,6 +9,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'Outfit', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
         display: ['Outfit', 'Inter', 'sans-serif'],
+        mersal: ['"Bebas Neue"', '"Anton"', 'sans-serif'],
       },
       colors: {
         brand: {

@@ -176,7 +176,7 @@ export const AdminSettings: React.FC = () => {
                     contact: { ...formData.contact, whatsappNumber: e.target.value }
                   })
                 }
-                placeholder="+91 97877 04111"
+                placeholder="+91 90877 04111"
                 className="w-full px-3.5 py-2 text-sm bg-white border border-slate-200 rounded-lg font-mono"
               />
               <p className="text-[11px] text-slate-400 mt-1">Used for customer WhatsApp enquiries</p>
@@ -195,7 +195,7 @@ export const AdminSettings: React.FC = () => {
                     contact: { ...formData.contact, phone: e.target.value }
                   })
                 }
-                placeholder="+91 97877 04111"
+                placeholder="+91 90877 04111"
                 className="w-full px-3.5 py-2 text-sm bg-white border border-slate-200 rounded-lg"
               />
             </div>

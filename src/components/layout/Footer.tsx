@@ -22,22 +22,22 @@ export const Footer: React.FC = () => {
   const { settings } = useStore();
 
   return (
-    <footer className="bg-[#111111] text-[#A3A3A3] pt-14 pb-8 border-t border-[#222222]">
+    <footer className="bg-[#F7F5F2] text-[#555555] pt-14 pb-8 border-t border-[#E6E3DF]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-12 border-b border-[#222222]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-12 border-b border-[#EAE8E4]">
           {/* Column 1: Brand Info (Spans 4 cols on lg) */}
           <div className="lg:col-span-4 space-y-3">
             <Link to="/" className="inline-flex items-center gap-3 group">
               <img
                 src={settings.logoUrl || '/logo.png'}
                 alt={settings.brandName || 'SD TRENDYZ'}
-                className="w-10 h-10 rounded-full object-cover border border-white/20 shadow-md group-hover:scale-105 transition-transform shrink-0"
+                className="w-10 h-10 rounded-full object-cover border border-[#E6E3DF] shadow-2xs group-hover:scale-105 transition-transform shrink-0"
               />
-              <span className="font-display font-black text-2xl tracking-tight text-white uppercase">
+              <span className="font-display font-black text-2xl tracking-tight text-[#171717] uppercase">
                 {settings.brandName || 'SD TRENDYZ'}
               </span>
             </Link>
-            <p className="text-[#A3A3A3] text-xs leading-relaxed max-w-sm">
+            <p className="text-[#555555] text-xs leading-relaxed max-w-sm">
               {settings.footerDescription ||
                 'Modern T-shirts and shorts designed for comfort, quality and everyday style.'}
             </p>
@@ -47,10 +47,10 @@ export const Footer: React.FC = () => {
                   href={settings.socials.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-7 h-7 rounded-full bg-[#222222] flex items-center justify-center text-[#C8C8C8] hover:text-white transition-colors"
+                  className="w-8 h-8 rounded-full bg-white border border-[#E6E3DF] flex items-center justify-center text-[#171717] hover:bg-[#171717] hover:text-white transition-colors shadow-2xs"
                   aria-label="Instagram"
                 >
-                  <InstagramIcon className="w-3.5 h-3.5" />
+                  <InstagramIcon className="w-4 h-4" />
                 </a>
               )}
               {settings.socials?.facebook && (
@@ -58,10 +58,10 @@ export const Footer: React.FC = () => {
                   href={settings.socials.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-7 h-7 rounded-full bg-[#222222] flex items-center justify-center text-[#C8C8C8] hover:text-white transition-colors"
+                  className="w-8 h-8 rounded-full bg-white border border-[#E6E3DF] flex items-center justify-center text-[#171717] hover:bg-[#171717] hover:text-white transition-colors shadow-2xs"
                   aria-label="Facebook"
                 >
-                  <FacebookIcon className="w-3.5 h-3.5" />
+                  <FacebookIcon className="w-4 h-4" />
                 </a>
               )}
               {settings.socials?.whatsapp && (
@@ -69,10 +69,10 @@ export const Footer: React.FC = () => {
                   href={settings.socials.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-7 h-7 rounded-full bg-[#222222] flex items-center justify-center text-[#C8C8C8] hover:text-white transition-colors"
+                  className="w-8 h-8 rounded-full bg-white border border-[#E6E3DF] flex items-center justify-center text-[#171717] hover:bg-emerald-600 hover:text-white transition-colors shadow-2xs"
                   aria-label="WhatsApp"
                 >
-                  <MessageCircle className="w-3.5 h-3.5" />
+                  <MessageCircle className="w-4 h-4" />
                 </a>
               )}
             </div>
@@ -80,26 +80,26 @@ export const Footer: React.FC = () => {
 
           {/* Column 2: Explore (Spans 2 cols) */}
           <div className="lg:col-span-2 space-y-3">
-            <h3 className="text-white text-xs font-bold uppercase tracking-widest">EXPLORE</h3>
+            <h3 className="text-[#171717] text-xs font-bold uppercase tracking-widest">EXPLORE</h3>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link to="/" className="hover:text-white transition-colors">
+                <Link to="/" className="hover:text-black transition-colors">
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/tshirts" className="hover:text-white transition-colors">
+                <Link to="/tshirts" className="hover:text-black transition-colors">
                   T-Shirts
                 </Link>
               </li>
               <li>
-                <Link to="/shorts" className="hover:text-white transition-colors">
-                  Shorts
+                <Link to="/collections" className="hover:text-black transition-colors">
+                  Collections
                 </Link>
               </li>
               <li>
-                <Link to="/collections" className="hover:text-white transition-colors">
-                  Collections
+                <Link to="/fabrics" className="hover:text-black transition-colors">
+                  Fabrics
                 </Link>
               </li>
             </ul>
@@ -107,15 +107,15 @@ export const Footer: React.FC = () => {
 
           {/* Column 3: Company (Spans 2 cols) */}
           <div className="lg:col-span-2 space-y-3">
-            <h3 className="text-white text-xs font-bold uppercase tracking-widest">COMPANY</h3>
+            <h3 className="text-[#171717] text-xs font-bold uppercase tracking-widest">COMPANY</h3>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link to="/about" className="hover:text-white transition-colors">
+                <Link to="/about" className="hover:text-black transition-colors">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="hover:text-white transition-colors">
+                <Link to="/contact" className="hover:text-black transition-colors">
                   Contact Us
                 </Link>
               </li>
@@ -124,29 +124,29 @@ export const Footer: React.FC = () => {
 
           {/* Column 4: Contact Information (Spans 3 cols) */}
           <div className="lg:col-span-3 space-y-3">
-            <h3 className="text-white text-xs font-bold uppercase tracking-widest">CONTACT</h3>
-            <div className="space-y-2.5 text-xs text-[#A3A3A3]">
+            <h3 className="text-[#171717] text-xs font-bold uppercase tracking-widest">CONTACT</h3>
+            <div className="space-y-2.5 text-xs text-[#555555]">
               <div className="flex flex-col space-y-1">
                 <div className="flex items-center gap-2">
-                  <Phone className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                  <a href={`tel:${(settings.contact.phone || '+91 97877 04111').replace(/\s+/g, '')}`} className="hover:text-white transition-colors">
-                    {settings.contact.phone || '+91 97877 04111'}
+                  <Phone className="w-3.5 h-3.5 text-[#171717] shrink-0" />
+                  <a href={`tel:${(settings.contact.phone || '+91 90877 04111').replace(/\s+/g, '')}`} className="hover:text-black transition-colors">
+                    {settings.contact.phone || '+91 90877 04111'}
                   </a>
                 </div>
                 <div className="flex items-center gap-2 pl-5.5">
-                  <a href={`tel:${(settings.contact.secondaryPhone || '+91 90877 04111').replace(/\s+/g, '')}`} className="hover:text-white transition-colors">
+                  <a href={`tel:${(settings.contact.secondaryPhone || '+91 90877 04111').replace(/\s+/g, '')}`} className="hover:text-black transition-colors">
                     {settings.contact.secondaryPhone || '+91 90877 04111'}
                   </a>
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                <a href={`mailto:${settings.contact.email || 'balasri3333@gmail.com'}`} className="hover:text-white transition-colors break-all">
+                <Mail className="w-3.5 h-3.5 text-[#171717] shrink-0" />
+                <a href={`mailto:${settings.contact.email || 'balasri3333@gmail.com'}`} className="hover:text-black transition-colors break-all">
                   {settings.contact.email || 'balasri3333@gmail.com'}
                 </a>
               </div>
               <div className="flex items-start gap-2">
-                <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+                <MapPin className="w-3.5 h-3.5 text-[#171717] shrink-0 mt-0.5" />
                 <span className="leading-relaxed">{settings.contact.address || '12/152, Erappanaickanpalayam, Mylambadi, Bhavani, Tamil Nadu - 638314'}</span>
               </div>
             </div>
@@ -154,9 +154,9 @@ export const Footer: React.FC = () => {
 
           {/* Column 5: Emblem Badge (Spans 1 col) */}
           <div className="lg:col-span-1 flex items-center justify-start lg:justify-center">
-            <div className="w-16 h-16 rounded-full border border-white/30 flex flex-col items-center justify-center p-1 text-center select-none shadow-xs">
-              <span className="font-display font-black text-sm text-white tracking-tighter leading-none">SD</span>
-              <span className="text-[7px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">TRENDYZ</span>
+            <div className="w-16 h-16 rounded-full border border-[#E6E3DF] bg-white flex flex-col items-center justify-center p-1 text-center select-none shadow-2xs">
+              <span className="font-display font-black text-sm text-[#171717] tracking-tighter leading-none">SD</span>
+              <span className="text-[7px] font-bold text-[#737373] uppercase tracking-widest mt-0.5">TRENDYZ</span>
             </div>
           </div>
         </div>
@@ -166,11 +166,11 @@ export const Footer: React.FC = () => {
           <p>{settings.copyrightText || `© 2026 SD TRENDYZ. All Rights Reserved.`}</p>
 
           <div className="flex items-center space-x-6">
-            <Link to="/privacy" className="hover:text-[#C8C8C8] transition-colors">
+            <Link to="/privacy" className="hover:text-black transition-colors">
               Privacy Policy
             </Link>
             <span>|</span>
-            <Link to="/terms" className="hover:text-[#C8C8C8] transition-colors">
+            <Link to="/terms" className="hover:text-black transition-colors">
               Terms & Conditions
             </Link>
           </div>

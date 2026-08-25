@@ -1249,9 +1249,9 @@ export const INITIAL_WEBSITE_SETTINGS: WebsiteSettings = {
     text: 'NEW ARRIVALS ARE HERE — Explore Our Latest Collection'
   },
   contact: {
-    phone: '+91 97877 04111',
+    phone: '+91 90877 04111',
     secondaryPhone: '+91 90877 04111',
-    whatsappNumber: '+919787704111',
+    whatsappNumber: '+919087704111',
     email: 'balasri3333@gmail.com',
     address: '12/152, Erappanaickanpalayam, Mylambadi, Bhavani, Tamil Nadu - 638314',
     businessHours: 'Monday – Saturday: 10:00 AM – 8:00 PM IST',
@@ -1260,7 +1260,7 @@ export const INITIAL_WEBSITE_SETTINGS: WebsiteSettings = {
   socials: {
     instagram: 'https://instagram.com/sdtrendyz',
     facebook: 'https://facebook.com/sdtrendyz',
-    whatsapp: 'https://wa.me/919787704111'
+    whatsapp: 'https://wa.me/919087704111'
   },
   footerDescription: 'Modern T-shirts and shorts designed for comfort, quality and everyday style.',
   copyrightText: '© 2026 SD TRENDYZ. All Rights Reserved.'

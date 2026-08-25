@@ -1,100 +1,239 @@
-import React from 'react';
-import { ThreeDBackground, ThreeDTheme } from './ThreeDBackground';
+import React, { useEffect, useRef } from 'react';
 
-export type BackgroundVariant = 'linen' | 'aurora' | 'grid' | 'dark-velvet' | 'silk-waves' | '3d-vibrant' | '3d-geometric';
+export type BackgroundVariant = string;
 
 interface ModernBackgroundProps {
   className?: string;
-  variant?: BackgroundVariant;
+  variant?: string;
   showOrbs?: boolean;
   show3DShapes?: boolean;
+  showShootingStars?: boolean;
+}
+
+interface AntigravityParticle {
+  x: number;
+  y: number;
+  radius: number;
+  baseRadius: number;
+  vy: number; // Upward negative velocity (Antigravity)
+  vx: number;
+  color: string;
+  alpha: number;
+  pulseSpeed: number;
+  pulsePhase: number;
 }
 
 export const ModernBackground: React.FC<ModernBackgroundProps> = ({
   className = '',
-  variant = '3d-vibrant',
-  showOrbs = true,
-  show3DShapes = true,
 }) => {
-  // Map variant to 3D Canvas theme
-  const get3DTheme = (): ThreeDTheme => {
-    switch (variant) {
-      case '3d-vibrant':
-      case 'aurora':
-        return 'vibrant';
-      case 'dark-velvet':
-        return 'luxury';
-      case 'grid':
-        return 'grid';
-      case '3d-geometric':
-      case 'silk-waves':
-      case 'linen':
-      default:
-        return 'geometric';
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const mouseRef = useRef<{ x: number; y: number; isHovering: boolean }>({
+    x: -1000,
+    y: -1000,
+    isHovering: false,
+  });
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animId: number;
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    const handleResize = () => {
+      if (!canvas) return;
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseRef.current.x = e.clientX;
+      mouseRef.current.y = e.clientY;
+      mouseRef.current.isHovering = true;
+    };
+
+    const handleMouseLeave = () => {
+      mouseRef.current.isHovering = false;
+      mouseRef.current.x = -1000;
+      mouseRef.current.y = -1000;
+    };
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseleave', handleMouseLeave);
+
+    // Particle Palette for Antigravity Theme (Indigo, Amber, Cyan, Slate)
+    const particleColors = [
+      '#6366F1', // Indigo
+      '#0EA5E9', // Cyan
+      '#F59E0B', // Amber
+      '#8B5CF6', // Violet
+      '#64748B', // Slate
+    ];
+
+    // Create Upward Floating Antigravity Particles
+    const particleCount = 85;
+    const particles: AntigravityParticle[] = [];
+
+    for (let i = 0; i < particleCount; i++) {
+      const r = Math.random() * 2.2 + 1.2;
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: r,
+        baseRadius: r,
+        vy: -(Math.random() * 0.45 + 0.2), // Upward floating motion
+        vx: (Math.random() - 0.5) * 0.25,
+        color: particleColors[Math.floor(Math.random() * particleColors.length)],
+        alpha: Math.random() * 0.45 + 0.35,
+        pulseSpeed: Math.random() * 0.03 + 0.015,
+        pulsePhase: Math.random() * Math.PI * 2,
+      });
     }
-  };
+
+    let time = 0;
+
+    // 60FPS Antigravity Physics Loop
+    const render = () => {
+      time += 0.016;
+      ctx.clearRect(0, 0, width, height);
+
+      const mx = mouseRef.current.x;
+      const my = mouseRef.current.y;
+
+      // Draw Interactive Floating Particles
+      particles.forEach((p, idx) => {
+        // Antigravity upward drift
+        p.y += p.vy;
+        p.x += p.vx + Math.sin(time + p.pulsePhase) * 0.15;
+
+        // Wrap around screen boundaries seamlessly
+        if (p.y < -20) {
+          p.y = height + 10;
+          p.x = Math.random() * width;
+        }
+        if (p.x < -20) p.x = width + 10;
+        if (p.x > width + 20) p.x = -10;
+
+        // Interactive Mouse Gravitational Repulsion / Push
+        if (mouseRef.current.isHovering) {
+          const dx = p.x - mx;
+          const dy = p.y - my;
+          const dist = Math.hypot(dx, dy);
+          const maxDist = 130;
+
+          if (dist < maxDist && dist > 0) {
+            const force = (1 - dist / maxDist) * 3.5;
+            p.x += (dx / dist) * force;
+            p.y += (dy / dist) * force;
+          }
+        }
+
+        // Pulsing size and opacity
+        const pulse = Math.sin(time * p.pulseSpeed * 60 + p.pulsePhase) * 0.3 + 0.7;
+        const currentAlpha = p.alpha * pulse;
+
+        // Draw Particle Circle
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius * pulse, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = currentAlpha;
+        ctx.shadowColor = p.color;
+        ctx.shadowBlur = 4;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.globalAlpha = 1;
+
+        // Connect nearby particles with subtle physics lines
+        for (let j = idx + 1; j < Math.min(idx + 5, particles.length); j++) {
+          const p2 = particles[j];
+          const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+          if (dist < 85) {
+            const lineAlpha = (1 - dist / 85) * 0.18;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = '#6366F1';
+            ctx.globalAlpha = lineAlpha;
+            ctx.lineWidth = 0.75;
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+          }
+        }
+
+        // Connect particles near the mouse cursor
+        if (mouseRef.current.isHovering) {
+          const mouseDist = Math.hypot(p.x - mx, p.y - my);
+          if (mouseDist < 120) {
+            const mouseAlpha = (1 - mouseDist / 120) * 0.35;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(mx, my);
+            ctx.strokeStyle = p.color;
+            ctx.globalAlpha = mouseAlpha;
+            ctx.lineWidth = 0.9;
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+          }
+        }
+      });
+
+      // Interactive Cursor Spotlight Core
+      if (mouseRef.current.isHovering) {
+        ctx.beginPath();
+        ctx.arc(mx, my, 4, 0, Math.PI * 2);
+        ctx.fillStyle = '#6366F1';
+        ctx.shadowColor = '#6366F1';
+        ctx.shadowBlur = 8;
+        ctx.globalAlpha = 0.8;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.globalAlpha = 1;
+      }
+
+      animId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseleave', handleMouseLeave);
+      cancelAnimationFrame(animId);
+    };
+  }, []);
 
   return (
-    <div className={`fixed inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden transition-colors duration-700 ${className}`}>
-      
-      {/* 1. Base Theme Colors & Ambient Lighting Gradients */}
-      {variant === 'dark-velvet' ? (
-        <div className="absolute inset-0 bg-[#0F0F12]" />
-      ) : variant === 'aurora' || variant === '3d-vibrant' ? (
-        <div className="absolute inset-0 bg-[#F5F2EB]" />
-      ) : variant === 'grid' ? (
-        <div className="absolute inset-0 bg-[#F3EFEA]" />
-      ) : (
-        <div className="absolute inset-0 bg-[#F7F5F2]" />
-      )}
+    <div className={`fixed inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden ${className}`}>
+      {/* 1. Crisp Clean Antigravity Base */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#FAFAF9] via-[#F8FAFC] to-[#F1F5F9]" />
 
-      {/* 2. Floating 3D Ambient Spotlights */}
-      {showOrbs && (
-        <>
-          {variant === 'dark-velvet' ? (
-            <>
-              <div className="absolute -top-[20%] left-[10%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-b from-amber-600/15 via-yellow-600/10 to-transparent blur-[120px] animate-float-slow" />
-              <div className="absolute bottom-[10%] right-[-10%] w-[65vw] h-[65vw] rounded-full bg-gradient-to-tr from-amber-700/20 via-orange-900/10 to-transparent blur-[120px] animate-float-reverse" />
-            </>
-          ) : variant === 'aurora' || variant === '3d-vibrant' ? (
-            <>
-              <div className="absolute top-[-10%] left-[-10%] w-[70vw] h-[70vw] rounded-full bg-gradient-to-br from-amber-300/45 via-rose-200/35 to-purple-200/25 blur-[100px] animate-float-slow" />
-              <div className="absolute top-[40%] right-[-15%] w-[65vw] h-[65vw] rounded-full bg-gradient-to-tl from-emerald-200/40 via-teal-100/30 to-sky-200/25 blur-[110px] animate-float-reverse" />
-              <div className="absolute bottom-[-15%] left-[15%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-yellow-200/45 via-amber-200/35 to-indigo-100/25 blur-[90px] animate-pulse-glow" />
-            </>
-          ) : (
-            <>
-              <div className="absolute -top-[20%] -left-[10%] w-[65vw] h-[65vw] rounded-full bg-gradient-to-br from-amber-200/35 via-orange-100/25 to-transparent blur-3xl animate-float-slow" />
-              <div className="absolute top-[30%] -right-[15%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-bl from-amber-300/20 via-[#E4D9C8]/40 to-transparent blur-3xl animate-float-reverse" />
-              <div className="absolute -bottom-[20%] left-[20%] w-[55vw] h-[55vw] rounded-full bg-gradient-to-tr from-slate-200/40 via-amber-200/25 to-transparent blur-3xl animate-float-slow" />
-            </>
-          )}
-        </>
-      )}
+      {/* 2. Soft Ambient Zero-G Glow Pools */}
+      <div className="absolute -top-[15%] right-[10%] w-[45vw] h-[45vw] rounded-full bg-gradient-to-br from-indigo-200/35 via-sky-100/25 to-transparent blur-[130px] pointer-events-none" />
+      <div className="absolute top-[45%] -left-[10%] w-[40vw] h-[40vw] rounded-full bg-gradient-to-tr from-amber-100/35 via-rose-100/25 to-transparent blur-[140px] pointer-events-none" />
 
-      {/* 3. Real Interactive 3D Canvas Layer */}
-      {show3DShapes && (
-        <ThreeDBackground
-          theme={get3DTheme()}
-          intensity={variant === '3d-vibrant' || variant === 'aurora' ? 'vivid' : 'medium'}
-        />
-      )}
+      {/* 3. Antigravity Zero-G Physics Canvas */}
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 
-      {/* 4. Fine Architectural Micro-Pattern Overlay */}
+      {/* 4. Modern High-Tech Isometric Grid Pattern */}
       <div
-        className="absolute inset-0 opacity-[0.35]"
+        className="absolute inset-0 opacity-[0.35] pointer-events-none"
         style={{
-          backgroundImage:
-            variant === 'grid'
-              ? `linear-gradient(to right, #D5CEC4 1px, transparent 1px), linear-gradient(to bottom, #D5CEC4 1px, transparent 1px)`
-              : `radial-gradient(#C8C1B7 1px, transparent 1px)`,
-          backgroundSize: variant === 'grid' ? '40px 40px' : '24px 24px',
+          backgroundImage: `
+            linear-gradient(to right, rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(148, 163, 184, 0.12) 1px, transparent 1px)
+          `,
+          backgroundSize: '48px 48px',
         }}
       />
-
-      {/* 5. Vignette Softener */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/5 pointer-events-none" />
-
     </div>
   );
 };
+
+
+
+

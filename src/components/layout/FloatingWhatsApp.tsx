@@ -6,7 +6,7 @@ export const FloatingWhatsApp: React.FC = () => {
   const { settings } = useStore();
   const [isOpen, setIsOpen] = useState(false);
 
-  const cleanPhone = settings.contact.whatsappNumber.replace(/[^0-9]/g, '');
+  const cleanPhone = (settings.contact?.whatsappNumber || '919087704111').replace(/[^0-9]/g, '');
   const defaultMessage = encodeURIComponent(
     `Hello ${settings.brandName || 'SD TRENDYZ'}, I am browsing your product catalog and would like to enquire about your styles.`
   );

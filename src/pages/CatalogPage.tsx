@@ -338,13 +338,13 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ forcedCategory }) => {
   return (
     <div className="bg-transparent min-h-screen text-[#171717] pb-20">
       {/* Top Banner / Header */}
-      <div className="bg-white/50 backdrop-blur-md border-b border-black/5 py-8 sm:py-12">
+      <div className="bg-white/85 backdrop-blur-md border-b border-[#E6E3DF] py-8 sm:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3">
           <Breadcrumbs items={breadcrumbItems} />
 
           <div className="pt-2 flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFFFFF]/80 border border-[#E6E3DF] text-[#171717] text-[11px] font-bold uppercase tracking-widest mb-2">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F4F2EF] border border-[#E6E3DF] text-[#171717] text-[11px] font-bold uppercase tracking-widest mb-2 shadow-2xs">
                 <Sparkles className="w-3.5 h-3.5 text-amber-500" />
                 <span>SD TRENDYZ Collection</span>
               </div>
@@ -357,7 +357,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ forcedCategory }) => {
             </div>
 
             {/* Product Count Badge */}
-            <div className="self-start md:self-auto bg-[#FFFFFF] px-4 py-2 rounded-xl border border-[#E6E3DF] text-xs font-bold text-[#171717] shadow-2xs">
+            <div className="self-start md:self-auto bg-white px-4 py-2 rounded-xl border border-[#E6E3DF] text-xs font-bold text-[#171717] shadow-xs">
               <span>{filteredProducts.length} {filteredProducts.length === 1 ? 'Product' : 'Products'}</span>
             </div>
           </div>

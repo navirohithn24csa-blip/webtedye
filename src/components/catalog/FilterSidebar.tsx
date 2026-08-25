@@ -120,13 +120,12 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
   const shirtStylesList = ['Tie & Dye', 'Acid Wash', 'Plain', 'Printed'];
   const tshirtStylesList = ['Acid Wash', 'Tie & Dye', 'Plain', 'Printed'];
-
   const filterContent = (
     <div className="space-y-6">
-      {/* Category / Subcategories Hierarchical Tree */}
+      {/* Categories & Fits */}
       <div>
-        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-3">
-          Category Fits & Styles
+        <h4 className="text-xs font-bold uppercase tracking-wider text-[#171717] mb-3">
+          Category & Fit
         </h4>
         <div className="space-y-2">
           <button
@@ -134,8 +133,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
             onClick={() => onFilterChange({ ...filters, subcategory: undefined, fits: [] })}
             className={`w-full flex items-center justify-between py-2 px-2.5 rounded-xl text-xs font-bold text-left transition-colors border ${
               !filters.subcategory && filters.fits.length === 0
-                ? 'bg-slate-950 text-white border-slate-950 shadow-xs'
-                : 'bg-white text-slate-700 border-slate-200 hover:border-slate-400'
+                ? 'bg-[#171717] text-white border-[#171717] shadow-xs font-bold'
+                : 'bg-white text-[#555555] border-[#E6E3DF] hover:border-slate-400'
             }`}
           >
             <span>All {categoryType === 'shirts' ? 'Shirts' : categoryType === 'tshirts' ? 'T-Shirts' : 'Shorts'}</span>
@@ -153,7 +152,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                   <div
                     key={fitName}
                     className={`rounded-xl border transition-all overflow-hidden ${
-                      isFitSelected ? 'border-slate-950 bg-slate-50/80' : 'border-slate-200 bg-white'
+                      isFitSelected ? 'border-[#171717] bg-[#F7F5F2]' : 'border-[#E6E3DF] bg-white'
                     }`}
                   >
                     <div className="flex items-center justify-between p-2">
@@ -161,7 +160,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                         type="button"
                         onClick={() => toggleSubcategory(fitName)}
                         className={`flex-1 text-left text-xs font-bold ${
-                          isFitSelected ? 'text-slate-950 font-black' : 'text-slate-700 hover:text-black'
+                          isFitSelected ? 'text-black font-black' : 'text-[#171717] hover:text-black'
                         }`}
                       >
                         • {fitName}
@@ -182,8 +181,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
                     {/* Styles revealed only when fit is expanded */}
                     {isExpanded && (
-                      <div className="px-2.5 pb-2 pt-1 border-t border-slate-100 bg-white/80 space-y-1">
-                        <div className="text-[10px] font-extrabold uppercase text-slate-400 mb-1">
+                      <div className="px-2.5 pb-2 pt-1 border-t border-[#E6E3DF] bg-white space-y-1">
+                        <div className="text-[10px] font-extrabold uppercase text-[#737373] mb-1">
                           Available Styles:
                         </div>
                         {availableStyles.map((st) => {
@@ -195,8 +194,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                               onClick={() => toggleSubcategory(st)}
                               className={`w-full flex items-center justify-between py-1 px-2 rounded-md text-xs transition-colors text-left ${
                                 isStyleSelected
-                                  ? 'bg-slate-950 text-white font-bold'
-                                  : 'text-slate-600 hover:text-black hover:bg-slate-100'
+                                  ? 'bg-[#171717] text-white font-bold'
+                                  : 'text-[#555555] hover:text-[#171717] hover:bg-slate-100'
                               }`}
                             >
                               <span>- {st}</span>
@@ -219,8 +218,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 onClick={() => toggleSubcategory(subcat)}
                 className={`w-full flex items-center justify-between py-1.5 px-2.5 rounded-lg text-xs font-medium text-left transition-colors ${
                   filters.subcategory === subcat
-                    ? 'bg-slate-950 text-white font-semibold'
-                    : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
+                    ? 'bg-[#171717] text-white font-bold'
+                    : 'text-[#555555] hover:text-black hover:bg-slate-100'
                 }`}
               >
                 <span>{subcat}</span>
@@ -230,8 +229,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
       </div>
 
       {/* Sizes */}
-      <div className="border-t border-slate-100 pt-5">
-        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-3">
+      <div className="border-t border-[#EAE8E4] pt-5">
+        <h4 className="text-xs font-bold uppercase tracking-wider text-[#171717] mb-3">
           Sizes
         </h4>
         <div className="flex flex-wrap gap-2">
@@ -244,8 +243,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 onClick={() => toggleSize(size)}
                 className={`w-9 h-9 rounded-lg text-xs font-semibold flex items-center justify-center border transition-all ${
                   isSelected
-                    ? 'bg-slate-950 text-white border-slate-950'
-                    : 'bg-white text-slate-700 border-slate-200 hover:border-slate-400'
+                    ? 'bg-[#171717] text-white border-[#171717] font-bold'
+                    : 'bg-white text-[#555555] border-[#E6E3DF] hover:border-slate-400'
                 }`}
               >
                 {size}
@@ -256,8 +255,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
       </div>
 
       {/* Colors */}
-      <div className="border-t border-slate-100 pt-5">
-        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-3">
+      <div className="border-t border-[#EAE8E4] pt-5">
+        <h4 className="text-xs font-bold uppercase tracking-wider text-[#171717] mb-3">
           Colors
         </h4>
         <div className="grid grid-cols-5 gap-2">
@@ -271,7 +270,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 title={c.name}
                 className={`relative w-8 h-8 rounded-full border flex items-center justify-center transition-all ${
                   isSelected
-                    ? 'ring-2 ring-offset-2 ring-slate-950 scale-105 border-transparent'
+                    ? 'ring-2 ring-offset-2 ring-[#171717] scale-105 border-transparent'
                     : 'border-slate-300 hover:scale-105'
                 }`}
                 style={{ backgroundColor: c.hex }}
@@ -280,7 +279,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                   <Check
                     className={`w-3.5 h-3.5 stroke-[2.5] ${
                       ['#FFFFFF', '#F9FAFB', '#D6C7B2'].includes(c.hex.toUpperCase())
-                        ? 'text-slate-900'
+                        ? 'text-black'
                         : 'text-white'
                     }`}
                   />
@@ -292,12 +291,12 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
       </div>
 
       {/* Price Range Brackets */}
-      <div className="border-t border-slate-100 pt-5">
+      <div className="border-t border-[#EAE8E4] pt-5">
         <div className="flex items-center justify-between mb-3">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-[#171717]">
             Price Range
           </h4>
-          <span className="text-[11px] font-semibold text-slate-500">
+          <span className="text-[11px] font-semibold text-[#737373]">
             ₹{filters.priceRange[0]} – ₹{filters.priceRange[1]}+
           </span>
         </div>
@@ -317,8 +316,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 onClick={() => setPriceBracket(bracket.min, bracket.max)}
                 className={`py-1.5 px-2 rounded-lg border text-center font-medium transition-colors ${
                   isSelected
-                    ? 'bg-slate-900 text-white border-slate-900'
-                    : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
+                    ? 'bg-[#171717] text-white border-[#171717] font-bold'
+                    : 'bg-white text-[#555555] border-[#E6E3DF] hover:border-slate-400'
                 }`}
               >
                 {bracket.label}
@@ -329,8 +328,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
       </div>
 
       {/* Fit Types */}
-      <div className="border-t border-slate-100 pt-5">
-        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-3">
+      <div className="border-t border-[#EAE8E4] pt-5">
+        <h4 className="text-xs font-bold uppercase tracking-wider text-[#171717] mb-3">
           Fit Type
         </h4>
         <div className="space-y-1.5">
@@ -339,13 +338,13 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
             return (
               <label
                 key={fit}
-                className="flex items-center gap-2 text-xs text-slate-700 hover:text-slate-950 cursor-pointer"
+                className="flex items-center gap-2 text-xs text-[#555555] hover:text-black cursor-pointer"
               >
                 <input
                   type="checkbox"
                   checked={isSelected}
                   onChange={() => toggleFit(fit)}
-                  className="rounded border-slate-300 text-slate-900 focus:ring-slate-900 w-3.5 h-3.5"
+                  className="rounded border-[#E6E3DF] text-[#171717] focus:ring-[#171717] w-3.5 h-3.5"
                 />
                 <span>{fit}</span>
               </label>
@@ -355,8 +354,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
       </div>
 
       {/* Fabrics */}
-      <div className="border-t border-slate-100 pt-5">
-        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-3">
+      <div className="border-t border-[#EAE8E4] pt-5">
+        <h4 className="text-xs font-bold uppercase tracking-wider text-[#171717] mb-3">
           Fabric Material
         </h4>
         <div className="space-y-1.5">
@@ -365,13 +364,13 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
             return (
               <label
                 key={fabric}
-                className="flex items-center gap-2 text-xs text-slate-700 hover:text-slate-950 cursor-pointer"
+                className="flex items-center gap-2 text-xs text-[#555555] hover:text-black cursor-pointer"
               >
                 <input
                   type="checkbox"
                   checked={isSelected}
                   onChange={() => toggleFabric(fabric)}
-                  className="rounded border-slate-300 text-slate-900 focus:ring-slate-900 w-3.5 h-3.5"
+                  className="rounded border-[#E6E3DF] text-[#171717] focus:ring-[#171717] w-3.5 h-3.5"
                 />
                 <span>{fabric}</span>
               </label>
@@ -386,11 +385,11 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
     <>
       {/* Desktop Sticky Sidebar */}
       <aside className="hidden lg:block w-64 shrink-0">
-        <div className="sticky top-28 bg-white border border-slate-100 rounded-2xl p-5 shadow-xs">
-          <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
+        <div className="sticky top-28 bg-white border border-[#E6E3DF] rounded-2xl p-5 shadow-xs text-[#171717]">
+          <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#EAE8E4]">
             <div className="flex items-center gap-2">
-              <SlidersHorizontal className="w-4 h-4 text-slate-900" />
-              <span className="text-sm font-bold uppercase tracking-wider text-slate-900">Filters</span>
+              <SlidersHorizontal className="w-4 h-4 text-[#171717]" />
+              <span className="text-sm font-bold uppercase tracking-wider text-[#171717]">Filters</span>
             </div>
             {activeFilterCount > 0 && (
               <button
@@ -411,23 +410,23 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
       {isOpenMobile && (
         <div className="fixed inset-0 z-50 lg:hidden overflow-hidden">
           <div
-            className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm transition-opacity"
+            className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity"
             onClick={onCloseMobile}
           />
           <div className="fixed inset-y-0 right-0 max-w-full flex pl-10 z-10">
-            <div className="w-screen max-w-sm bg-white shadow-2xl flex flex-col">
+            <div className="w-screen max-w-sm bg-white border-l border-[#EAE8E4] text-[#171717] shadow-2xl flex flex-col">
               {/* Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
+              <div className="flex items-center justify-between px-6 py-4 border-b border-[#EAE8E4]">
                 <div className="flex items-center gap-2">
-                  <SlidersHorizontal className="w-4 h-4 text-slate-900" />
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">
+                  <SlidersHorizontal className="w-4 h-4 text-[#171717]" />
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#171717]">
                     Filters {activeFilterCount > 0 && `(${activeFilterCount})`}
                   </h3>
                 </div>
                 <button
                   type="button"
                   onClick={onCloseMobile}
-                  className="p-1.5 text-slate-400 hover:text-slate-700 rounded-full hover:bg-slate-100"
+                  className="p-1.5 text-slate-500 hover:text-black rounded-full hover:bg-slate-100"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -437,20 +436,20 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
               <div className="flex-1 overflow-y-auto px-6 py-6">{filterContent}</div>
 
               {/* Mobile Actions Footer */}
-              <div className="p-4 bg-slate-50 border-t border-slate-100 flex items-center gap-3">
+              <div className="p-4 bg-[#F4F2EF] border-t border-[#EAE8E4] flex items-center gap-3">
                 <button
                   type="button"
                   onClick={() => {
                     onClearFilters();
                   }}
-                  className="flex-1 py-3 border border-slate-300 hover:bg-slate-100 text-slate-800 text-xs font-bold uppercase tracking-wider rounded-xl transition-colors"
+                  className="flex-1 py-3 border border-[#E6E3DF] hover:bg-white text-[#555555] text-xs font-bold uppercase tracking-wider rounded-xl transition-colors"
                 >
                   Clear All
                 </button>
                 <button
                   type="button"
                   onClick={onCloseMobile}
-                  className="flex-1 py-3 bg-slate-950 hover:bg-black text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-colors shadow-sm"
+                  className="flex-1 py-3 bg-[#171717] hover:bg-black text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-colors shadow-xs"
                 >
                   Show ({totalResultsCount})
                 </button>

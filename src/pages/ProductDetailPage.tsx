@@ -64,7 +64,7 @@ export const ProductDetailPage: React.FC = () => {
   }
 
   // Pre-filled WhatsApp message
-  const cleanPhone = settings.contact.whatsappNumber.replace(/[^0-9]/g, '');
+  const cleanPhone = (settings.contact?.whatsappNumber || '919087704111').replace(/[^0-9]/g, '');
   const whatsappPreFilledText = `Hello ${settings.brandName}, I'm interested in the ${product.name} (${product.sku}), Color: ${
     selectedColor?.name || 'Standard'
   }, Size: ${selectedSize || 'Any'}, priced at ₹${product.sellingPrice}. Please share availability and details.`;
@@ -93,7 +93,7 @@ export const ProductDetailPage: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24 text-[#171717]">
       {/* Breadcrumbs */}
       <Breadcrumbs items={breadcrumbs} />
 
@@ -105,25 +105,25 @@ export const ProductDetailPage: React.FC = () => {
         </div>
 
         {/* Right Column: Product Information & Enquiry Triggers (42% width on lg) */}
-        <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-28">
+        <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-28 bg-white p-6 sm:p-8 rounded-3xl border border-[#E6E3DF] shadow-sm text-[#171717]">
           {/* Header Info */}
-          <div className="border-b border-slate-100 pb-5 space-y-2">
+          <div className="border-b border-[#EAE8E4] pb-5 space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#737373]">
                 {product.subcategory || (product.category === 'tshirts' ? "Men's T-Shirt" : "Men's Shorts")}
               </span>
-              <span className="text-xs font-mono text-slate-400 bg-slate-100 px-2 py-0.5 rounded">
+              <span className="text-xs font-mono text-[#171717] bg-[#F4F2EF] px-2 py-0.5 rounded border border-[#E6E3DF]">
                 SKU: {product.sku}
               </span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-slate-950 tracking-tight leading-tight">
+            <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-[#171717] tracking-tight leading-tight">
               {product.name}
             </h1>
 
             {/* Price Row (INR ₹ Format) */}
             <div className="flex items-baseline gap-3 pt-1">
-              <span className="text-2xl font-extrabold text-slate-950">
+              <span className="text-2xl font-extrabold text-[#171717]">
                 ₹{product.sellingPrice.toLocaleString('en-IN')}
               </span>
               {product.originalPrice && product.originalPrice > product.sellingPrice && (
@@ -132,12 +132,12 @@ export const ProductDetailPage: React.FC = () => {
                 </span>
               )}
               {product.discountPercentage && product.discountPercentage > 0 && (
-                <span className="px-2 py-0.5 text-xs font-bold text-emerald-800 bg-emerald-100 rounded-md">
+                <span className="px-2 py-0.5 text-xs font-bold text-emerald-800 bg-emerald-100 border border-emerald-200 rounded-md">
                   {product.discountPercentage}% OFF
                 </span>
               )}
             </div>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-[11px] text-[#737373]">
               * Catalog price for enquiry reference. Inclusive of standard manufacturing details.
             </p>
           </div>
@@ -159,8 +159,8 @@ export const ProductDetailPage: React.FC = () => {
 
           {/* Short / Full Description */}
           <div className="space-y-2 pt-2">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">Description</h3>
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[#171717]">Description</h3>
+            <p className="text-xs sm:text-sm text-[#555555] leading-relaxed">
               {product.description || product.shortDescription}
             </p>
           </div>
@@ -170,7 +170,7 @@ export const ProductDetailPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setIsEnquiryModalOpen(true)}
-              className="w-full flex items-center justify-center gap-2.5 py-3.5 px-6 bg-slate-950 hover:bg-black text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all shadow-md hover:scale-[1.01] active:scale-95"
+              className="w-full flex items-center justify-center gap-2.5 py-3.5 px-6 bg-[#171717] hover:bg-black text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all shadow-xs hover:scale-[1.01] active:scale-95"
             >
               <Mail className="w-4 h-4" />
               <span>Enquire About This Product</span>
@@ -180,15 +180,15 @@ export const ProductDetailPage: React.FC = () => {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2.5 py-3.5 px-6 bg-white hover:bg-slate-50 text-slate-900 border-2 border-slate-900 text-xs font-bold uppercase tracking-widest rounded-xl transition-all hover:scale-[1.01] active:scale-95"
+              className="w-full flex items-center justify-center gap-2.5 py-3.5 px-6 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all hover:scale-[1.01] active:scale-95 shadow-xs"
             >
-              <MessageCircle className="w-4 h-4 text-emerald-600" />
+              <MessageCircle className="w-4 h-4 fill-current" />
               <span>WhatsApp Enquiry</span>
             </a>
           </div>
 
           {/* Product Specifications */}
-          <div className="pt-4 border-t border-slate-100">
+          <div className="pt-4 border-t border-[#EAE8E4]">
             <ProductSpecifications specifications={product.specifications} />
           </div>
 
@@ -201,12 +201,12 @@ export const ProductDetailPage: React.FC = () => {
 
       {/* Related Products ("You May Also Like") */}
       {relatedProducts.length > 0 && (
-        <section className="mt-20 pt-12 border-t border-slate-100">
+        <section className="mt-20 pt-12 border-t border-[#E6E3DF]">
           <div className="mb-8">
-            <span className="text-xs font-bold uppercase tracking-widest text-slate-400">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#737373]">
               Recommendations
             </span>
-            <h2 className="text-2xl font-display font-bold text-slate-950 mt-1">
+            <h2 className="text-2xl font-display font-bold text-[#171717] mt-1">
               You May Also Like
             </h2>
           </div>
@@ -220,12 +220,12 @@ export const ProductDetailPage: React.FC = () => {
 
       {/* Recently Viewed Products */}
       {recentlyViewedProducts.length > 0 && (
-        <section className="mt-16 pt-12 border-t border-slate-100">
+        <section className="mt-16 pt-12 border-t border-[#E6E3DF]">
           <div className="mb-8">
-            <span className="text-xs font-bold uppercase tracking-widest text-slate-400">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#737373]">
               Your Browsing History
             </span>
-            <h2 className="text-2xl font-display font-bold text-slate-950 mt-1">
+            <h2 className="text-2xl font-display font-bold text-[#171717] mt-1">
               Recently Viewed
             </h2>
           </div>
@@ -238,20 +238,20 @@ export const ProductDetailPage: React.FC = () => {
       )}
 
       {/* Mobile Sticky Enquiry Action Bar */}
-      <div className="lg:hidden fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 z-30 flex items-center gap-2.5">
+      <div className="lg:hidden fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-[#EAE8E4] p-3 z-30 flex items-center gap-2.5">
         <a
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-12 h-11 flex items-center justify-center rounded-xl border border-slate-300 text-slate-900 bg-white shrink-0"
+          className="w-12 h-11 flex items-center justify-center rounded-xl border border-emerald-300 text-emerald-800 bg-emerald-50 shrink-0 shadow-2xs"
           aria-label="WhatsApp"
         >
-          <MessageCircle className="w-5 h-5 text-emerald-600" />
+          <MessageCircle className="w-5 h-5 text-emerald-700 fill-current" />
         </a>
         <button
           type="button"
           onClick={() => setIsEnquiryModalOpen(true)}
-          className="flex-1 py-3 bg-slate-950 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-colors shadow-sm"
+          className="flex-1 py-3 bg-[#171717] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-colors shadow-xs"
         >
           Enquire · ₹{product.sellingPrice}
         </button>

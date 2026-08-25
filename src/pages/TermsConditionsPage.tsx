@@ -7,17 +7,18 @@ export const TermsConditionsPage: React.FC = () => {
   const { settings } = useStore();
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-20 space-y-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-20 space-y-6">
       <Breadcrumbs items={[{ label: 'Terms & Conditions' }]} />
 
-      <div className="space-y-2 border-b border-slate-100 pb-6">
-        <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400">
-          <FileText className="w-4 h-4 text-slate-900" />
-          <span>Catalog & Showcase Terms</span>
+      <div className="bg-white rounded-3xl p-6 sm:p-10 border border-[#E6E3DF] shadow-sm space-y-8 text-[#171717]">
+        <div className="space-y-2 border-b border-[#EAE8E4] pb-6">
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#737373]">
+            <FileText className="w-4 h-4 text-[#171717]" />
+            <span>Catalog & Showcase Terms</span>
+          </div>
+          <h1 className="text-3xl font-display font-bold text-[#171717]">Terms & Conditions</h1>
+          <p className="text-xs text-[#737373]">Effective Date: August 2026</p>
         </div>
-        <h1 className="text-3xl font-display font-bold text-slate-950">Terms & Conditions</h1>
-        <p className="text-xs text-slate-400">Effective Date: August 2026</p>
-      </div>
 
       <div className="prose prose-slate max-w-none text-xs sm:text-sm text-slate-600 space-y-6 leading-relaxed">
         {/* Highlight Alert */}
@@ -65,6 +66,7 @@ export const TermsConditionsPage: React.FC = () => {
             For any clarifications regarding these Terms & Conditions, please contact us at <strong>{settings.contact.email}</strong> or <strong>{settings.contact.phone}</strong>.
           </p>
         </section>
+      </div>
       </div>
     </div>
   );

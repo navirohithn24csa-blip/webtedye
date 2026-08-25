@@ -1,63 +1,90 @@
 import React, { useEffect, useRef } from 'react';
 
-export type ThreeDTheme = 'vibrant' | 'geometric' | 'grid' | 'luxury' | 'minimal';
+export type SpaceTheme =
+  | 'deep-cosmos'
+  | 'nebula-galaxy'
+  | 'supernova'
+  | 'constellation'
+  | 'cyber-warp'
+  | 'aurora-borealis'
+  | 'pearl-diamond'
+  | 'champagne-gold'
+  | 'rose-quartz'
+  | 'luxury'
+  | 'minimal';
 
-interface ThreeDBackgroundProps {
-  theme?: ThreeDTheme;
+export type ThreeDTheme = SpaceTheme;
+
+interface SpaceBackgroundProps {
+  theme?: SpaceTheme;
   className?: string;
   intensity?: 'subtle' | 'medium' | 'vivid';
+  showShootingStars?: boolean;
+  showConstellations?: boolean;
+  showCelestialShapes?: boolean;
 }
 
-interface Point3D {
+export type ThreeDBackgroundProps = SpaceBackgroundProps;
+
+interface Star {
   x: number;
   y: number;
   z: number;
-}
-
-interface Shape3D {
-  type: 'cube' | 'octahedron' | 'tetrahedron' | 'diamond';
-  pos: Point3D;
-  rot: Point3D;
-  rotSpeed: Point3D;
-  velocity: Point3D;
-  size: number;
+  baseSize: number;
+  twinkleSpeed: number;
+  twinklePhase: number;
   color: string;
-  wireColor: string;
-  fillOpacity: number;
+  hasSpikes: boolean;
+  pulseSize: number;
 }
 
-interface FloatingOrb3D {
+interface ShootingRay {
   x: number;
   y: number;
+  length: number;
+  speed: number;
+  angle: number;
+  opacity: number;
+  color: string;
+  tailColor: string;
+  size: number;
+  active: boolean;
+}
+
+interface Polyhedron3D {
+  x: number;
+  y: number;
+  z: number;
+  rx: number;
+  ry: number;
+  rz: number;
+  dx: number;
+  dy: number;
+  rotSpeedX: number;
+  rotSpeedY: number;
+  rotSpeedZ: number;
   radius: number;
-  vx: number;
-  vy: number;
+  type: 'octahedron' | 'diamond' | 'icosahedron' | 'ring';
   color: string;
-  glow: string;
+  glowColor: string;
 }
 
-interface Particle3D {
-  x: number;
-  y: number;
-  z: number;
-  vx: number;
-  vy: number;
-  vz: number;
-  size: number;
-  color: string;
-}
-
-export const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
-  theme = 'vibrant',
+export const ThreeDBackground: React.FC<SpaceBackgroundProps> = ({
+  theme = 'champagne-gold',
   className = '',
   intensity = 'vivid',
+  showShootingStars = true,
+  showConstellations = true,
+  showCelestialShapes = true,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const mouseRef = useRef<{ x: number; y: number; targetX: number; targetY: number }>({
+  const mouseRef = useRef<{ x: number; y: number; targetX: number; targetY: number; isHovering: boolean; cursorRadius: number }>({
     x: 0,
     y: 0,
     targetX: 0,
     targetY: 0,
+    isHovering: false,
+    cursorRadius: 0,
   });
 
   useEffect(() => {
@@ -79,451 +106,621 @@ export const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
     const handleMouseMove = (e: MouseEvent) => {
       mouseRef.current.targetX = (e.clientX - width / 2) / (width / 2);
       mouseRef.current.targetY = (e.clientY - height / 2) / (height / 2);
+      mouseRef.current.isHovering = true;
+    };
+
+    const handleMouseLeave = () => {
+      mouseRef.current.targetX = 0;
+      mouseRef.current.targetY = 0;
+      mouseRef.current.isHovering = false;
     };
 
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseleave', handleMouseLeave);
 
-    // Color palettes based on theme
-    const getColors = () => {
+    // Dynamic Vivid Color Palettes for High Visibility Light Theme
+    const getThemeConfig = () => {
       switch (theme) {
-        case 'vibrant':
+        case 'supernova':
+        case 'champagne-gold':
           return {
-            bg: 'transparent',
-            shapes: ['#F59E0B', '#10B981', '#6366F1', '#EC4899', '#3B82F6', '#F97316'],
-            wires: ['rgba(245, 158, 11, 0.7)', 'rgba(16, 185, 129, 0.7)', 'rgba(99, 102, 241, 0.7)', 'rgba(236, 72, 153, 0.7)'],
-            particles: ['#F59E0B', '#10B981', '#3B82F6', '#EC4899', '#8B5CF6'],
-            grid: 'rgba(217, 119, 6, 0.22)',
-            orbs: [
-              { color: 'rgba(251, 191, 36, 0.35)', glow: '#F59E0B' },
-              { color: 'rgba(52, 211, 153, 0.3)', glow: '#10B981' },
-              { color: 'rgba(129, 140, 248, 0.3)', glow: '#6366F1' },
-              { color: 'rgba(244, 114, 182, 0.28)', glow: '#EC4899' },
+            starColors: ['#D97706', '#F59E0B', '#B45309', '#EA580C', '#4F46E5', '#0284C7', '#7C3AED'],
+            constellationColor: 'rgba(217, 119, 6, 0.42)',
+            rayHead: '#D97706',
+            rayTail: 'rgba(245, 158, 11, 0.7)',
+            shapeColors: ['#D97706', '#F59E0B', '#4F46E5', '#EA580C', '#059669'],
+            waveGradients: [
+              { top: 'rgba(254, 215, 170, 0.55)', bottom: 'rgba(253, 186, 116, 0.15)' },
+              { top: 'rgba(254, 243, 199, 0.65)', bottom: 'rgba(253, 230, 138, 0.2)' },
+              { top: 'rgba(224, 231, 255, 0.5)', bottom: 'rgba(199, 210, 254, 0.15)' },
             ],
           };
+        case 'nebula-galaxy':
+        case 'rose-quartz':
+          return {
+            starColors: ['#E11D48', '#DB2777', '#9333EA', '#7C3AED', '#2563EB', '#F59E0B'],
+            constellationColor: 'rgba(225, 29, 72, 0.42)',
+            rayHead: '#E11D48',
+            rayTail: 'rgba(219, 39, 119, 0.7)',
+            shapeColors: ['#E11D48', '#9333EA', '#2563EB', '#DB2777', '#F59E0B'],
+            waveGradients: [
+              { top: 'rgba(251, 207, 232, 0.55)', bottom: 'rgba(244, 114, 182, 0.15)' },
+              { top: 'rgba(243, 232, 255, 0.6)', bottom: 'rgba(216, 180, 254, 0.2)' },
+              { top: 'rgba(224, 231, 255, 0.5)', bottom: 'rgba(199, 210, 254, 0.15)' },
+            ],
+          };
+        case 'aurora-borealis':
+          return {
+            starColors: ['#059669', '#0D9488', '#0284C7', '#4F46E5', '#10B981', '#F59E0B'],
+            constellationColor: 'rgba(13, 148, 136, 0.42)',
+            rayHead: '#0D9488',
+            rayTail: 'rgba(5, 150, 105, 0.7)',
+            shapeColors: ['#059669', '#0284C7', '#4F46E5', '#0D9488', '#D97706'],
+            waveGradients: [
+              { top: 'rgba(167, 243, 208, 0.55)', bottom: 'rgba(110, 231, 183, 0.15)' },
+              { top: 'rgba(186, 230, 253, 0.6)', bottom: 'rgba(125, 211, 252, 0.2)' },
+              { top: 'rgba(204, 251, 241, 0.5)', bottom: 'rgba(153, 246, 228, 0.15)' },
+            ],
+          };
+        case 'constellation':
+        case 'cyber-warp':
+          return {
+            starColors: ['#2563EB', '#4F46E5', '#7C3AED', '#0284C7', '#06B6D4', '#E11D48'],
+            constellationColor: 'rgba(37, 99, 235, 0.45)',
+            rayHead: '#2563EB',
+            rayTail: 'rgba(79, 70, 229, 0.7)',
+            shapeColors: ['#2563EB', '#7C3AED', '#0284C7', '#4F46E5', '#E11D48'],
+            waveGradients: [
+              { top: 'rgba(199, 210, 254, 0.55)', bottom: 'rgba(165, 180, 252, 0.15)' },
+              { top: 'rgba(186, 230, 253, 0.6)', bottom: 'rgba(125, 211, 252, 0.2)' },
+              { top: 'rgba(238, 242, 255, 0.5)', bottom: 'rgba(224, 231, 255, 0.15)' },
+            ],
+          };
+        case 'deep-cosmos':
+        case 'pearl-diamond':
         case 'luxury':
-          return {
-            bg: 'transparent',
-            shapes: ['#D97706', '#F59E0B', '#B45309', '#FBBF24', '#78350F'],
-            wires: ['rgba(245, 158, 11, 0.8)', 'rgba(217, 119, 6, 0.8)', 'rgba(251, 191, 36, 0.7)'],
-            particles: ['#FCD34D', '#F59E0B', '#D97706'],
-            grid: 'rgba(217, 119, 6, 0.25)',
-            orbs: [
-              { color: 'rgba(217, 119, 6, 0.35)', glow: '#D97706' },
-              { color: 'rgba(245, 158, 11, 0.3)', glow: '#F59E0B' },
-              { color: 'rgba(180, 83, 9, 0.25)', glow: '#B45309' },
-            ],
-          };
-        case 'grid':
-          return {
-            bg: 'transparent',
-            shapes: ['#0284C7', '#0EA5E9', '#38BDF8', '#64748B'],
-            wires: ['rgba(2, 132, 199, 0.7)', 'rgba(14, 165, 233, 0.7)'],
-            particles: ['#0284C7', '#0EA5E9', '#38BDF8'],
-            grid: 'rgba(2, 132, 199, 0.3)',
-            orbs: [
-              { color: 'rgba(14, 165, 233, 0.3)', glow: '#0EA5E9' },
-              { color: 'rgba(56, 189, 248, 0.25)', glow: '#38BDF8' },
-            ],
-          };
-        case 'geometric':
+        case 'minimal':
         default:
           return {
-            bg: 'transparent',
-            shapes: ['#D97706', '#B45309', '#F59E0B', '#78716C', '#10B981'],
-            wires: ['rgba(217, 119, 6, 0.65)', 'rgba(16, 185, 129, 0.65)', 'rgba(99, 102, 241, 0.6)'],
-            particles: ['#D97706', '#F59E0B', '#10B981'],
-            grid: 'rgba(180, 160, 140, 0.25)',
-            orbs: [
-              { color: 'rgba(251, 191, 36, 0.32)', glow: '#F59E0B' },
-              { color: 'rgba(52, 211, 153, 0.25)', glow: '#10B981' },
+            starColors: ['#4F46E5', '#D97706', '#0284C7', '#E11D48', '#7C3AED', '#059669'],
+            constellationColor: 'rgba(79, 70, 229, 0.42)',
+            rayHead: '#4F46E5',
+            rayTail: 'rgba(99, 102, 241, 0.7)',
+            shapeColors: ['#4F46E5', '#D97706', '#0284C7', '#7C3AED', '#E11D48'],
+            waveGradients: [
+              { top: 'rgba(224, 231, 255, 0.65)', bottom: 'rgba(199, 210, 254, 0.2)' },
+              { top: 'rgba(254, 243, 199, 0.65)', bottom: 'rgba(253, 230, 138, 0.2)' },
+              { top: 'rgba(251, 207, 232, 0.5)', bottom: 'rgba(244, 114, 182, 0.15)' },
             ],
           };
       }
     };
 
-    const colors = getColors();
+    const cfg = getThemeConfig();
 
-    // 1. Moving 3D Fluid Liquid Orbs
-    const orbs: FloatingOrb3D[] = colors.orbs.map((o) => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      radius: Math.min(width, height) * 0.35 + Math.random() * 80,
-      vx: (Math.random() - 0.5) * 0.8,
-      vy: (Math.random() - 0.5) * 0.8,
-      color: o.color,
-      glow: o.glow,
-    }));
+    // =========================================================================
+    // 1. Vivid Crystal Starfield
+    // =========================================================================
+    const starCount = intensity === 'vivid' ? 220 : intensity === 'medium' ? 150 : 80;
+    const stars: Star[] = [];
 
-    // 2. Dynamic Floating 3D Polyhedra
-    const shapes: Shape3D[] = [];
-    const shapeTypes: Shape3D['type'][] = ['cube', 'octahedron', 'tetrahedron', 'diamond'];
-    const count = 10;
+    for (let i = 0; i < starCount; i++) {
+      const z = Math.random() * 800 + 30;
+      const spread = 1000;
+      const color = cfg.starColors[Math.floor(Math.random() * cfg.starColors.length)];
+      const hasSpikes = Math.random() < 0.24 && z < 550;
 
-    for (let i = 0; i < count; i++) {
-      shapes.push({
-        type: shapeTypes[i % shapeTypes.length],
-        pos: {
-          x: (Math.random() - 0.5) * width * 1.3,
-          y: (Math.random() - 0.5) * height * 1.3,
-          z: Math.random() * 500 + 150,
-        },
-        rot: {
-          x: Math.random() * Math.PI * 2,
-          y: Math.random() * Math.PI * 2,
-          z: Math.random() * Math.PI * 2,
-        },
-        rotSpeed: {
-          x: (Math.random() - 0.5) * 0.02,
-          y: (Math.random() - 0.5) * 0.02,
-          z: (Math.random() - 0.5) * 0.015,
-        },
-        velocity: {
-          x: (Math.random() - 0.5) * 0.7,
-          y: (Math.random() - 0.5) * 0.7,
-          z: (Math.random() - 0.5) * 0.3,
-        },
-        size: Math.random() * 55 + 50,
-        color: colors.shapes[i % colors.shapes.length],
-        wireColor: colors.wires[i % colors.wires.length],
-        fillOpacity: 0.32,
+      stars.push({
+        x: (Math.random() - 0.5) * spread * 2,
+        y: (Math.random() - 0.5) * spread * 2,
+        z,
+        baseSize: hasSpikes ? Math.random() * 3.0 + 2.2 : Math.random() * 2.2 + 1.2,
+        twinkleSpeed: Math.random() * 0.04 + 0.02,
+        twinklePhase: Math.random() * Math.PI * 2,
+        color,
+        hasSpikes,
+        pulseSize: Math.random() * 0.8 + 0.5,
       });
     }
 
-    // 3. 3D Particles
-    const particles: Particle3D[] = [];
-    const particleCount = 50;
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: (Math.random() - 0.5) * width * 1.5,
-        y: (Math.random() - 0.5) * height * 1.5,
-        z: Math.random() * 700 + 100,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
-        vz: (Math.random() - 0.5) * 0.4,
-        size: Math.random() * 3.5 + 2,
-        color: colors.particles[i % colors.particles.length],
+    // =========================================================================
+    // 2. Floating 3D Wireframe Polyhedra / Geometric Jewels
+    // =========================================================================
+    const polyhedra: Polyhedron3D[] = [];
+    const shapeTypes: ('octahedron' | 'diamond' | 'icosahedron' | 'ring')[] = [
+      'octahedron',
+      'diamond',
+      'icosahedron',
+      'ring',
+      'diamond',
+      'octahedron',
+      'icosahedron',
+      'diamond',
+    ];
+
+    for (let i = 0; i < shapeTypes.length; i++) {
+      const col = cfg.shapeColors[i % cfg.shapeColors.length];
+      polyhedra.push({
+        x: (Math.random() - 0.5) * 1100,
+        y: (Math.random() - 0.5) * 800,
+        z: Math.random() * 500 + 150,
+        rx: Math.random() * Math.PI * 2,
+        ry: Math.random() * Math.PI * 2,
+        rz: Math.random() * Math.PI * 2,
+        dx: (Math.random() - 0.5) * 0.4,
+        dy: (Math.random() - 0.5) * 0.4,
+        rotSpeedX: (Math.random() - 0.5) * 0.018 + 0.008,
+        rotSpeedY: (Math.random() - 0.5) * 0.018 + 0.008,
+        rotSpeedZ: (Math.random() - 0.5) * 0.015,
+        radius: Math.random() * 35 + 28,
+        type: shapeTypes[i],
+        color: col,
+        glowColor: col,
       });
     }
 
-    // 3D Geometry
-    const getVertices = (type: Shape3D['type'], s: number): Point3D[] => {
-      if (type === 'cube') {
-        const d = s / 2;
-        return [
-          { x: -d, y: -d, z: -d },
-          { x: d, y: -d, z: -d },
-          { x: d, y: d, z: -d },
-          { x: -d, y: d, z: -d },
-          { x: -d, y: -d, z: d },
-          { x: d, y: -d, z: d },
-          { x: d, y: d, z: d },
-          { x: -d, y: d, z: d },
-        ];
-      } else if (type === 'octahedron') {
-        return [
-          { x: 0, y: -s * 1.1, z: 0 },
-          { x: s, y: 0, z: 0 },
-          { x: 0, y: 0, z: s },
-          { x: -s, y: 0, z: 0 },
-          { x: 0, y: 0, z: -s },
-          { x: 0, y: s * 1.1, z: 0 },
-        ];
-      } else if (type === 'diamond') {
-        const a = s * 0.9;
-        const b = s * 1.3;
-        return [
-          { x: 0, y: -b, z: 0 },
-          { x: a, y: 0, z: a },
-          { x: -a, y: 0, z: a },
-          { x: -a, y: 0, z: -a },
-          { x: a, y: 0, z: -a },
-          { x: 0, y: b, z: 0 },
-        ];
-      } else {
-        // tetrahedron
-        const a = s * 1.15;
-        return [
-          { x: a, y: a, z: a },
-          { x: -a, y: -a, z: a },
-          { x: -a, y: a, z: -a },
-          { x: a, y: -a, z: -a },
-        ];
-      }
+    // =========================================================================
+    // 3. Shooting Light Rays Pool
+    // =========================================================================
+    const shootingRays: ShootingRay[] = [];
+
+    const createRay = (): ShootingRay => {
+      const angle = Math.PI / 4 + (Math.random() - 0.5) * 0.35;
+      const rayCol = cfg.starColors[Math.floor(Math.random() * cfg.starColors.length)];
+      return {
+        x: Math.random() * (width * 0.85) - 100,
+        y: Math.random() * (height * 0.45) - 100,
+        length: Math.random() * 160 + 110,
+        speed: Math.random() * 14 + 10,
+        angle,
+        opacity: Math.random() * 0.5 + 0.5,
+        color: rayCol,
+        tailColor: rayCol,
+        size: Math.random() * 2.2 + 1.4,
+        active: true,
+      };
     };
 
-    const getFaces = (type: Shape3D['type']): number[][] => {
-      if (type === 'cube') {
-        return [
-          [0, 1, 2, 3],
-          [4, 5, 6, 7],
-          [0, 1, 5, 4],
-          [2, 3, 7, 6],
-          [0, 3, 7, 4],
-          [1, 2, 6, 5],
-        ];
-      } else if (type === 'octahedron') {
-        return [
-          [0, 1, 2],
-          [0, 2, 3],
-          [0, 3, 4],
-          [0, 4, 1],
-          [5, 2, 1],
-          [5, 3, 2],
-          [5, 4, 3],
-          [5, 1, 4],
-        ];
-      } else if (type === 'diamond') {
-        return [
-          [0, 1, 2],
-          [0, 2, 3],
-          [0, 3, 4],
-          [0, 4, 1],
-          [5, 2, 1],
-          [5, 3, 2],
-          [5, 4, 3],
-          [5, 1, 4],
-        ];
-      } else {
-        return [
-          [0, 1, 2],
-          [0, 2, 3],
-          [0, 3, 1],
-          [1, 3, 2],
-        ];
-      }
-    };
-
-    const fov = 480;
-    const project = (p: Point3D, cx: number, cy: number) => {
-      const z = p.z <= 0 ? 0.01 : p.z;
-      const scale = fov / (fov + z);
+    // 3D Perspective Projection
+    const fov = 440;
+    const project = (p: { x: number; y: number; z: number }, cx: number, cy: number) => {
+      const scale = fov / (fov + Math.max(10, p.z));
       return {
         x: p.x * scale + cx,
         y: p.y * scale + cy,
         scale,
-        z,
       };
     };
 
-    const rotate = (p: Point3D, rot: Point3D): Point3D => {
-      const cosX = Math.cos(rot.x);
-      const sinX = Math.sin(rot.x);
-      const y1 = p.y * cosX - p.z * sinX;
-      const z1 = p.y * sinX + p.z * cosX;
-
-      const cosY = Math.cos(rot.y);
-      const sinY = Math.sin(rot.y);
-      const x2 = p.x * cosY + z1 * sinY;
-      const z2 = -p.x * sinY + z1 * cosY;
-
-      const cosZ = Math.cos(rot.z);
-      const sinZ = Math.sin(rot.z);
-      const x3 = x2 * cosZ - y1 * sinZ;
-      const y3 = x2 * sinZ + y1 * cosZ;
+    // 3D Point Rotation
+    const rotate3D = (
+      p: { x: number; y: number; z: number },
+      rx: number,
+      ry: number,
+      rz: number
+    ) => {
+      // Rotate X
+      let y1 = p.y * Math.cos(rx) - p.z * Math.sin(rx);
+      let z1 = p.y * Math.sin(rx) + p.z * Math.cos(rx);
+      // Rotate Y
+      let x2 = p.x * Math.cos(ry) + z1 * Math.sin(ry);
+      let z2 = -p.x * Math.sin(ry) + z1 * Math.cos(ry);
+      // Rotate Z
+      let x3 = x2 * Math.cos(rz) - y1 * Math.sin(rz);
+      let y3 = x2 * Math.sin(rz) + y1 * Math.cos(rz);
 
       return { x: x3, y: y3, z: z2 };
     };
 
+    // Draw 4-point Diamond Star Diffraction Flare
+    const drawStarSpikes = (
+      x: number,
+      y: number,
+      radius: number,
+      color: string,
+      alpha: number,
+      angle: number
+    ) => {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+      ctx.globalAlpha = Math.min(1, alpha);
+
+      const spikeLen = radius * 4.8;
+      const spikeWidth = radius * 0.42;
+
+      // Vertical Spike
+      const gradV = ctx.createLinearGradient(0, -spikeLen, 0, spikeLen);
+      gradV.addColorStop(0, 'transparent');
+      gradV.addColorStop(0.5, color);
+      gradV.addColorStop(1, 'transparent');
+
+      ctx.fillStyle = gradV;
+      ctx.beginPath();
+      ctx.moveTo(0, -spikeLen);
+      ctx.lineTo(spikeWidth, 0);
+      ctx.lineTo(0, spikeLen);
+      ctx.lineTo(-spikeWidth, 0);
+      ctx.closePath();
+      ctx.fill();
+
+      // Horizontal Spike
+      const gradH = ctx.createLinearGradient(-spikeLen, 0, spikeLen, 0);
+      gradH.addColorStop(0, 'transparent');
+      gradH.addColorStop(0.5, color);
+      gradH.addColorStop(1, 'transparent');
+
+      ctx.fillStyle = gradH;
+      ctx.beginPath();
+      ctx.moveTo(-spikeLen, 0);
+      ctx.lineTo(0, spikeWidth);
+      ctx.lineTo(spikeLen, 0);
+      ctx.lineTo(0, -spikeWidth);
+      ctx.closePath();
+      ctx.fill();
+
+      // Central Bright Core
+      ctx.beginPath();
+      ctx.arc(0, 0, radius * 0.9, 0, Math.PI * 2);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fill();
+
+      ctx.restore();
+    };
+
+    // Draw 3D Polyhedron Wireframe
+    const drawPolyhedron = (poly: Polyhedron3D, cx: number, cy: number) => {
+      let vertices: { x: number; y: number; z: number }[] = [];
+      let edges: [number, number][] = [];
+
+      const r = poly.radius;
+
+      if (poly.type === 'octahedron') {
+        vertices = [
+          { x: 0, y: -r * 1.3, z: 0 },
+          { x: 0, y: r * 1.3, z: 0 },
+          { x: -r, y: 0, z: 0 },
+          { x: r, y: 0, z: 0 },
+          { x: 0, y: 0, z: -r },
+          { x: 0, y: 0, z: r },
+        ];
+        edges = [
+          [0, 2], [0, 3], [0, 4], [0, 5],
+          [1, 2], [1, 3], [1, 4], [1, 5],
+          [2, 4], [4, 3], [3, 5], [5, 2],
+        ];
+      } else if (poly.type === 'diamond') {
+        vertices = [
+          { x: 0, y: -r * 1.4, z: 0 },
+          { x: -r * 0.8, y: -r * 0.3, z: -r * 0.8 },
+          { x: r * 0.8, y: -r * 0.3, z: -r * 0.8 },
+          { x: r * 0.8, y: -r * 0.3, z: r * 0.8 },
+          { x: -r * 0.8, y: -r * 0.3, z: r * 0.8 },
+          { x: 0, y: r * 1.4, z: 0 },
+        ];
+        edges = [
+          [0, 1], [0, 2], [0, 3], [0, 4],
+          [1, 2], [2, 3], [3, 4], [4, 1],
+          [5, 1], [5, 2], [5, 3], [5, 4],
+        ];
+      } else if (poly.type === 'ring') {
+        const segs = 10;
+        for (let i = 0; i < segs; i++) {
+          const ang = (i / segs) * Math.PI * 2;
+          vertices.push({ x: Math.cos(ang) * r, y: Math.sin(ang) * r, z: 0 });
+        }
+        for (let i = 0; i < segs; i++) {
+          edges.push([i, (i + 1) % segs]);
+        }
+      } else {
+        // Icosahedron approximation / Golden Prism
+        const phi = (1 + Math.sqrt(5)) / 2;
+        const a = r * 0.6;
+        const b = r * 0.6 * phi;
+        vertices = [
+          { x: -a, y: b, z: 0 }, { x: a, y: b, z: 0 }, { x: -a, y: -b, z: 0 }, { x: a, y: -b, z: 0 },
+          { x: 0, y: -a, z: b }, { x: 0, y: a, z: b }, { x: 0, y: -a, z: -b }, { x: 0, y: a, z: -b },
+          { x: b, y: 0, z: -a }, { x: b, y: 0, z: a }, { x: -b, y: 0, z: -a }, { x: -b, y: 0, z: a },
+        ];
+        edges = [
+          [0, 11], [0, 5], [0, 1], [0, 7], [0, 10],
+          [1, 5], [5, 11], [11, 10], [10, 7], [7, 1],
+          [3, 9], [3, 4], [3, 2], [3, 6], [3, 8],
+          [2, 4], [4, 9], [9, 8], [8, 6], [6, 2],
+          [5, 9], [11, 4], [10, 2], [7, 6], [1, 8],
+        ];
+      }
+
+      // Rotate and Project All Vertices
+      const projected = vertices.map((v) => {
+        const rot = rotate3D(v, poly.rx, poly.ry, poly.rz);
+        const pWorld = {
+          x: poly.x + rot.x + mouseRef.current.x * (800 - poly.z) * 0.08,
+          y: poly.y + rot.y + mouseRef.current.y * (800 - poly.z) * 0.08,
+          z: poly.z + rot.z,
+        };
+        return project(pWorld, cx, cy);
+      });
+
+      const alpha = Math.max(0.2, (1 - poly.z / 800)) * 0.85;
+
+      // Draw Edges with Crisp Glowing Strokes
+      ctx.save();
+      ctx.lineWidth = 1.4;
+      ctx.strokeStyle = poly.color;
+      ctx.globalAlpha = alpha;
+      ctx.shadowColor = poly.glowColor;
+      ctx.shadowBlur = 6;
+
+      edges.forEach(([i, j]) => {
+        const p1 = projected[i];
+        const p2 = projected[j];
+        if (p1 && p2) {
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.stroke();
+        }
+      });
+
+      // Draw Vertex Corner Sparkles
+      projected.forEach((p) => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2.2 * p.scale, 0, Math.PI * 2);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fill();
+      });
+
+      ctx.restore();
+    };
+
     let time = 0;
+    let nextRayTime = 45;
 
-    // Continuous 60fps Animation Loop
+    // =========================================================================
+    // High FPS Bold Light Design Engine Loop
+    // =========================================================================
     const render = () => {
-      time += 0.02;
+      time += 0.016;
 
-      // Mouse easing
       mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.06;
       mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.06;
 
       ctx.clearRect(0, 0, width, height);
 
       const cx = width / 2 + mouseRef.current.x * 50;
-      const cy = height / 2 + mouseRef.current.y * 35;
+      const cy = height / 2 + mouseRef.current.y * 40;
 
-      // =========================================================================
-      // 1. Moving 3D Fluid Ambient Plasma Orbs
-      // =========================================================================
-      orbs.forEach((orb) => {
-        orb.x += orb.vx;
-        orb.y += orb.vy;
-
-        // Bounce smoothly off boundaries
-        if (orb.x < -100 || orb.x > width + 100) orb.vx *= -1;
-        if (orb.y < -100 || orb.y > height + 100) orb.vy *= -1;
-
-        const radial = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.radius);
-        radial.addColorStop(0, orb.color);
-        radial.addColorStop(0.6, orb.color.replace(/[\d.]+\)$/, '0.15)'));
-        radial.addColorStop(1, 'transparent');
-
-        ctx.fillStyle = radial;
+      // -----------------------------------------------------------------------
+      // A. Vivid Fluid Chromatic Liquid Silk Waves
+      // -----------------------------------------------------------------------
+      const drawSilkWave = (
+        yOffset: number,
+        amplitude: number,
+        frequency: number,
+        phase: number,
+        gradColors: { top: string; bottom: string }
+      ) => {
+        ctx.save();
         ctx.beginPath();
-        ctx.arc(orb.x, orb.y, orb.radius, 0, Math.PI * 2);
-        ctx.fill();
-      });
+        ctx.moveTo(0, height);
 
-      // =========================================================================
-      // 2. Animated 3D Floating Wave Ribbons
-      // =========================================================================
-      ctx.save();
-      ctx.lineWidth = 1.5;
-      const wavePoints = 12;
-      const waveSpacing = width / wavePoints;
-
-      for (let w = 0; w < 3; w++) {
-        ctx.strokeStyle = colors.wires[w % colors.wires.length];
-        ctx.beginPath();
-        for (let i = 0; i <= wavePoints; i++) {
-          const wx = i * waveSpacing;
-          const wy = height * (0.3 + w * 0.25) + Math.sin(time + i * 0.5 + w) * 35 + mouseRef.current.y * 20;
-          if (i === 0) ctx.moveTo(wx, wy);
-          else ctx.lineTo(wx, wy);
+        for (let x = 0; x <= width; x += 20) {
+          const y =
+            yOffset +
+            Math.sin(x * frequency + time * 0.7 + phase) * amplitude +
+            Math.cos(x * (frequency * 0.6) + time * 0.5) * (amplitude * 0.6) +
+            mouseRef.current.y * 35;
+          ctx.lineTo(x, y);
         }
-        ctx.stroke();
+
+        ctx.lineTo(width, height);
+        ctx.closePath();
+
+        const grad = ctx.createLinearGradient(0, yOffset - amplitude, 0, height);
+        grad.addColorStop(0, gradColors.top);
+        grad.addColorStop(1, gradColors.bottom);
+
+        ctx.fillStyle = grad;
+        ctx.fill();
+        ctx.restore();
+      };
+
+      drawSilkWave(height * 0.48, 60, 0.0016, 0, cfg.waveGradients[0]);
+      drawSilkWave(height * 0.64, 70, 0.0013, 2.4, cfg.waveGradients[1]);
+      drawSilkWave(height * 0.78, 50, 0.002, 4.8, cfg.waveGradients[2]);
+
+      // -----------------------------------------------------------------------
+      // B. Floating 3D Rotating Geometric Jewels
+      // -----------------------------------------------------------------------
+      if (showCelestialShapes) {
+        polyhedra.forEach((poly) => {
+          poly.rx += poly.rotSpeedX;
+          poly.ry += poly.rotSpeedY;
+          poly.rz += poly.rotSpeedZ;
+          poly.x += poly.dx;
+          poly.y += poly.dy;
+
+          if (poly.x > 600) poly.x = -600;
+          if (poly.x < -600) poly.x = 600;
+          if (poly.y > 450) poly.y = -450;
+          if (poly.y < -450) poly.y = 450;
+
+          drawPolyhedron(poly, cx, cy);
+        });
       }
-      ctx.restore();
 
-      // =========================================================================
-      // 3. 3D Moving Perspective Ground Grid
-      // =========================================================================
-      const gridDepth = 750;
-      const horizonY = height * 0.78 + mouseRef.current.y * 45;
+      // -----------------------------------------------------------------------
+      // C. Twinkling Crystal Stars & 4-Point Flares
+      // -----------------------------------------------------------------------
+      const projectedStars: { x: number; y: number; z: number; star: Star; alpha: number }[] = [];
 
-      ctx.save();
-      for (let z = 80; z < gridDepth; z += 55) {
-        const p1 = project({ x: -width * 1.2, y: 380, z }, cx, horizonY);
-        const p2 = project({ x: width * 1.2, y: 380, z }, cx, horizonY);
-        const alpha = Math.max(0, 1 - z / gridDepth) * 0.45;
-        ctx.strokeStyle = colors.grid.replace(/[\d.]+\)$/, `${alpha})`);
-        ctx.beginPath();
-        ctx.moveTo(p1.x, p1.y);
-        ctx.lineTo(p2.x, p2.y);
-        ctx.stroke();
-      }
+      stars.forEach((star) => {
+        star.z -= 0.35;
+        if (star.z < 30) star.z = 800;
 
-      for (let i = -12; i <= 12; i++) {
-        const pNear = project({ x: i * 90, y: 380, z: 80 }, cx, horizonY);
-        const pFar = project({ x: i * 45, y: 380, z: gridDepth }, cx, horizonY);
-        ctx.strokeStyle = colors.grid;
-        ctx.beginPath();
-        ctx.moveTo(pNear.x, pNear.y);
-        ctx.lineTo(pFar.x, pFar.y);
-        ctx.stroke();
-      }
-      ctx.restore();
+        const proj = project(
+          {
+            x: star.x + mouseRef.current.x * (800 - star.z) * 0.08,
+            y: star.y + mouseRef.current.y * (800 - star.z) * 0.08,
+            z: star.z,
+          },
+          cx,
+          cy
+        );
 
-      // =========================================================================
-      // 4. Moving 3D Particle Constellation
-      // =========================================================================
-      particles.forEach((p, idx) => {
-        p.x += p.vx + mouseRef.current.x * 0.7;
-        p.y += p.vy + mouseRef.current.y * 0.7;
-        p.z += p.vz;
+        if (proj.x >= -60 && proj.x <= width + 60 && proj.y >= -60 && proj.y <= height + 60) {
+          const twinkle =
+            Math.sin(time * star.twinkleSpeed * 60 + star.twinklePhase) * 0.4 + 0.6;
+          const depthAlpha = Math.max(0.35, 1 - star.z / 800);
+          const finalAlpha = twinkle * depthAlpha;
+          const currentSize = star.baseSize * proj.scale * (1 + twinkle * star.pulseSize * 0.4);
 
-        if (p.z < 50) p.z = 750;
-        if (p.z > 750) p.z = 50;
-        if (p.x < -width) p.x = width;
-        if (p.x > width) p.x = -width;
-        if (p.y < -height) p.y = height;
-        if (p.y > height) p.y = -height;
+          projectedStars.push({
+            x: proj.x,
+            y: proj.y,
+            z: star.z,
+            star,
+            alpha: finalAlpha,
+          });
 
-        const proj = project(p, cx, cy);
-        if (proj.x >= 0 && proj.x <= width && proj.y >= 0 && proj.y <= height) {
-          const alpha = Math.max(0, 1 - p.z / 750) * 0.85;
+          // Glow Halo
           ctx.beginPath();
-          ctx.arc(proj.x, proj.y, p.size * proj.scale * 1.6, 0, Math.PI * 2);
-          ctx.fillStyle = p.color;
-          ctx.globalAlpha = alpha;
-          ctx.shadowBlur = 10;
-          ctx.shadowColor = p.color;
+          ctx.arc(proj.x, proj.y, Math.max(1.2, currentSize * 1.5), 0, Math.PI * 2);
+          ctx.fillStyle = star.color;
+          ctx.globalAlpha = finalAlpha * 0.35;
+          ctx.fill();
+
+          // Star Point Core
+          ctx.beginPath();
+          ctx.arc(proj.x, proj.y, Math.max(0.9, currentSize), 0, Math.PI * 2);
+          ctx.fillStyle = star.color;
+          ctx.globalAlpha = Math.min(1, finalAlpha * 1.2);
+          ctx.shadowBlur = star.hasSpikes ? 10 : 4;
+          ctx.shadowColor = star.color;
           ctx.fill();
           ctx.shadowBlur = 0;
           ctx.globalAlpha = 1;
 
-          // Connect adjacent particles with fine lines
-          const next = particles[(idx + 1) % particles.length];
-          const nextProj = project(next, cx, cy);
-          const dist = Math.hypot(proj.x - nextProj.x, proj.y - nextProj.y);
-          if (dist < 120) {
-            ctx.beginPath();
-            ctx.moveTo(proj.x, proj.y);
-            ctx.lineTo(nextProj.x, nextProj.y);
-            ctx.strokeStyle = p.color;
-            ctx.globalAlpha = (1 - dist / 120) * 0.3;
-            ctx.stroke();
-            ctx.globalAlpha = 1;
+          if (star.hasSpikes && finalAlpha > 0.35) {
+            drawStarSpikes(
+              proj.x,
+              proj.y,
+              currentSize * 1.5,
+              star.color,
+              finalAlpha,
+              time * 0.09 + star.twinklePhase
+            );
           }
         }
       });
 
-      // =========================================================================
-      // 5. Moving & Rotating 3D Polyhedrons with Specular Depth
-      // =========================================================================
-      shapes.forEach((shape) => {
-        // Continuous moving drift across screen
-        shape.pos.x += shape.velocity.x;
-        shape.pos.y += shape.velocity.y + Math.sin(time + shape.pos.x * 0.01) * 0.6;
-        shape.pos.z += shape.velocity.z;
+      // -----------------------------------------------------------------------
+      // D. Interactive Stardust Constellation Network & Cursor Gravitation
+      // -----------------------------------------------------------------------
+      if (showConstellations) {
+        const mouseX = width / 2 + mouseRef.current.x * (width / 2);
+        const mouseY = height / 2 + mouseRef.current.y * (height / 2);
 
-        // Wrap around bounds
-        if (shape.pos.x < -width * 0.8) shape.pos.x = width * 0.8;
-        if (shape.pos.x > width * 0.8) shape.pos.x = -width * 0.8;
-        if (shape.pos.y < -height * 0.8) shape.pos.y = height * 0.8;
-        if (shape.pos.y > height * 0.8) shape.pos.y = -height * 0.8;
+        for (let i = 0; i < projectedStars.length; i++) {
+          const p1 = projectedStars[i];
 
-        // Update rotation
-        shape.rot.x += shape.rotSpeed.x;
-        shape.rot.y += shape.rotSpeed.y;
-        shape.rot.z += shape.rotSpeed.z;
+          for (let j = i + 1; j < Math.min(i + 8, projectedStars.length); j++) {
+            const p2 = projectedStars[j];
+            const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+            const zDiff = Math.abs(p1.z - p2.z);
 
-        const vertices = getVertices(shape.type, shape.size);
-        const faces = getFaces(shape.type);
+            if (dist < 110 && zDiff < 220) {
+              const lineAlpha = (1 - dist / 110) * Math.min(p1.alpha, p2.alpha) * 0.48;
+              ctx.beginPath();
+              ctx.moveTo(p1.x, p1.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.strokeStyle = cfg.constellationColor;
+              ctx.globalAlpha = lineAlpha;
+              ctx.lineWidth = 1.1;
+              ctx.stroke();
+              ctx.globalAlpha = 1;
+            }
+          }
 
-        const worldVertices = vertices.map((v) => {
-          const rotated = rotate(v, shape.rot);
-          return {
-            x: rotated.x + shape.pos.x,
-            y: rotated.y + shape.pos.y,
-            z: rotated.z + shape.pos.z,
-          };
-        });
+          if (mouseRef.current.isHovering) {
+            const mouseDist = Math.hypot(p1.x - mouseX, p1.y - mouseY);
+            if (mouseDist < 140) {
+              const mouseAlpha = (1 - mouseDist / 140) * 0.65;
+              ctx.beginPath();
+              ctx.moveTo(p1.x, p1.y);
+              ctx.lineTo(mouseX, mouseY);
+              ctx.strokeStyle = cfg.constellationColor;
+              ctx.globalAlpha = mouseAlpha;
+              ctx.lineWidth = 1.3;
+              ctx.stroke();
+              ctx.globalAlpha = 1;
+            }
+          }
+        }
 
-        const faceData = faces.map((faceIndices) => {
-          const faceVertices = faceIndices.map((idx) => worldVertices[idx]);
-          const avgZ = faceVertices.reduce((sum, v) => sum + v.z, 0) / faceVertices.length;
-          return {
-            indices: faceIndices,
-            avgZ,
-            projected: faceVertices.map((v) => project(v, cx, cy)),
-          };
-        });
-
-        // Depth sorting
-        faceData.sort((a, b) => b.avgZ - a.avgZ);
-
-        // Render faces
-        faceData.forEach((face) => {
+        // Pulsing Cursor Aura
+        if (mouseRef.current.isHovering) {
+          ctx.save();
           ctx.beginPath();
-          face.projected.forEach((p, idx) => {
-            if (idx === 0) ctx.moveTo(p.x, p.y);
-            else ctx.lineTo(p.x, p.y);
-          });
-          ctx.closePath();
-
-          // Shaded glass face
-          const depthAlpha = Math.max(0.08, 1 - face.avgZ / 950) * shape.fillOpacity;
-          ctx.fillStyle = shape.color;
-          ctx.globalAlpha = depthAlpha;
-          ctx.fill();
-
-          // Glowing wireframe borders
-          ctx.strokeStyle = shape.wireColor;
-          ctx.lineWidth = 1.8;
-          ctx.globalAlpha = Math.max(0.2, 1 - face.avgZ / 950) * 0.95;
+          ctx.arc(mouseX, mouseY, 18 + Math.sin(time * 4) * 4, 0, Math.PI * 2);
+          ctx.strokeStyle = cfg.constellationColor;
+          ctx.lineWidth = 1.5;
+          ctx.globalAlpha = 0.5;
           ctx.stroke();
-          ctx.globalAlpha = 1;
-        });
-      });
+          ctx.restore();
+        }
+      }
+
+      // -----------------------------------------------------------------------
+      // E. Shooting Light Rays
+      // -----------------------------------------------------------------------
+      if (showShootingStars) {
+        nextRayTime -= 1;
+        if (nextRayTime <= 0) {
+          shootingRays.push(createRay());
+          nextRayTime = Math.random() * 90 + 50;
+        }
+
+        for (let i = shootingRays.length - 1; i >= 0; i--) {
+          const m = shootingRays[i];
+          m.x += Math.cos(m.angle) * m.speed;
+          m.y += Math.sin(m.angle) * m.speed;
+          m.opacity -= 0.014;
+
+          if (m.opacity <= 0 || m.x > width + 200 || m.y > height + 200) {
+            shootingRays.splice(i, 1);
+            continue;
+          }
+
+          const tailX = m.x - Math.cos(m.angle) * m.length;
+          const tailY = m.y - Math.sin(m.angle) * m.length;
+
+          const rayGrad = ctx.createLinearGradient(tailX, tailY, m.x, m.y);
+          rayGrad.addColorStop(0, 'transparent');
+          rayGrad.addColorStop(0.7, m.tailColor);
+          rayGrad.addColorStop(1, '#FFFFFF');
+
+          ctx.save();
+          ctx.strokeStyle = rayGrad;
+          ctx.lineWidth = m.size;
+          ctx.lineCap = 'round';
+          ctx.globalAlpha = m.opacity;
+          ctx.beginPath();
+          ctx.moveTo(tailX, tailY);
+          ctx.lineTo(m.x, m.y);
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(m.x, m.y, m.size * 1.5, 0, Math.PI * 2);
+          ctx.fillStyle = m.color;
+          ctx.shadowBlur = 10;
+          ctx.shadowColor = m.color;
+          ctx.fill();
+          ctx.restore();
+        }
+      }
 
       animId = requestAnimationFrame(render);
     };
@@ -533,9 +730,10 @@ export const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseleave', handleMouseLeave);
       cancelAnimationFrame(animId);
     };
-  }, [theme, intensity]);
+  }, [theme, intensity, showShootingStars, showConstellations, showCelestialShapes]);
 
   return (
     <canvas
@@ -544,3 +742,4 @@ export const ThreeDBackground: React.FC<ThreeDBackgroundProps> = ({
     />
   );
 };
+
