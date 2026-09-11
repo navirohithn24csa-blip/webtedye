@@ -81,29 +81,29 @@ export const FabricsPage: React.FC = () => {
     {
       id: 'sf-cotton-poplin',
       name: 'Cotton Poplin',
-      image: '/fabric-cotton-poplin.png'
+      image: '/fabric-cotton-poplin.jpg'
     },
     {
       id: 'sf-oxford-cotton',
       name: 'Oxford Cotton',
-      image: '/fabric-oxford-cotton.png',
+      image: '/fabric-oxford-cotton.jpg',
       isTrending: true,
       badge: 'TRENDING'
     },
     {
       id: 'sf-linen',
       name: 'Linen',
-      image: '/fabric-linen.png'
+      image: '/fabric-linen.jpg'
     },
     {
       id: 'sf-cotton-linen-blend',
       name: 'Cotton Linen Blend',
-      image: '/fabric-cotton-linen-blend.png'
+      image: '/fabric-cotton-linen-blend.jpg'
     },
     {
       id: 'sf-satin-cotton',
       name: 'Satin Cotton',
-      image: '/fabric-satin-cotton.png'
+      image: '/fabric-satin-cotton.jpg'
     },
     {
       id: 'sf-denim-chambray',
