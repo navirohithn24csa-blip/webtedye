@@ -33,7 +33,7 @@ A complete, modern, responsive Shorts, Shirts & T-Shirts product catalog website
     6. Shipping
 
 * **Direct Channels (Contact Us)**:
-  * Dedicated representative sections for **UDHAYA DHARSAN** (`+91 97877 04111`) and **BALA SRI** (`+91 90877 04111` / `balasri3333@gmail.com`).
+  * Dedicated representative sections for **UDHAYA DHARSAN** (`+91 97877 04111` / `udhayadharsan.ss@gmail.com`) and **BALA SRI** (`+91 90877 04111` / `balasri3333@gmail.com`).
   * Direct one-click phone dial and WhatsApp chat links.
   * Interactive location map & business working hours.
 

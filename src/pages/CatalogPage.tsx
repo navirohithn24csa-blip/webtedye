@@ -20,7 +20,8 @@ const STYLE_MAP: Record<string, string> = {
   'regular-fit': 'Normal Fit',
   'tie-dye': 'Tie & Dye',
   'acid-wash': 'Acid Wash',
-  'plain': 'Plain',
+  'optic-wash': 'Optic Wash',
+  'plain': 'Optic Wash',
   'printed': 'Printed',
 };
 
@@ -31,23 +32,63 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ forcedCategory }) => {
 
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
-  // Parse category and style from URL
-  const { currentCategory, currentStyle, pageTitle, pageDescription } = useMemo(() => {
+  // Parse category, fit, and style from URL
+  const { currentCategory, currentFit, currentStyle, pageTitle, pageDescription } = useMemo(() => {
     const path = location.pathname;
+    const parts = path.split('/').filter(Boolean);
 
-    // Check nested collections route: /collections/shirts/oversized or /collections/tshirts/acid-wash
-    if (path.includes('/collections/shirts/') || path.includes('/collections/tshirts/')) {
-      const parts = path.split('/').filter(Boolean); // ['collections', 'shirts', 'oversized']
-      const cat = parts[1]; // 'shirts' or 'tshirts'
-      const st = parts[2]; // 'oversized', 'normal-fit', 'tie-dye', 'acid-wash', 'plain', 'printed'
-      const styleName = STYLE_MAP[st] || st.replace('-', ' ');
+    // Check nested collections route: /collections/shirts/... or /collections/tshirts/...
+    if (parts[0] === 'collections' && (parts[1] === 'shirts' || parts[1] === 'tshirts')) {
+      const cat = parts[1] as ProductCategory;
       const catName = cat === 'shirts' ? 'Shirts' : 'T-Shirts';
 
+      // 4 parts: /collections/:category/:fit/:style (e.g. /collections/shirts/oversized/tie-dye)
+      if (parts.length >= 4) {
+        const fitSlug = parts[2];
+        const styleSlug = parts[3];
+        const fitName = fitSlug.includes('oversized') || fitSlug.includes('baggy') ? 'Oversized (Baggy)' : 'Normal Fit';
+        const styleName = STYLE_MAP[styleSlug] || styleSlug.replace('-', ' ');
+
+        return {
+          currentCategory: cat,
+          currentFit: fitName,
+          currentStyle: styleName,
+          pageTitle: `${fitName} ${styleName} ${catName}`,
+          pageDescription: `Explore our latest ${fitName} ${styleName} ${cat === 'shirts' ? 'Shirt' : 'T-Shirt'} collection.`
+        };
+      }
+
+      // 3 parts: /collections/:category/:fitOrStyle (e.g. /collections/shirts/oversized or /collections/shirts/tie-dye)
+      if (parts.length === 3) {
+        const seg = parts[2];
+        const isFit = seg === 'oversized' || seg === 'baggy' || seg === 'normal-fit' || seg === 'regular-fit';
+        if (isFit) {
+          const fitName = seg.includes('oversized') || seg.includes('baggy') ? 'Oversized (Baggy)' : 'Normal Fit';
+          return {
+            currentCategory: cat,
+            currentFit: fitName,
+            currentStyle: undefined,
+            pageTitle: `${fitName} ${catName}`,
+            pageDescription: `Explore our collection of ${fitName} ${catName}.`
+          };
+        } else {
+          const styleName = STYLE_MAP[seg] || seg.replace('-', ' ');
+          return {
+            currentCategory: cat,
+            currentFit: undefined,
+            currentStyle: styleName,
+            pageTitle: `${styleName} ${catName}`,
+            pageDescription: `Explore our latest ${styleName} ${cat === 'shirts' ? 'Shirt' : 'T-Shirt'} collection.`
+          };
+        }
+      }
+
       return {
-        currentCategory: cat as ProductCategory,
-        currentStyle: st,
-        pageTitle: `${styleName} ${catName}`,
-        pageDescription: `Explore our latest ${styleName} ${catName === 'Shirts' ? 'Shirt' : 'T-Shirt'} collection.`
+        currentCategory: cat,
+        currentFit: undefined,
+        currentStyle: undefined,
+        pageTitle: `${catName} Collection`,
+        pageDescription: `Explore our complete collection of Oversized (Baggy), Normal Fit, Tie & Dye, Acid Wash, Optic Wash, and Printed ${catName}.`
       };
     }
 
@@ -55,24 +96,27 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ forcedCategory }) => {
     if (path === '/collections/shirts' || routeCategory === 'shirts') {
       return {
         currentCategory: 'shirts' as ProductCategory,
+        currentFit: undefined,
         currentStyle: undefined,
         pageTitle: 'Shirts Collection',
-        pageDescription: 'Explore our complete collection of Oversized (Baggy), Normal Fit, Tie & Dye, Acid Wash, Plain, and Printed Shirts.'
+        pageDescription: 'Explore our complete collection of Oversized (Baggy), Normal Fit, Tie & Dye, Acid Wash, Optic Wash, and Printed Shirts.'
       };
     }
 
     if (path === '/collections/tshirts' || routeCategory === 'tshirts' || path === '/tshirts' || forcedCategory === 'tshirts') {
       return {
         currentCategory: 'tshirts' as ProductCategory,
+        currentFit: undefined,
         currentStyle: undefined,
         pageTitle: 'T-Shirts Collection',
-        pageDescription: 'Explore our latest Oversized (Baggy), Normal Fit, Acid Wash, Tie & Dye, Plain, and Printed T-Shirts.'
+        pageDescription: 'Explore our latest Oversized (Baggy), Normal Fit, Acid Wash, Tie & Dye, Optic Wash, and Printed T-Shirts.'
       };
     }
 
     if (path === '/shorts' || forcedCategory === 'shorts') {
       return {
         currentCategory: 'shorts' as ProductCategory,
+        currentFit: undefined,
         currentStyle: undefined,
         pageTitle: 'Shorts Collection',
         pageDescription: 'Comfortable shorts designed for training, travel, and everyday wear.'
@@ -84,6 +128,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ forcedCategory }) => {
     if (collectionMatch) {
       return {
         currentCategory: 'shirts' as ProductCategory,
+        currentFit: undefined,
         currentStyle: undefined,
         pageTitle: collectionMatch.name,
         pageDescription: collectionMatch.description
@@ -92,6 +137,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ forcedCategory }) => {
 
     return {
       currentCategory: 'tshirts' as ProductCategory,
+      currentFit: undefined,
       currentStyle: undefined,
       pageTitle: 'All Collections',
       pageDescription: 'Explore premium everyday apparel designed for comfort and effortless style.'
@@ -104,7 +150,8 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ forcedCategory }) => {
     sizes: [],
     colors: [],
     priceRange: [0, 3000],
-    fits: [],
+    fits: currentFit ? [currentFit] : [],
+    subcategory: currentStyle,
     fabrics: [],
     sortBy: 'featured'
   });
@@ -116,11 +163,12 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ forcedCategory }) => {
       sizes: [],
       colors: [],
       priceRange: [0, 3000],
-      fits: [],
+      fits: currentFit ? [currentFit] : [],
+      subcategory: currentStyle,
       fabrics: [],
       sortBy: 'featured'
     });
-  }, [location.pathname, currentCategory]);
+  }, [location.pathname, currentCategory, currentFit, currentStyle]);
 
   const clearAllFilters = () => {
     setFilters({
@@ -129,6 +177,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ forcedCategory }) => {
       colors: [],
       priceRange: [0, 3000],
       fits: [],
+      subcategory: undefined,
       fabrics: [],
       sortBy: 'featured'
     });
@@ -137,10 +186,10 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ forcedCategory }) => {
   // Subcategories list for the current category in requested order
   const subcategories = useMemo(() => {
     if (currentCategory === 'shirts') {
-      return ['Oversized (Baggy)', 'Normal Fit', 'Tie & Dye', 'Acid Wash', 'Plain', 'Printed'];
+      return ['Oversized (Baggy)', 'Normal Fit', 'Tie & Dye', 'Acid Wash', 'Optic Wash', 'Printed'];
     }
     if (currentCategory === 'tshirts') {
-      return ['Oversized (Baggy)', 'Normal Fit', 'Acid Wash', 'Tie & Dye', 'Plain', 'Printed'];
+      return ['Oversized (Baggy)', 'Normal Fit', 'Acid Wash', 'Tie & Dye', 'Optic Wash', 'Printed'];
     }
     return ['Cotton Shorts', 'Training Shorts', 'Gym Shorts', 'Casual Chino Shorts'];
   }, [currentCategory]);
@@ -154,109 +203,73 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ forcedCategory }) => {
       list = list.filter((p) => p.category === currentCategory);
     }
 
-    // Filter by Style (e.g. 'oversized', 'normal-fit', 'tie-dye', 'acid-wash', 'plain', 'printed')
-    if (currentStyle) {
-      const isOversized = currentStyle === 'oversized' || currentStyle === 'baggy';
-      const isNormalFit = currentStyle === 'normal-fit' || currentStyle === 'regular-fit';
-
+    // Filter by Fit (e.g. 'Oversized (Baggy)', 'Normal Fit')
+    if (filters.fits.length > 0) {
       list = list.filter((p) => {
-        if (isOversized) {
-          const fitText = (p.specifications?.fit || '').toLowerCase();
+        return filters.fits.some((fit) => {
+          const fitLower = fit.toLowerCase();
+          const isOversized = fitLower.includes('oversized') || fitLower.includes('baggy');
+          const isNormal = fitLower.includes('normal') || fitLower.includes('regular');
+
+          const specFit = (p.specifications?.fit || '').toLowerCase();
           const nameText = p.name.toLowerCase();
           const subcatText = p.subcategory.toLowerCase();
-          const descText = (p.description || '').toLowerCase();
-          const shortDescText = (p.shortDescription || '').toLowerCase();
-          return (
-            fitText.includes('oversized') ||
-            fitText.includes('boxy') ||
-            fitText.includes('relaxed') ||
-            fitText.includes('drop-shoulder') ||
-            nameText.includes('oversized') ||
-            subcatText.includes('oversized') ||
-            descText.includes('oversized') ||
-            shortDescText.includes('oversized') ||
-            (p.collectionIds && (p.collectionIds.includes('col-oversized-shirts') || p.collectionIds.includes('col-oversized-tshirts')))
-          );
-        }
 
-        if (isNormalFit) {
-          const fitText = (p.specifications?.fit || '').toLowerCase();
-          const nameText = p.name.toLowerCase();
-          const subcatText = p.subcategory.toLowerCase();
-          const descText = (p.description || '').toLowerCase();
-          const shortDescText = (p.shortDescription || '').toLowerCase();
-          return (
-            fitText.includes('regular') ||
-            fitText.includes('normal') ||
-            fitText.includes('classic') ||
-            fitText.includes('tailored') ||
-            fitText.includes('slim') ||
-            nameText.includes('regular') ||
-            nameText.includes('classic') ||
-            subcatText.includes('regular') ||
-            subcatText.includes('normal') ||
-            descText.includes('regular') ||
-            shortDescText.includes('regular') ||
-            (p.collectionIds && (p.collectionIds.includes('col-normalfit-shirts') || p.collectionIds.includes('col-normalfit-tshirts')))
-          );
-        }
-
-        if (p.styleType === currentStyle) return true;
-        const styleDisplayName = STYLE_MAP[currentStyle]?.toLowerCase() || '';
-        return (
-          p.subcategory.toLowerCase().includes(styleDisplayName) ||
-          p.name.toLowerCase().includes(styleDisplayName) ||
-          p.slug.toLowerCase().includes(currentStyle)
-        );
+          if (isOversized) {
+            return (
+              specFit.includes('oversized') ||
+              specFit.includes('baggy') ||
+              specFit.includes('boxy') ||
+              specFit.includes('relaxed') ||
+              specFit.includes('drop-shoulder') ||
+              nameText.includes('oversized') ||
+              subcatText.includes('oversized') ||
+              (p.collectionIds && (p.collectionIds.includes('col-oversized-shirts') || p.collectionIds.includes('col-oversized-tshirts')))
+            );
+          }
+          if (isNormal) {
+            return (
+              specFit.includes('normal') ||
+              specFit.includes('regular') ||
+              specFit.includes('classic') ||
+              specFit.includes('tailored') ||
+              specFit.includes('slim') ||
+              nameText.includes('normal') ||
+              nameText.includes('regular') ||
+              nameText.includes('classic') ||
+              subcatText.includes('normal') ||
+              subcatText.includes('regular') ||
+              (p.collectionIds && (p.collectionIds.includes('col-normalfit-shirts') || p.collectionIds.includes('col-normalfit-tshirts')))
+            );
+          }
+          return specFit.includes(fitLower);
+        });
       });
     }
 
-    // Filter by Subcategory from Filter sidebar
+    // Filter by Subcategory / Style (e.g. 'Tie & Dye', 'Acid Wash', 'Optic Wash', 'Printed')
     if (filters.subcategory) {
-      const selSubcat = filters.subcategory;
-      if (selSubcat === 'Oversized (Baggy)') {
-        list = list.filter((p) => {
-          const fitText = (p.specifications?.fit || '').toLowerCase();
-          const nameText = p.name.toLowerCase();
-          const subcatText = p.subcategory.toLowerCase();
-          return (
-            subcatText.includes('oversized') ||
-            fitText.includes('oversized') ||
-            fitText.includes('boxy') ||
-            fitText.includes('relaxed') ||
-            fitText.includes('drop-shoulder') ||
-            nameText.includes('oversized') ||
-            (p.collectionIds && (p.collectionIds.includes('col-oversized-shirts') || p.collectionIds.includes('col-oversized-tshirts')))
-          );
-        });
-      } else if (selSubcat === 'Normal Fit') {
-        list = list.filter((p) => {
-          const fitText = (p.specifications?.fit || '').toLowerCase();
-          const nameText = p.name.toLowerCase();
-          const subcatText = p.subcategory.toLowerCase();
-          return (
-            subcatText.includes('normal') ||
-            subcatText.includes('regular') ||
-            fitText.includes('regular') ||
-            fitText.includes('normal') ||
-            fitText.includes('classic') ||
-            fitText.includes('tailored') ||
-            fitText.includes('slim') ||
-            nameText.includes('regular') ||
-            nameText.includes('classic') ||
-            (p.collectionIds && (p.collectionIds.includes('col-normalfit-shirts') || p.collectionIds.includes('col-normalfit-tshirts')))
-          );
-        });
-      } else {
-        list = list.filter((p) => {
-          const subLower = selSubcat.toLowerCase();
-          return (
-            p.subcategory.toLowerCase().includes(subLower) ||
-            (p.styleType && p.styleType.toLowerCase().includes(subLower.replace(/[^a-z]/g, ''))) ||
-            p.name.toLowerCase().includes(subLower)
-          );
-        });
-      }
+      const selSubcat = filters.subcategory.toLowerCase();
+      list = list.filter((p) => {
+        const subLower = p.subcategory.toLowerCase();
+        const styleLower = (p.styleType || '').toLowerCase();
+        const nameLower = p.name.toLowerCase();
+
+        if (selSubcat.includes('tie') || selSubcat.includes('dye')) {
+          return subLower.includes('tie') || styleLower.includes('tie') || nameLower.includes('tie') || nameLower.includes('dip-dye');
+        }
+        if (selSubcat.includes('acid')) {
+          return subLower.includes('acid') || styleLower.includes('acid') || nameLower.includes('acid') || nameLower.includes('mineral');
+        }
+        if (selSubcat.includes('optic') || selSubcat.includes('plain')) {
+          return subLower.includes('optic') || subLower.includes('plain') || styleLower.includes('optic') || styleLower.includes('plain') || nameLower.includes('optic') || nameLower.includes('oxford') || nameLower.includes('linen') || nameLower.includes('essential');
+        }
+        if (selSubcat.includes('printed') || selSubcat.includes('print')) {
+          return subLower.includes('print') || styleLower.includes('print') || nameLower.includes('print') || nameLower.includes('floral') || nameLower.includes('geometric') || nameLower.includes('graphic');
+        }
+
+        return subLower.includes(selSubcat) || styleLower.includes(selSubcat) || nameLower.includes(selSubcat);
+      });
     }
 
     // Filter by Sizes
@@ -280,13 +293,6 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ forcedCategory }) => {
       );
     }
 
-    // Filter by Fit
-    if (filters.fits.length > 0) {
-      list = list.filter((p) =>
-        filters.fits.some((fit) => p.specifications.fit.toLowerCase().includes(fit.toLowerCase()))
-      );
-    }
-
     // Filter by Fabric
     if (filters.fabrics.length > 0) {
       list = list.filter((p) =>
@@ -294,7 +300,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ forcedCategory }) => {
       );
     }
 
-    // Apply Sorting
+    // Sorting
     const sorted = [...list];
     switch (filters.sortBy) {
       case 'price-asc':
@@ -316,7 +322,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ forcedCategory }) => {
     }
 
     return sorted;
-  }, [activeProducts, currentCategory, currentStyle, filters]);
+  }, [activeProducts, currentCategory, filters]);
 
   // Breadcrumbs items
   const breadcrumbItems: BreadcrumbItem[] = useMemo(() => {
@@ -327,13 +333,17 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ forcedCategory }) => {
       items.push({ label: catLabel, link: `/collections/${currentCategory}` });
     }
 
+    if (currentFit) {
+      const fitSlug = currentFit.toLowerCase().includes('oversized') ? 'oversized' : 'normal-fit';
+      items.push({ label: currentFit, link: `/collections/${currentCategory}/${fitSlug}` });
+    }
+
     if (currentStyle) {
-      const styleLabel = STYLE_MAP[currentStyle] || currentStyle;
-      items.push({ label: styleLabel });
+      items.push({ label: currentStyle });
     }
 
     return items;
-  }, [currentCategory, currentStyle]);
+  }, [currentCategory, currentFit, currentStyle]);
 
   return (
     <div className="bg-transparent min-h-screen text-[#171717] pb-20">

@@ -13,7 +13,7 @@ export const ContactPage: React.FC = () => {
       phone: '+91 97877 04111',
       cleanPhone: '919787704111',
       whatsapp: '+91 97877 04111',
-      email: undefined,
+      email: 'udhayadharsan.ss@gmail.com',
       badge: 'Manufacturing & Operations Lead',
       initials: 'UD',
       color: 'bg-[#171717]',
@@ -320,10 +320,10 @@ export const ContactPage: React.FC = () => {
                 <div>
                   <p className="font-bold text-slate-900">Official Email</p>
                   <a
-                    href="mailto:balasri3333@gmail.com"
+                    href={`mailto:${settings.contact.email || 'udhayadharsan.ss@gmail.com'}`}
                     className="text-slate-900 hover:underline font-semibold mt-0.5 inline-block"
                   >
-                    balasri3333@gmail.com
+                    {settings.contact.email || 'udhayadharsan.ss@gmail.com'}
                   </a>
                 </div>
               </div>

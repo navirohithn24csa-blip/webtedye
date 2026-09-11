@@ -37,28 +37,28 @@ export const CollectionsPage: React.FC = () => {
       styles: [
         {
           title: 'Tie & Dye Shirts',
-          path: '/collections/shirts/tie-dye',
+          path: '/collections/shirts/oversized/tie-dye',
           description: 'Hand-finished pastel swirls and vibrant camp collar resort cuts.',
           image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=800&auto=format&fit=crop',
           tag: 'Hand-Crafted'
         },
         {
           title: 'Acid Wash Shirts',
-          path: '/collections/shirts/acid-wash',
+          path: '/collections/shirts/oversized/acid-wash',
           description: 'Heavyweight stone and mineral washed 90s vintage denim overshirts.',
           image: 'https://images.unsplash.com/photo-1578932750294-f5075e85f44a?q=80&w=800&auto=format&fit=crop',
           tag: 'Distressed Vintage'
         },
         {
-          title: 'Plain Shirts',
-          path: '/collections/shirts/plain',
-          description: 'Clean minimalist linen-cotton blend and solid drop-shoulder staples.',
+          title: 'Optic Wash Shirts',
+          path: '/collections/shirts/oversized/optic-wash',
+          description: 'Clean brightened optic treatment, solid drop-shoulder staples, and crisp minimal silhouettes.',
           image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=800&auto=format&fit=crop',
-          tag: 'Clean Minimal'
+          tag: 'Optic Wash'
         },
         {
           title: 'Printed Shirts',
-          path: '/collections/shirts/printed',
+          path: '/collections/shirts/oversized/printed',
           description: 'Tropical botanicals and retro geometric prints on soft viscose twill.',
           image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=800&auto=format&fit=crop',
           tag: 'Resort Wear'
@@ -75,28 +75,28 @@ export const CollectionsPage: React.FC = () => {
       styles: [
         {
           title: 'Tie & Dye Shirts',
-          path: '/collections/shirts/tie-dye',
+          path: '/collections/shirts/normal-fit/tie-dye',
           description: 'Tailored regular cut shirts with subtle artisanal dip-dye patterns.',
           image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=800&auto=format&fit=crop',
           tag: 'Dip-Dye'
         },
         {
           title: 'Acid Wash Shirts',
-          path: '/collections/shirts/acid-wash',
+          path: '/collections/shirts/normal-fit/acid-wash',
           description: 'Refined regular cotton twill overshirts with muted enzyme washing.',
           image: 'https://images.unsplash.com/photo-1578932750294-f5075e85f44a?q=80&w=800&auto=format&fit=crop',
           tag: 'Mineral Fade'
         },
         {
-          title: 'Plain Shirts',
-          path: '/collections/shirts/plain',
-          description: '100% Combed Oxford cotton essentials with structured button-down collar.',
+          title: 'Optic Wash Shirts',
+          path: '/collections/shirts/normal-fit/optic-wash',
+          description: '100% Combed Oxford cotton essentials with bright optic wash and structured collar.',
           image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=800&auto=format&fit=crop',
-          tag: 'Oxford Cotton'
+          tag: 'Optic Cotton'
         },
         {
           title: 'Printed Shirts',
-          path: '/collections/shirts/printed',
+          path: '/collections/shirts/normal-fit/printed',
           description: 'Subtle micro-geometric prints and camp collar regular cuts.',
           image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=800&auto=format&fit=crop',
           tag: 'Micro Print'
@@ -116,28 +116,28 @@ export const CollectionsPage: React.FC = () => {
       styles: [
         {
           title: 'Acid Wash T-Shirts',
-          path: '/collections/tshirts/acid-wash',
+          path: '/collections/tshirts/oversized/acid-wash',
           description: 'Heavy 240 GSM stone-washed tees with distressed vintage marbled seams.',
           image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=800&auto=format&fit=crop',
           tag: '240 GSM Heavy'
         },
         {
           title: 'Tie & Dye T-Shirts',
-          path: '/collections/tshirts/tie-dye',
+          path: '/collections/tshirts/oversized/tie-dye',
           description: 'Heavyweight 220 GSM boxy tees with spiral pastel and indigo cloud swirls.',
           image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop',
           tag: 'Pastel Swirl'
         },
         {
-          title: 'Plain T-Shirts',
-          path: '/collections/tshirts/plain',
-          description: 'Solid minimalist heavyweight basics with reinforced double-needle hems.',
+          title: 'Optic Wash T-Shirts',
+          path: '/collections/tshirts/oversized/optic-wash',
+          description: 'Solid brightened optic wash heavyweight basics with reinforced double-needle hems.',
           image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800&auto=format&fit=crop',
-          tag: 'Stealth Plain'
+          tag: 'Optic Wash'
         },
         {
           title: 'Printed T-Shirts',
-          path: '/collections/tshirts/printed',
+          path: '/collections/tshirts/oversized/printed',
           description: 'Minimal typographic back quotes and high-density screen graphics.',
           image: 'https://images.unsplash.com/photo-1507680434517-d4566d617327?q=80&w=800&auto=format&fit=crop',
           tag: 'Typo Screen'
@@ -154,28 +154,28 @@ export const CollectionsPage: React.FC = () => {
       styles: [
         {
           title: 'Acid Wash T-Shirts',
-          path: '/collections/tshirts/acid-wash',
+          path: '/collections/tshirts/normal-fit/acid-wash',
           description: 'Soft 210 GSM regular crew tees with subtle vintage enzyme fading.',
           image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=800&auto=format&fit=crop',
           tag: 'Bio-Washed'
         },
         {
           title: 'Tie & Dye T-Shirts',
-          path: '/collections/tshirts/tie-dye',
+          path: '/collections/tshirts/normal-fit/tie-dye',
           description: 'Subtle indigo cloud tie-dye pattern on relaxed regular fit tees.',
           image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=800&auto=format&fit=crop',
           tag: 'Indigo Cloud'
         },
         {
-          title: 'Plain T-Shirts',
-          path: '/collections/tshirts/plain',
-          description: 'Everyday standard crew neck tees in ultra-soft 180 GSM cotton jersey.',
+          title: 'Optic Wash T-Shirts',
+          path: '/collections/tshirts/normal-fit/optic-wash',
+          description: 'Everyday standard crew neck tees in ultra-soft 180 GSM cotton jersey with clean optic wash.',
           image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800&auto=format&fit=crop',
-          tag: 'Everyday Essential'
+          tag: 'Optic Essential'
         },
         {
           title: 'Printed T-Shirts',
-          path: '/collections/tshirts/printed',
+          path: '/collections/tshirts/normal-fit/printed',
           description: 'Retro sun and understated emblems on regular bio-washed tees.',
           image: 'https://images.unsplash.com/photo-1507680434517-d4566d617327?q=80&w=800&auto=format&fit=crop',
           tag: 'Graphic Art'
@@ -194,7 +194,7 @@ export const CollectionsPage: React.FC = () => {
             SD TRENDYZ Collections
           </h1>
           <p className="text-xs sm:text-base text-[#555555] max-w-2xl leading-relaxed">
-            Select a category, choose your fit (<strong>Oversized Baggy</strong> or <strong>Normal Fit</strong>), and explore our curated <strong>Tie & Dye</strong>, <strong>Acid Wash</strong>, <strong>Plain</strong>, and <strong>Printed</strong> collections.
+            Select a category, choose your fit (<strong>Oversized Baggy</strong> or <strong>Normal Fit</strong>), and explore our curated <strong>Tie & Dye</strong>, <strong>Acid Wash</strong>, <strong>Optic Wash</strong>, and <strong>Printed</strong> collections.
           </p>
         </div>
       </div>
@@ -214,7 +214,7 @@ export const CollectionsPage: React.FC = () => {
                   1. Shirts Collections
                 </h2>
                 <p className="text-xs sm:text-sm text-[#737373]">
-                  Select <strong>Oversized (Baggy)</strong> or <strong>Normal Fit</strong> to reveal Tie & Dye, Acid Wash, Plain, and Printed styles.
+                  Select <strong>Oversized (Baggy)</strong> or <strong>Normal Fit</strong> to reveal Tie & Dye, Acid Wash, Optic Wash, and Printed styles.
                 </p>
               </div>
             </div>
@@ -356,7 +356,7 @@ export const CollectionsPage: React.FC = () => {
                   2. T-Shirts Collections
                 </h2>
                 <p className="text-xs sm:text-sm text-[#737373]">
-                  Select <strong>Oversized (Baggy)</strong> or <strong>Normal Fit</strong> to reveal Acid Wash, Tie & Dye, Plain, and Printed styles.
+                  Select <strong>Oversized (Baggy)</strong> or <strong>Normal Fit</strong> to reveal Acid Wash, Tie & Dye, Optic Wash, and Printed styles.
                 </p>
               </div>
             </div>

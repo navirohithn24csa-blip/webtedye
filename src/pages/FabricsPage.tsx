@@ -182,7 +182,7 @@ export const FabricsPage: React.FC = () => {
             'Colorfastness grade 4+ certified with zero wash bleeding',
             'Pre-shrunk garment wash process for instant wearability'
           ],
-          image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=1000&auto=format&fit=crop'
+          image: '/artisanal-tie-dye-cotton.jpg'
         },
         {
           id: 'acid-wash-finish',
@@ -198,100 +198,7 @@ export const FabricsPage: React.FC = () => {
             'Subtle seam fading and marble tonal contrasts',
             'Pre-distressed texture with reinforced structural seam integrity'
           ],
-          image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=1000&auto=format&fit=crop'
-        }
-      ]
-    },
-    {
-      categoryTitle: 'Performance Polyester & Poly-Blends (All GSM)',
-      categorySubtitle: 'Technical moisture-wicking micro-polyesters, sublimation dry-fits, poly-cotton blends, and thermal fleece from 140 GSM to 320 GSM.',
-      badge: '140 – 320 GSM Poly',
-      badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-      items: [
-        {
-          id: 'poly-140-mesh',
-          name: '140–160 GSM Micro-Poly Birdseye Mesh & Dot Knit',
-          gsm: '140 – 160 GSM',
-          yarnCount: '75D / 72F Micro-Filament Polyester Yarn',
-          composition: '100% Micro-Polyester Quick-Dry',
-          bestFor: 'Activewear, Sports Running Jerseys, Gym & Training Tees',
-          drape: 'Ultralight, breathable athletic drape with maximum airflow',
-          feel: 'Silky smooth, cooling, non-abrasive micro-perforated feel',
-          features: [
-            'Engineered micro-perforations for rapid sweat evaporation',
-            'Hydrophilic moisture-wicking treatment for zero sweat cling',
-            'Anti-odor & anti-bacterial fabric treatment',
-            'Ideal for full-body digital dye-sublimation graphics'
-          ],
-          image: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=1000&auto=format&fit=crop'
-        },
-        {
-          id: 'poly-180-interlock',
-          name: '180–200 GSM Dry-Fit Interlock Performance Polyester',
-          gsm: '180 – 200 GSM',
-          yarnCount: '100D / 144F High-Density Spun Polyester',
-          composition: '100% Interlock High-Filament Polyester',
-          bestFor: 'Sublimation Printed T-Shirts, Sports Teamwear, Corporate Uniforms',
-          drape: 'Smooth fluid fall with structured athletic silhouette',
-          feel: 'Double-face smooth texture with soft matte finish',
-          features: [
-            'High-definition photo-quality heat transfer sublimation ready',
-            'Wrinkle-free, crease-resistant and zero-shrinkage stability',
-            'UV protection coating (UPF 30+) for outdoor sports',
-            'Snag-resistant high-tensile double knit structure'
-          ],
-          image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1000&auto=format&fit=crop'
-        },
-        {
-          id: 'poly-220-pc-blend',
-          name: '220–240 GSM Heavyweight Poly-Cotton (PC) Jersey',
-          gsm: '220 – 240 GSM',
-          yarnCount: '20s Poly-Cotton Combed Blend Yarn',
-          composition: '60% Super-Combed Cotton + 40% Micro-Polyester',
-          bestFor: 'High-Durability Oversized Tees, Workwear & Commercial Uniforms',
-          drape: 'Heavy structured boxy drape with long-term shape retention',
-          feel: 'Cotton natural softness on skin with polyester high strength',
-          features: [
-            'Combines cotton natural breathability with polyester durability',
-            'Zero color fading and superior resistance to harsh industrial laundry',
-            'Eliminates garment twisting and seam torque after multiple washes',
-            'Perfect for plastisol, DTF, and discharge screen printing'
-          ],
-          image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1000&auto=format&fit=crop'
-        },
-        {
-          id: 'poly-300-polar-fleece',
-          name: '280–320 GSM Heavyweight Poly Fleece & Polar Terry',
-          gsm: '280 – 320 GSM',
-          yarnCount: '150D / 288F Heavy Loopback & Polar Filament',
-          composition: '100% Heavy Polyester Thermal Fleece',
-          bestFor: 'Heavyweight Track Pants, Winter Zip Hoodies, Training Shorts',
-          drape: 'Voluminous, ultra-durable thermal drape',
-          feel: 'Brushed thermal plush insulation on interior',
-          features: [
-            'Maximum heat retention with minimal fabric weight',
-            'Anti-pilling shear finish on both sides',
-            'Hydrophobic fibers repel light moisture and dry 3x faster than cotton',
-            'Reinforced heavy-duty elastic waistband anchoring'
-          ],
-          image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=1000&auto=format&fit=crop'
-        },
-        {
-          id: 'poly-220-spandex',
-          name: '220 GSM 4-Way Stretch Poly-Spandex Performance Knit',
-          gsm: '220 GSM',
-          yarnCount: '75D Poly + 40D Spandex (Elastane)',
-          composition: '88% Polyester + 12% Spandex',
-          bestFor: 'Athletic Compression Wear, Fitness Leggings & Flexible Tops',
-          drape: 'Second-skin contouring with high elastic recovery',
-          feel: 'Silky smooth, cool-to-touch compression hand feel',
-          features: [
-            '4-way 360-degree omni-stretch for unrestricted body movement',
-            'High recovery rate with zero knee or elbow sagging',
-            'Flatlock friction-free seam construction',
-            'Squat-proof non-sheer high density'
-          ],
-          image: 'https://images.unsplash.com/photo-1506629082955-511b1aa562c8?q=80&w=1000&auto=format&fit=crop'
+          image: '/vintage-mineral-acid-wash.png'
         }
       ]
     }
@@ -315,7 +222,7 @@ export const FabricsPage: React.FC = () => {
             </h1>
 
             <p className="text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed max-w-2xl">
-              From 100% combed cottons and artisanal tie-dyes to technical micro-polyesters, dry-fit performance mesh, and thermal loopbacks across 140 to 320 GSM — explore our full textile architecture.
+              From 100% super-combed cottons and artisanal tie-dyes to vintage mineral acid washes and heavyweight loopback fleece across 180 to 320 GSM — explore our full textile architecture.
             </p>
           </div>
         </div>

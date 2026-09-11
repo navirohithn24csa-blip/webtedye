@@ -2,7 +2,7 @@ export type ProductCategory = 'shirts' | 'tshirts' | 'shorts' | string;
 
 export type ProductBadge = 'New' | 'Featured' | 'Bestseller' | 'Limited' | 'Sale';
 
-export type ProductStyleType = 'tie-dye' | 'acid-wash' | 'plain' | 'printed';
+export type ProductStyleType = 'tie-dye' | 'acid-wash' | 'plain' | 'optic-wash' | 'printed';
 
 export interface ProductColor {
   id: string;

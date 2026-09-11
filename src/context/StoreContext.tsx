@@ -94,7 +94,14 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const saved = localStorage.getItem(STORAGE_KEYS.PRODUCTS) || localStorage.getItem('sd_trendyz_products_v6');
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          parsed.forEach((p: Product) => {
+            if (p.subcategory === 'Plain') p.subcategory = 'Optic Wash';
+            if (p.styleType === 'plain') p.styleType = 'optic-wash';
+          });
+        }
+        return parsed;
       } catch (e) {
         console.error('Failed to parse products from storage', e);
       }
@@ -107,7 +114,15 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const saved = localStorage.getItem(STORAGE_KEYS.CATEGORIES) || localStorage.getItem('sd_trendyz_categories_v6');
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          parsed.forEach((c: Category) => {
+            if (c.subcategories) {
+              c.subcategories = c.subcategories.map(s => s === 'Plain' ? 'Optic Wash' : s);
+            }
+          });
+        }
+        return parsed;
       } catch (e) {
         console.error('Failed to parse categories', e);
       }
@@ -120,7 +135,16 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const saved = localStorage.getItem(STORAGE_KEYS.COLLECTIONS) || localStorage.getItem('sd_trendyz_collections_v6');
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          parsed.forEach((col: Collection) => {
+            if (col.name === 'Plain Shirts') col.name = 'Optic Wash Shirts';
+            if (col.name === 'Plain T-Shirts') col.name = 'Optic Wash T-Shirts';
+            if (col.slug === 'shirts/plain') col.slug = 'shirts/optic-wash';
+            if (col.slug === 'tshirts/plain') col.slug = 'tshirts/optic-wash';
+          });
+        }
+        return parsed;
       } catch (e) {
         console.error('Failed to parse collections', e);
       }
@@ -160,6 +184,9 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           parsed.contact.phone = '+91 90877 04111';
           parsed.contact.secondaryPhone = '+91 97877 04111';
           parsed.contact.whatsappNumber = '+919087704111';
+          if (!parsed.contact.email || parsed.contact.email === 'balasri3333@gmail.com' || parsed.contact.email === 'sdtrendyz2026@gmail.com') {
+            parsed.contact.email = 'udhayadharsan.ss@gmail.com';
+          }
         }
         if (parsed.socials) {
           parsed.socials.whatsapp = 'https://wa.me/919087704111';

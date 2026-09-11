@@ -7,7 +7,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     slug: 'shirts',
     description: 'Oversized baggy cuts, normal fit essentials, resort cuban collars, vintage acid wash overshirts, and vibrant tie-dye button-downs.',
     imageUrl: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=1000&auto=format&fit=crop',
-    subcategories: ['Oversized (Baggy)', 'Normal Fit', 'Tie & Dye', 'Acid Wash', 'Plain', 'Printed'],
+    subcategories: ['Oversized (Baggy)', 'Normal Fit', 'Tie & Dye', 'Acid Wash', 'Optic Wash', 'Printed'],
     displayOrder: 1,
     status: 'active'
   },
@@ -17,7 +17,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     slug: 'tshirts',
     description: 'Oversized baggy streetwear tees, normal fit basics, vintage acid washes, artisanal tie-dye swirls, and minimal graphics.',
     imageUrl: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1000&auto=format&fit=crop',
-    subcategories: ['Oversized (Baggy)', 'Normal Fit', 'Acid Wash', 'Tie & Dye', 'Plain', 'Printed'],
+    subcategories: ['Oversized (Baggy)', 'Normal Fit', 'Acid Wash', 'Tie & Dye', 'Optic Wash', 'Printed'],
     displayOrder: 2,
     status: 'active'
   },
@@ -72,9 +72,9 @@ export const INITIAL_COLLECTIONS: Collection[] = [
   },
   {
     id: 'col-plain-shirts',
-    name: 'Plain Shirts',
-    slug: 'shirts/plain',
-    description: 'Clean solid oxford cotton, breathable linen-blend, and tailored poplin button-down shirts.',
+    name: 'Optic Wash Shirts',
+    slug: 'shirts/optic-wash',
+    description: 'Clean solid brightened optic wash oxford cotton, breathable linen-blend, and tailored poplin button-down shirts.',
     imageUrl: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=1000&auto=format&fit=crop',
     displayOrder: 5,
     status: 'active'
@@ -126,9 +126,9 @@ export const INITIAL_COLLECTIONS: Collection[] = [
   },
   {
     id: 'col-plain-tshirts',
-    name: 'Plain T-Shirts',
-    slug: 'tshirts/plain',
-    description: 'Minimal solid colorways in 100% super-combed cotton, ribbed crew necks, and drop-shoulder silhouettes.',
+    name: 'Optic Wash T-Shirts',
+    slug: 'tshirts/optic-wash',
+    description: 'Minimal solid colorways in 100% super-combed cotton with optic wash finish, ribbed crew necks, and drop-shoulder silhouettes.',
     imageUrl: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1000&auto=format&fit=crop',
     displayOrder: 11,
     status: 'active'
@@ -388,40 +388,40 @@ export const INITIAL_PRODUCTS: Product[] = [
   },
 
   // =========================================================================
-  // 3. SHIRTS — PLAIN
+  // 3. SHIRTS — OPTIC WASH
   // =========================================================================
   {
     id: 'prod-sh-pl-01',
-    name: 'Classic Oxford Cotton Shirt',
-    slug: 'classic-oxford-cotton-shirt',
+    name: 'Classic Oxford Optic Wash Shirt',
+    slug: 'classic-oxford-optic-wash-shirt',
     sku: 'SHIRT-PL-01',
     category: 'shirts',
-    subcategory: 'Plain',
-    styleType: 'plain',
+    subcategory: 'Optic Wash',
+    styleType: 'optic-wash',
     collectionIds: ['col-plain-shirts', 'col-normalfit-shirts'],
     sellingPrice: 899,
     originalPrice: 1199,
     discountPercentage: 25,
-    shortDescription: 'Timeless button-down Oxford shirt crafted from 100% combed cotton basketweave.',
-    description: 'The foundation of versatile menswear. Built with authentic 100% cotton Oxford cloth, button-down collar that stays structured all day, single chest pocket, and curved hem suitable for tucked or untucked styling.',
+    shortDescription: 'Timeless button-down Oxford shirt with bright optic wash in 100% combed cotton basketweave.',
+    description: 'The foundation of versatile menswear. Built with authentic 100% cotton Oxford cloth, bright optic wash finish, button-down collar that stays structured all day, single chest pocket, and curved hem suitable for tucked or untucked styling.',
     images: [
       {
         id: 'img-sh-pl-1',
         url: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=1000&auto=format&fit=crop',
-        altText: 'Classic Oxford Cotton Shirt - Front Model',
+        altText: 'Classic Oxford Optic Wash Shirt - Front Model',
         isPrimary: true,
         angle: 'front'
       },
       {
         id: 'img-sh-pl-2',
         url: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=1000&auto=format&fit=crop',
-        altText: 'Classic Oxford Cotton Shirt - Collar Detail',
+        altText: 'Classic Oxford Optic Wash Shirt - Collar Detail',
         isPrimary: false,
         angle: 'detail'
       }
     ],
     colors: [
-      { id: 'c-oxford-white', name: 'Pure White', hex: '#FFFFFF' },
+      { id: 'c-oxford-white', name: 'Optic White', hex: '#FFFFFF' },
       { id: 'c-oxford-blue', name: 'Sky Blue', hex: '#93C5FD' },
       { id: 'c-oxford-navy', name: 'Deep Navy', hex: '#1E3A8A' }
     ],
@@ -438,7 +438,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       gsm: '180 GSM',
       sleeve: 'Full Sleeve with 2-Button Cuffs',
       neck: 'Button-Down Collar',
-      pattern: 'Solid Plain',
+      pattern: 'Optic Wash',
       stretch: 'Natural Comfort',
       occasion: 'Everyday / Smart Casual / Office',
       gender: 'Men',
@@ -452,12 +452,12 @@ export const INITIAL_PRODUCTS: Product[] = [
   },
   {
     id: 'prod-sh-pl-02',
-    name: 'Minimal Linen Blend Shirt',
-    slug: 'minimal-linen-blend-shirt',
+    name: 'Minimal Linen Blend Optic Wash Shirt',
+    slug: 'minimal-linen-blend-optic-wash-shirt',
     sku: 'SHIRT-PL-02',
     category: 'shirts',
-    subcategory: 'Plain',
-    styleType: 'plain',
+    subcategory: 'Optic Wash',
+    styleType: 'optic-wash',
     collectionIds: ['col-plain-shirts', 'col-oversized-shirts'],
     sellingPrice: 999,
     originalPrice: 1299,
@@ -873,41 +873,41 @@ export const INITIAL_PRODUCTS: Product[] = [
   },
 
   // =========================================================================
-  // 7. T-SHIRTS — PLAIN
+  // 7. T-SHIRTS — OPTIC WASH
   // =========================================================================
   {
     id: 'prod-ts-pl-01',
-    name: 'Essential Oversized Plain Tee',
-    slug: 'essential-oversized-plain-tee',
+    name: 'Essential Oversized Optic Wash Tee',
+    slug: 'essential-oversized-optic-wash-tee',
     sku: 'TS-PL-01',
     category: 'tshirts',
-    subcategory: 'Plain',
-    styleType: 'plain',
+    subcategory: 'Optic Wash',
+    styleType: 'optic-wash',
     collectionIds: ['col-plain-tshirts', 'col-oversized-tshirts'],
     sellingPrice: 699,
     originalPrice: 899,
     discountPercentage: 22,
-    shortDescription: 'Clean minimalist solid color tee in 220 GSM combed cotton with relaxed drop shoulders.',
-    description: 'The definitive plain everyday tee. Made with premium 220 GSM heavyweight combed cotton, reinforced double-needle hem stitching, and pre-shrunk for consistent fit after every wash.',
+    shortDescription: 'Clean brightened optic wash tee in 220 GSM combed cotton with relaxed drop shoulders.',
+    description: 'The definitive optic wash everyday tee. Made with premium 220 GSM heavyweight combed cotton, brightened optic finish, reinforced double-needle hem stitching, and pre-shrunk for consistent fit after every wash.',
     images: [
       {
         id: 'img-ts-pl-1',
         url: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1000&auto=format&fit=crop',
-        altText: 'Essential Oversized Plain Tee - Front',
+        altText: 'Essential Oversized Optic Wash Tee - Front',
         isPrimary: true,
         angle: 'front'
       },
       {
         id: 'img-ts-pl-2',
         url: 'https://images.unsplash.com/photo-1507680434517-d4566d617327?q=80&w=1000&auto=format&fit=crop',
-        altText: 'Essential Oversized Plain Tee - Detail',
+        altText: 'Essential Oversized Optic Wash Tee - Detail',
         isPrimary: false,
         angle: 'detail'
       }
     ],
     colors: [
       { id: 'c-solid-black', name: 'Stealth Black', hex: '#111827' },
-      { id: 'c-solid-white', name: 'Clean White', hex: '#FFFFFF' },
+      { id: 'c-solid-white', name: 'Optic White', hex: '#FFFFFF' },
       { id: 'c-solid-sage', name: 'Muted Sage', hex: '#708238' },
       { id: 'c-solid-navy', name: 'Classic Navy', hex: '#1E3A8A' }
     ],
@@ -924,7 +924,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       gsm: '220 GSM',
       sleeve: 'Half Sleeve (Drop Shoulder)',
       neck: 'Round Neck',
-      pattern: 'Solid Plain',
+      pattern: 'Optic Wash',
       stretch: 'Regular Comfort Stretch',
       occasion: 'Everyday / Casual',
       gender: 'Men',
@@ -938,12 +938,12 @@ export const INITIAL_PRODUCTS: Product[] = [
   },
   {
     id: 'prod-ts-pl-02',
-    name: 'Classic Bio-Washed Round Neck',
-    slug: 'classic-bio-washed-round-neck',
+    name: 'Classic Optic Wash Round Neck',
+    slug: 'classic-optic-wash-round-neck',
     sku: 'TS-PL-02',
     category: 'tshirts',
-    subcategory: 'Plain',
-    styleType: 'plain',
+    subcategory: 'Optic Wash',
+    styleType: 'optic-wash',
     collectionIds: ['col-plain-tshirts', 'col-normalfit-tshirts'],
     sellingPrice: 599,
     originalPrice: 749,
@@ -1252,7 +1252,7 @@ export const INITIAL_WEBSITE_SETTINGS: WebsiteSettings = {
     phone: '+91 90877 04111',
     secondaryPhone: '+91 97877 04111',
     whatsappNumber: '+919087704111',
-    email: 'balasri3333@gmail.com',
+    email: 'udhayadharsan.ss@gmail.com',
     address: '12/152, Erappanaickanpalayam, Mylambadi, Bhavani, Tamil Nadu - 638314',
     businessHours: 'Monday – Saturday: 10:00 AM – 8:00 PM IST',
     mapEmbedUrl: 'https://maps.google.com/maps?q=12%2F152+Erappanaickanpalayam,+Mylambadi,+Bhavani,+Tamil+Nadu&t=&z=14&ie=UTF8&iwloc=&output=embed'

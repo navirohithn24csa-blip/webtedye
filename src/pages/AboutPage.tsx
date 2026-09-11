@@ -23,6 +23,7 @@ interface WorkflowStep {
   icon: React.ElementType;
   image: string;
   imageAlt: string;
+  imageFit?: 'cover' | 'contain';
 }
 
 export const AboutPage: React.FC = () => {
@@ -33,18 +34,18 @@ export const AboutPage: React.FC = () => {
     {
       number: '01',
       title: 'Tie & Dye',
-      tagline: 'Artisanal Textile Dyeing',
+      tagline: 'Artisanal Textile Dyeing & Patterns',
       description:
         'Creative tie and dye techniques producing unique patterns, vibrant colors, and premium finishes.',
       details: [
-        'Hand-swirled spiral, dip-dye, and cloud marble methods',
+        '12 signature patterns: Spiral, Bullseye, Shibori, Mandala, and more',
         'Color-fast reactive dyes ensuring vibrant longevity',
         'Every single garment features an authentic unique motif'
       ],
       icon: Palette,
-      image:
-        'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=1200&auto=format&fit=crop',
-      imageAlt: 'Handcrafted tie and dye fabric immersion with vibrant reactive inks'
+      image: '/tie-and-dye-patterns.jpg',
+      imageAlt: 'Artisanal tie and dye techniques showing Spiral, Bullseye, Crumple, Shibori, Mandala, Sunburst and more patterns',
+      imageFit: 'contain'
     },
     {
       number: '02',
@@ -58,9 +59,8 @@ export const AboutPage: React.FC = () => {
         'Pre-shrunk treatment ensuring zero dimensional shrinkage'
       ],
       icon: Droplets,
-      image:
-        'https://images.unsplash.com/photo-1578932750294-f5075e85f44a?q=80&w=1200&auto=format&fit=crop',
-      imageAlt: 'Vintage pumice stone and mineral enzyme washing drums for soft distressed texture'
+      image: '/acid-wash-garments.jpg',
+      imageAlt: 'Vintage acid-washed ribbed collars showcasing authentic multi-color mineral wash textures'
     },
     {
       number: '03',
@@ -74,9 +74,8 @@ export const AboutPage: React.FC = () => {
         'Precise alignment on oversized chest and back placements'
       ],
       icon: Printer,
-      image:
-        'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?q=80&w=1200&auto=format&fit=crop',
-      imageAlt: 'High-density textile screen printing press with squeegee ink application'
+      image: '/textile-printing-transfers.jpg',
+      imageAlt: 'High-definition textile print rolls and graphic transfers ready for garment application'
     },
     {
       number: '04',
@@ -90,9 +89,8 @@ export const AboutPage: React.FC = () => {
         'Heavyweight 220–240 GSM combed cotton and French terry fabrics'
       ],
       icon: Scissors,
-      image:
-        'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1200&auto=format&fit=crop',
-      imageAlt: 'Skilled garment tailors assembling drop-shoulder streetwear on industrial lockstitch machines'
+      image: '/garments-stitching.jpg',
+      imageAlt: 'Industrial sewing machine stitching pink fabric with precision in garment manufacturing'
     },
     {
       number: '05',
@@ -106,9 +104,8 @@ export const AboutPage: React.FC = () => {
         'Color consistency and surface defect screening'
       ],
       icon: CheckCircle2,
-      image:
-        'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=1200&auto=format&fit=crop',
-      imageAlt: 'Apparel quality inspection checking collar tension, stitch density, and measurements'
+      image: '/quality-checking-inspection.jpg',
+      imageAlt: 'Detailed garment quality inspection with magnifying glass, specification sheet, and QC approved tag'
     },
     {
       number: '06',
@@ -213,14 +210,16 @@ export const AboutPage: React.FC = () => {
                       isEven ? 'lg:order-2' : 'lg:order-1'
                     }`}
                   >
-                    <div className="relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-sm border border-slate-200 bg-slate-100 group">
+                    <div className={`relative ${step.imageFit === 'contain' ? 'aspect-[4/5] sm:aspect-[4/5]' : 'aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3]'} rounded-3xl overflow-hidden shadow-sm border border-slate-200 bg-white group flex items-center justify-center`}>
                       <img
                         src={step.image}
                         alt={step.imageAlt}
                         loading="lazy"
-                        className="w-full h-full object-cover object-center group-hover:scale-104 transition-transform duration-700 ease-out"
+                        className={`w-full h-full ${step.imageFit === 'contain' ? 'object-contain p-2 sm:p-4' : 'object-cover object-center'} group-hover:scale-104 transition-transform duration-700 ease-out`}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60" />
+                      {step.imageFit !== 'contain' && (
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 pointer-events-none" />
+                      )}
 
                       {/* Small floating badge */}
                       <div className="absolute bottom-4 left-4 sm:bottom-5 sm:left-5 px-3.5 py-1.5 bg-white/95 backdrop-blur-md rounded-xl border border-slate-200 flex items-center gap-2 shadow-sm text-slate-900">

@@ -65,13 +65,39 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
     });
   };
 
-  const selectFitAndSubcategory = (fitName: string, subcatName?: string) => {
-    const nextFits = [fitName];
-    onFilterChange({
-      ...filters,
-      fits: nextFits,
-      subcategory: subcatName
-    });
+  const handleSelectFitOnly = (fitName: string) => {
+    if (filters.fits.length === 1 && filters.fits[0] === fitName && !filters.subcategory) {
+      onFilterChange({
+        ...filters,
+        fits: [],
+        subcategory: undefined
+      });
+    } else {
+      onFilterChange({
+        ...filters,
+        fits: [fitName],
+        subcategory: undefined
+      });
+    }
+  };
+
+  const handleSelectFitAndStyle = (fitName: string, styleName: string) => {
+    const isCurrentlyActive =
+      filters.fits.includes(fitName) && filters.subcategory === styleName;
+
+    if (isCurrentlyActive) {
+      onFilterChange({
+        ...filters,
+        fits: [fitName],
+        subcategory: undefined
+      });
+    } else {
+      onFilterChange({
+        ...filters,
+        fits: [fitName],
+        subcategory: styleName
+      });
+    }
   };
 
   const toggleSize = (size: string) => {
@@ -118,8 +144,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
     filters.fabrics.length +
     (filters.priceRange[0] > 0 || filters.priceRange[1] < 2500 ? 1 : 0);
 
-  const shirtStylesList = ['Tie & Dye', 'Acid Wash', 'Plain', 'Printed'];
-  const tshirtStylesList = ['Acid Wash', 'Tie & Dye', 'Plain', 'Printed'];
+  const shirtStylesList = ['Tie & Dye', 'Acid Wash', 'Optic Wash', 'Printed'];
+  const tshirtStylesList = ['Acid Wash', 'Tie & Dye', 'Optic Wash', 'Printed'];
   const filterContent = (
     <div className="space-y-6">
       {/* Categories & Fits */}
@@ -144,7 +170,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           {(categoryType === 'shirts' || categoryType === 'tshirts') && (
             <div className="space-y-2 pt-1">
               {['Oversized (Baggy)', 'Normal Fit'].map((fitName) => {
-                const isFitSelected = filters.fits.includes(fitName) || filters.subcategory === fitName;
+                const isFitSelected = filters.fits.includes(fitName);
                 const isExpanded = openFitSections[fitName];
                 const availableStyles = categoryType === 'shirts' ? shirtStylesList : tshirtStylesList;
 
@@ -158,7 +184,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                     <div className="flex items-center justify-between p-2">
                       <button
                         type="button"
-                        onClick={() => toggleSubcategory(fitName)}
+                        onClick={() => handleSelectFitOnly(fitName)}
                         className={`flex-1 text-left text-xs font-bold ${
                           isFitSelected ? 'text-black font-black' : 'text-[#171717] hover:text-black'
                         }`}
@@ -186,12 +212,13 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                           Available Styles:
                         </div>
                         {availableStyles.map((st) => {
-                          const isStyleSelected = filters.subcategory === st;
+                          const isStyleSelected =
+                            filters.fits.includes(fitName) && filters.subcategory === st;
                           return (
                             <button
                               key={st}
                               type="button"
-                              onClick={() => toggleSubcategory(st)}
+                              onClick={() => handleSelectFitAndStyle(fitName, st)}
                               className={`w-full flex items-center justify-between py-1 px-2 rounded-md text-xs transition-colors text-left ${
                                 isStyleSelected
                                   ? 'bg-[#171717] text-white font-bold'

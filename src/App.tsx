@@ -58,6 +58,7 @@ export const App: React.FC = () => {
             <Route path="tshirts" element={<CatalogPage forcedCategory="tshirts" />} />
             <Route path="shorts" element={<CatalogPage forcedCategory="shorts" />} />
             <Route path="collections" element={<CollectionsPage />} />
+            <Route path="collections/:category/:fit/:style" element={<CatalogPage />} />
             <Route path="collections/:category/:style" element={<CatalogPage />} />
             <Route path="collections/:category" element={<CatalogPage />} />
             <Route path="collections/:slug" element={<CatalogPage />} />

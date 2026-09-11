@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Search, Menu, X, ChevronDown, ChevronRight, Sparkles, Shirt, Layers } from 'lucide-react';
+import { Search, Menu, X, ChevronDown, ChevronRight, ChevronLeft, Sparkles, Shirt, Layers } from 'lucide-react';
 import { useStore } from '../../context/StoreContext';
 
 export const Navbar: React.FC = () => {
@@ -9,20 +9,39 @@ export const Navbar: React.FC = () => {
   const [isCollectionsHovered, setIsCollectionsHovered] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Mobile accordion state
+  // Mobile collections accordion & filter state
   const [mobileCollectionsExpanded, setMobileCollectionsExpanded] = useState(true);
-  const [mobileShirtsExpanded, setMobileShirtsExpanded] = useState(false);
-  const [mobileTshirtsExpanded, setMobileTshirtsExpanded] = useState(false);
-  const [mobileOpenFits, setMobileOpenFits] = useState<Record<string, boolean>>({});
+  const [selectedMobileCategory, setSelectedMobileCategory] = useState<'all' | 'shirts' | 'tshirts'>('all');
+  const [mobileOpenFit, setMobileOpenFit] = useState<string | null>(null);
 
   // Desktop active hovered/selected fit key
   const [activeDesktopFit, setActiveDesktopFit] = useState<string>('oversized-shirts');
 
-  const toggleMobileFit = (fitKey: string) => {
-    setMobileOpenFits(prev => ({
-      ...prev,
-      [fitKey]: !prev[fitKey]
-    }));
+  const handleMobileFitClick = (categorySlug: 'shirts' | 'tshirts', fitKey: string) => {
+    if (mobileOpenFit === fitKey) {
+      // Collapse fit and show both categories again
+      setMobileOpenFit(null);
+      setSelectedMobileCategory('all');
+    } else {
+      // Expand fit and hide the other category (e.g. clicking oversized baggy in shirts hides t-shirts)
+      setMobileOpenFit(fitKey);
+      setSelectedMobileCategory(categorySlug);
+    }
+  };
+
+  const handleMobileCategoryClick = (categorySlug: 'shirts' | 'tshirts') => {
+    if (selectedMobileCategory === categorySlug) {
+      setSelectedMobileCategory('all');
+      setMobileOpenFit(null);
+    } else {
+      setSelectedMobileCategory(categorySlug);
+      setMobileOpenFit(null);
+    }
+  };
+
+  const showAllCategories = () => {
+    setSelectedMobileCategory('all');
+    setMobileOpenFit(null);
   };
 
   const location = useLocation();
@@ -31,6 +50,8 @@ export const Navbar: React.FC = () => {
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setIsCollectionsHovered(false);
+    setSelectedMobileCategory('all');
+    setMobileOpenFit(null);
   }, [location]);
 
   useEffect(() => {
@@ -65,10 +86,10 @@ export const Navbar: React.FC = () => {
           description: 'Drop-shoulder relaxed & baggy silhouettes',
           badge: 'Trending Baggy',
           styles: [
-            { label: 'Tie & Dye', path: '/collections/shirts/tie-dye', description: 'Artisanal swirl & dip-dye' },
-            { label: 'Acid Wash', path: '/collections/shirts/acid-wash', description: 'Vintage mineral & distressed wash' },
-            { label: 'Plain', path: '/collections/shirts/plain', description: 'Solid Oxford cotton & linen' },
-            { label: 'Printed', path: '/collections/shirts/printed', description: 'Botanical florals & retro geo prints' },
+            { label: 'Tie & Dye', path: '/collections/shirts/oversized/tie-dye', description: 'Artisanal swirl & dip-dye' },
+            { label: 'Acid Wash', path: '/collections/shirts/oversized/acid-wash', description: 'Vintage mineral & distressed wash' },
+            { label: 'Optic Wash', path: '/collections/shirts/oversized/optic-wash', description: 'Brightened optic treatment & wash' },
+            { label: 'Printed', path: '/collections/shirts/oversized/printed', description: 'Botanical florals & retro geo prints' },
           ]
         },
         {
@@ -78,10 +99,10 @@ export const Navbar: React.FC = () => {
           description: 'Classic regular & structured tailored fit',
           badge: 'Everyday Classic',
           styles: [
-            { label: 'Tie & Dye', path: '/collections/shirts/tie-dye', description: 'Artisanal swirl & dip-dye' },
-            { label: 'Acid Wash', path: '/collections/shirts/acid-wash', description: 'Vintage mineral & distressed wash' },
-            { label: 'Plain', path: '/collections/shirts/plain', description: 'Solid Oxford cotton & linen' },
-            { label: 'Printed', path: '/collections/shirts/printed', description: 'Botanical florals & retro geo prints' },
+            { label: 'Tie & Dye', path: '/collections/shirts/normal-fit/tie-dye', description: 'Artisanal swirl & dip-dye' },
+            { label: 'Acid Wash', path: '/collections/shirts/normal-fit/acid-wash', description: 'Vintage mineral & distressed wash' },
+            { label: 'Optic Wash', path: '/collections/shirts/normal-fit/optic-wash', description: 'Brightened optic treatment & wash' },
+            { label: 'Printed', path: '/collections/shirts/normal-fit/printed', description: 'Botanical florals & retro geo prints' },
           ]
         }
       ]
@@ -98,10 +119,10 @@ export const Navbar: React.FC = () => {
           description: 'Heavyweight drop-shoulder baggy streetwear',
           badge: 'Streetwear 240 GSM',
           styles: [
-            { label: 'Acid Wash', path: '/collections/tshirts/acid-wash', description: '240 GSM heavy mineral wash' },
-            { label: 'Tie & Dye', path: '/collections/tshirts/tie-dye', description: 'Pastel swirls & indigo cloud' },
-            { label: 'Plain', path: '/collections/tshirts/plain', description: 'Super-combed cotton essentials' },
-            { label: 'Printed', path: '/collections/tshirts/printed', description: 'Minimal typo & retro artwork' },
+            { label: 'Acid Wash', path: '/collections/tshirts/oversized/acid-wash', description: '240 GSM heavy mineral wash' },
+            { label: 'Tie & Dye', path: '/collections/tshirts/oversized/tie-dye', description: 'Pastel swirls & indigo cloud' },
+            { label: 'Optic Wash', path: '/collections/tshirts/oversized/optic-wash', description: 'Brightened optic treatment & wash' },
+            { label: 'Printed', path: '/collections/tshirts/oversized/printed', description: 'Minimal typo & retro artwork' },
           ]
         },
         {
@@ -111,10 +132,10 @@ export const Navbar: React.FC = () => {
           description: 'Everyday regular & classic crew neck fit',
           badge: 'Bio-Washed Cotton',
           styles: [
-            { label: 'Acid Wash', path: '/collections/tshirts/acid-wash', description: '240 GSM heavy mineral wash' },
-            { label: 'Tie & Dye', path: '/collections/tshirts/tie-dye', description: 'Pastel swirls & indigo cloud' },
-            { label: 'Plain', path: '/collections/tshirts/plain', description: 'Super-combed cotton essentials' },
-            { label: 'Printed', path: '/collections/tshirts/printed', description: 'Minimal typo & retro artwork' },
+            { label: 'Acid Wash', path: '/collections/tshirts/normal-fit/acid-wash', description: '240 GSM heavy mineral wash' },
+            { label: 'Tie & Dye', path: '/collections/tshirts/normal-fit/tie-dye', description: 'Pastel swirls & indigo cloud' },
+            { label: 'Optic Wash', path: '/collections/tshirts/normal-fit/optic-wash', description: 'Brightened optic treatment & wash' },
+            { label: 'Printed', path: '/collections/tshirts/normal-fit/printed', description: 'Minimal typo & retro artwork' },
           ]
         }
       ]
@@ -444,7 +465,14 @@ export const Navbar: React.FC = () => {
               <div className="border-t border-[#F4F2EF] pt-2">
                 <button
                   type="button"
-                  onClick={() => setMobileCollectionsExpanded(!mobileCollectionsExpanded)}
+                  onClick={() => {
+                    const next = !mobileCollectionsExpanded;
+                    setMobileCollectionsExpanded(next);
+                    if (next) {
+                      setSelectedMobileCategory('all');
+                      setMobileOpenFit(null);
+                    }
+                  }}
                   className="w-full flex items-center justify-between text-sm font-black py-2 uppercase tracking-wider text-[#171717]"
                 >
                   <span>COLLECTIONS</span>
@@ -456,34 +484,90 @@ export const Navbar: React.FC = () => {
                 </button>
 
                 {mobileCollectionsExpanded && (
-                  <div className="pl-3 space-y-3 pt-1">
-                    {/* Shirts Sub-Accordion */}
-                    <div className="bg-[#F7F5F2] rounded-xl p-3 space-y-2 border border-[#E6E3DF]">
-                      <button
-                        type="button"
-                        onClick={() => setMobileShirtsExpanded(!mobileShirtsExpanded)}
-                        className="w-full flex items-center justify-between text-xs font-black uppercase tracking-wider text-[#171717]"
-                      >
-                        <span className="flex items-center gap-1.5">
-                          <Shirt className="w-3.5 h-3.5 text-[#171717]" />
-                          <span>SHIRTS</span>
-                        </span>
-                        <ChevronDown
-                          className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                            mobileShirtsExpanded ? 'rotate-180' : ''
+                  <div className="pl-1 sm:pl-2 space-y-3 pt-1">
+                    {/* Category Filter Pills & Show Both indicator */}
+                    <div className="flex items-center justify-between gap-1.5 pb-1 flex-wrap">
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={showAllCategories}
+                          className={`text-[11px] font-extrabold px-3 py-1 rounded-full transition-colors ${
+                            selectedMobileCategory === 'all'
+                              ? 'bg-[#171717] text-white shadow-xs'
+                              : 'bg-[#F4F2EF] text-[#555555] hover:text-[#171717]'
                           }`}
-                        />
-                      </button>
+                        >
+                          All
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleMobileCategoryClick('shirts')}
+                          className={`text-[11px] font-extrabold px-3 py-1 rounded-full transition-colors flex items-center gap-1 ${
+                            selectedMobileCategory === 'shirts'
+                              ? 'bg-[#171717] text-white shadow-xs'
+                              : 'bg-[#F4F2EF] text-[#555555] hover:text-[#171717]'
+                          }`}
+                        >
+                          <Shirt className="w-3 h-3" />
+                          <span>Shirts</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleMobileCategoryClick('tshirts')}
+                          className={`text-[11px] font-extrabold px-3 py-1 rounded-full transition-colors flex items-center gap-1 ${
+                            selectedMobileCategory === 'tshirts'
+                              ? 'bg-[#171717] text-white shadow-xs'
+                              : 'bg-[#F4F2EF] text-[#555555] hover:text-[#171717]'
+                          }`}
+                        >
+                          <Layers className="w-3 h-3" />
+                          <span>T-Shirts</span>
+                        </button>
+                      </div>
 
-                      {mobileShirtsExpanded && (
+                      {selectedMobileCategory !== 'all' && (
+                        <button
+                          type="button"
+                          onClick={showAllCategories}
+                          className="text-[11px] font-bold text-[#171717] hover:underline inline-flex items-center gap-0.5 bg-[#EAE8E4] px-2 py-0.5 rounded-md"
+                        >
+                          <ChevronLeft className="w-3.5 h-3.5" />
+                          <span>Show Both</span>
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Shirts Section - shown if selectedMobileCategory is 'all' or 'shirts' */}
+                    {(selectedMobileCategory === 'all' || selectedMobileCategory === 'shirts') && (
+                      <div className="bg-[#F7F5F2] rounded-xl p-3 space-y-2 border border-[#E6E3DF]">
+                        <button
+                          type="button"
+                          onClick={() => handleMobileCategoryClick('shirts')}
+                          className="w-full flex items-center justify-between text-xs font-black uppercase tracking-wider text-[#171717]"
+                        >
+                          <span className="flex items-center gap-1.5">
+                            <Shirt className="w-3.5 h-3.5 text-[#171717]" />
+                            <span>SHIRTS</span>
+                          </span>
+                          {selectedMobileCategory === 'shirts' ? (
+                            <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-[#171717] text-white uppercase tracking-wider">
+                              Active
+                            </span>
+                          ) : (
+                            <span className="text-[10px] font-bold text-slate-400">
+                              2 Fits
+                            </span>
+                          )}
+                        </button>
+
                         <div className="space-y-2 pt-1 border-t border-[#E6E3DF]">
                           {collectionsMenu[0].fits.map((fit) => {
-                            const isOpen = !!mobileOpenFits[fit.key];
+                            const isOpen = mobileOpenFit === fit.key;
                             return (
-                              <div key={fit.key} className="bg-white rounded-lg p-2.5 border border-[#E6E3DF] space-y-2">
+                              <div key={fit.key} className="bg-white rounded-lg p-2.5 border border-[#E6E3DF] space-y-2 shadow-2xs">
                                 <button
                                   type="button"
-                                  onClick={() => toggleMobileFit(fit.key)}
+                                  onClick={() => handleMobileFitClick('shirts', fit.key)}
                                   className="w-full flex items-center justify-between text-xs font-bold text-[#171717]"
                                 >
                                   <span className="flex items-center gap-1.5">
@@ -502,53 +586,71 @@ export const Navbar: React.FC = () => {
                                 </button>
 
                                 {isOpen && (
-                                  <ul className="pl-3 pt-2 space-y-1.5 border-t border-[#F0ECE6]">
-                                    {fit.styles.map((st) => (
-                                      <li key={st.label}>
-                                        <Link
-                                          to={st.path}
-                                          className="block text-xs text-[#555555] hover:text-[#171717] py-1 font-medium"
-                                        >
-                                          - {st.label}
-                                        </Link>
-                                      </li>
-                                    ))}
-                                  </ul>
+                                  <div className="pt-2 border-t border-[#F0ECE6] space-y-2">
+                                    <p className="text-[11px] text-[#737373] leading-tight">
+                                      {fit.description}
+                                    </p>
+                                    <ul className="pl-2 space-y-1.5">
+                                      {fit.styles.map((st) => (
+                                        <li key={st.label}>
+                                          <Link
+                                            to={st.path}
+                                            onClick={() => setIsMobileMenuOpen(false)}
+                                            className="block text-xs text-[#555555] hover:text-[#171717] py-1 font-medium"
+                                          >
+                                            - {st.label}
+                                          </Link>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                    <Link
+                                      to={fit.path}
+                                      onClick={() => setIsMobileMenuOpen(false)}
+                                      className="inline-flex items-center gap-1 text-[11px] font-bold text-[#171717] hover:underline pt-1"
+                                    >
+                                      <span>Explore all {fit.label}</span>
+                                      <ChevronRight className="w-3 h-3" />
+                                    </Link>
+                                  </div>
                                 )}
                               </div>
                             );
                           })}
                         </div>
-                      )}
-                    </div>
+                      </div>
+                    )}
 
-                    {/* T-Shirts Sub-Accordion */}
-                    <div className="bg-[#F7F5F2] rounded-xl p-3 space-y-2 border border-[#E6E3DF]">
-                      <button
-                        type="button"
-                        onClick={() => setMobileTshirtsExpanded(!mobileTshirtsExpanded)}
-                        className="w-full flex items-center justify-between text-xs font-black uppercase tracking-wider text-[#171717]"
-                      >
-                        <span className="flex items-center gap-1.5">
-                          <Layers className="w-3.5 h-3.5 text-[#171717]" />
-                          <span>T-SHIRTS</span>
-                        </span>
-                        <ChevronDown
-                          className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                            mobileTshirtsExpanded ? 'rotate-180' : ''
-                          }`}
-                        />
-                      </button>
+                    {/* T-Shirts Section - shown if selectedMobileCategory is 'all' or 'tshirts' */}
+                    {(selectedMobileCategory === 'all' || selectedMobileCategory === 'tshirts') && (
+                      <div className="bg-[#F7F5F2] rounded-xl p-3 space-y-2 border border-[#E6E3DF]">
+                        <button
+                          type="button"
+                          onClick={() => handleMobileCategoryClick('tshirts')}
+                          className="w-full flex items-center justify-between text-xs font-black uppercase tracking-wider text-[#171717]"
+                        >
+                          <span className="flex items-center gap-1.5">
+                            <Layers className="w-3.5 h-3.5 text-[#171717]" />
+                            <span>T-SHIRTS</span>
+                          </span>
+                          {selectedMobileCategory === 'tshirts' ? (
+                            <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-[#171717] text-white uppercase tracking-wider">
+                              Active
+                            </span>
+                          ) : (
+                            <span className="text-[10px] font-bold text-slate-400">
+                              2 Fits
+                            </span>
+                          )}
+                        </button>
 
-                      {mobileTshirtsExpanded && (
                         <div className="space-y-2 pt-1 border-t border-[#E6E3DF]">
                           {collectionsMenu[1].fits.map((fit) => {
-                            const isOpen = !!mobileOpenFits[fit.key];
+                            const isOpen = mobileOpenFit === fit.key;
                             return (
-                              <div key={fit.key} className="bg-white rounded-lg p-2.5 border border-[#E6E3DF] space-y-2">
+                              <div key={fit.key} className="bg-white rounded-lg p-2.5 border border-[#E6E3DF] space-y-2 shadow-2xs">
                                 <button
                                   type="button"
-                                  onClick={() => toggleMobileFit(fit.key)}
+                                  onClick={() => handleMobileFitClick('tshirts', fit.key)}
                                   className="w-full flex items-center justify-between text-xs font-bold text-[#171717]"
                                 >
                                   <span className="flex items-center gap-1.5">
@@ -567,25 +669,39 @@ export const Navbar: React.FC = () => {
                                 </button>
 
                                 {isOpen && (
-                                  <ul className="pl-3 pt-2 space-y-1.5 border-t border-[#F0ECE6]">
-                                    {fit.styles.map((st) => (
-                                      <li key={st.label}>
-                                        <Link
-                                          to={st.path}
-                                          className="block text-xs text-[#555555] hover:text-[#171717] py-1 font-medium"
-                                        >
-                                          - {st.label}
-                                        </Link>
-                                      </li>
-                                    ))}
-                                  </ul>
+                                  <div className="pt-2 border-t border-[#F0ECE6] space-y-2">
+                                    <p className="text-[11px] text-[#737373] leading-tight">
+                                      {fit.description}
+                                    </p>
+                                    <ul className="pl-2 space-y-1.5">
+                                      {fit.styles.map((st) => (
+                                        <li key={st.label}>
+                                          <Link
+                                            to={st.path}
+                                            onClick={() => setIsMobileMenuOpen(false)}
+                                            className="block text-xs text-[#555555] hover:text-[#171717] py-1 font-medium"
+                                          >
+                                            - {st.label}
+                                          </Link>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                    <Link
+                                      to={fit.path}
+                                      onClick={() => setIsMobileMenuOpen(false)}
+                                      className="inline-flex items-center gap-1 text-[11px] font-bold text-[#171717] hover:underline pt-1"
+                                    >
+                                      <span>Explore all {fit.label}</span>
+                                      <ChevronRight className="w-3 h-3" />
+                                    </Link>
+                                  </div>
                                 )}
                               </div>
                             );
                           })}
                         </div>
-                      )}
-                    </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -649,7 +765,7 @@ export const Navbar: React.FC = () => {
                   {settings.contact.secondaryPhone || '+91 97877 04111'}
                 </a>
               </p>
-              <p>{settings.contact.email || 'balasri3333@gmail.com'}</p>
+              <p>{settings.contact.email || 'udhayadharsan.ss@gmail.com'}</p>
             </div>
           </div>
         </div>
