@@ -43,27 +43,27 @@ export const FabricsPage: React.FC = () => {
     {
       id: 'tf-heavy-gsm-cotton',
       name: 'Heavy GSM Cotton',
-      image: '/fabric-heavy-gsm-cotton.png'
+      image: '/fabric-heavy-gsm-cotton.jpg'
     },
     {
       id: 'tf-oversized-heavy-jersey',
       name: 'Oversized Heavy Jersey',
-      image: '/fabric-oversized-heavy-jersey.png'
+      image: '/fabric-oversized-heavy-jersey.jpg'
     },
     {
       id: 'tf-french-terry',
       name: 'French Terry',
-      image: '/fabric-french-terry.png'
+      image: '/fabric-french-terry.jpg'
     },
     {
       id: 'tf-waffle-knit',
       name: 'Waffle Knit',
-      image: '/fabric-waffle-knit.png'
+      image: '/fabric-waffle-knit.jpg'
     },
     {
       id: 'tf-dry-fit-polyester',
       name: 'Dry-Fit Polyester',
-      image: '/fabric-dry-fit-polyester.png'
+      image: '/fabric-dry-fit-polyester.jpg'
     },
     {
       id: 'tf-polyester-cotton-blend',
