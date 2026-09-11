@@ -68,12 +68,12 @@ export const FabricsPage: React.FC = () => {
     {
       id: 'tf-polyester-cotton-blend',
       name: 'Polyester Cotton Blend',
-      image: '/fabric-polyester-cotton-blend.png'
+      image: '/fabric-polyester-cotton-blend.jpg'
     },
     {
       id: 'tf-lycra-blend',
       name: 'Lycra Blend',
-      image: '/fabric-lycra-blend.png'
+      image: '/fabric-lycra-blend.jpg'
     }
   ];
 
