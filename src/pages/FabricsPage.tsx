@@ -108,27 +108,27 @@ export const FabricsPage: React.FC = () => {
     {
       id: 'sf-denim-chambray',
       name: 'Denim / Chambray',
-      image: '/fabric-denim-chambray.png'
+      image: '/fabric-denim-chambray.jpg'
     },
     {
       id: 'sf-twill-cotton',
       name: 'Twill Cotton',
-      image: '/fabric-twill-cotton.png'
+      image: '/fabric-twill-cotton.jpg'
     },
     {
       id: 'sf-rayon-viscose',
       name: 'Rayon / Viscose',
-      image: '/fabric-rayon-viscose.png'
+      image: '/fabric-rayon-viscose.jpg'
     },
     {
       id: 'sf-slub-cotton',
       name: 'Slub Cotton',
-      image: '/fabric-slub-cotton.png'
+      image: '/fabric-slub-cotton.jpg'
     },
     {
       id: 'sf-dobby-fabric',
       name: 'Dobby Fabric',
-      image: '/fabric-dobby-fabric.png',
+      image: '/fabric-dobby-fabric.jpg',
       isTrending: true,
       badge: 'TRENDING'
     }
