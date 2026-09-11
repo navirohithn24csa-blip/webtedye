@@ -331,13 +331,13 @@ export const ContactPage: React.FC = () => {
           </div>
 
           {/* Embedded Map */}
-          <div className="lg:col-span-6">
+          <div className="lg:col-span-6 space-y-3">
             <div className="rounded-2xl overflow-hidden shadow-xs border border-slate-200 h-72 sm:h-80 bg-slate-100">
               <iframe
-                title="SD TRENDYZ Location"
+                title="SD TRENDYZ Pinned Location"
                 src={
                   settings.contact.mapEmbedUrl ||
-                  'https://maps.google.com/maps?q=12%2F152+Erappanaickanpalayam,+Mylambadi,+Bhavani,+Tamil Nadu&t=&z=14&ie=UTF8&iwloc=&output=embed'
+                  'https://maps.google.com/maps?q=11.378873,77.735384&hl=en&z=16&output=embed'
                 }
                 width="100%"
                 height="100%"
@@ -346,6 +346,21 @@ export const ContactPage: React.FC = () => {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
+            </div>
+            <div className="flex items-center justify-between px-1">
+              <span className="text-[11px] font-mono text-slate-500 font-semibold flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-red-500 shrink-0" />
+                <span>Pinned: 11.378873, 77.735384</span>
+              </span>
+              <a
+                href="https://www.google.com/maps?q=11.378873,77.735384"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:text-indigo-800 transition-colors"
+              >
+                <span>Open in Google Maps</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
             </div>
           </div>
         </section>

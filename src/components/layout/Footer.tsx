@@ -147,7 +147,14 @@ export const Footer: React.FC = () => {
               </div>
               <div className="flex items-start gap-2">
                 <MapPin className="w-3.5 h-3.5 text-[#171717] shrink-0 mt-0.5" />
-                <span className="leading-relaxed">{settings.contact.address || '12/152, Erappanaickanpalayam, Mylambadi, Bhavani, Tamil Nadu - 638314'}</span>
+                <a
+                  href="https://www.google.com/maps?q=11.378873,77.735384"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="leading-relaxed hover:underline hover:text-black transition-colors"
+                >
+                  {settings.contact.address || '12/152, Erappanaickanpalayam, Mylambadi, Bhavani, Tamil Nadu - 638314'}
+                </a>
               </div>
             </div>
           </div>

@@ -1255,7 +1255,7 @@ export const INITIAL_WEBSITE_SETTINGS: WebsiteSettings = {
     email: 'udhayadharsan.ss@gmail.com',
     address: '12/152, Erappanaickanpalayam, Mylambadi, Bhavani, Tamil Nadu - 638314',
     businessHours: 'Monday – Saturday: 10:00 AM – 8:00 PM IST',
-    mapEmbedUrl: 'https://maps.google.com/maps?q=12%2F152+Erappanaickanpalayam,+Mylambadi,+Bhavani,+Tamil+Nadu&t=&z=14&ie=UTF8&iwloc=&output=embed'
+    mapEmbedUrl: 'https://maps.google.com/maps?q=11.378873,77.735384&hl=en&z=16&output=embed'
   },
   socials: {
     instagram: 'https://instagram.com/sdtrendyz',

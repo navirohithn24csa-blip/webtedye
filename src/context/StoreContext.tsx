@@ -184,6 +184,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           parsed.contact.phone = '+91 90877 04111';
           parsed.contact.secondaryPhone = '+91 97877 04111';
           parsed.contact.whatsappNumber = '+919087704111';
+          parsed.contact.mapEmbedUrl = 'https://maps.google.com/maps?q=11.378873,77.735384&hl=en&z=16&output=embed';
           if (!parsed.contact.email || parsed.contact.email === 'balasri3333@gmail.com' || parsed.contact.email === 'sdtrendyz2026@gmail.com') {
             parsed.contact.email = 'udhayadharsan.ss@gmail.com';
           }
