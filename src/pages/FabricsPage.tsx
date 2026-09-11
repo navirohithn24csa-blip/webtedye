@@ -1,444 +1,377 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Breadcrumbs } from '../components/common/Breadcrumbs';
 import { useStore } from '../context/StoreContext';
 import { Link } from 'react-router-dom';
 import {
-  Layers,
-  CheckCircle2,
+  Gem,
+  Settings2,
+  Truck,
   ArrowRight,
   MessageCircle,
-  Sparkles,
-  ShieldCheck,
-  Zap,
-  Droplets,
-  Sliders,
-  Scissors
+  Shirt,
+  Sparkles
 } from 'lucide-react';
 
-interface FabricDetail {
+interface FabricItem {
   id: string;
   name: string;
-  gsm: string;
-  yarnCount: string;
-  composition: string;
-  bestFor: string;
-  drape: string;
-  feel: string;
-  features: string[];
   image: string;
-}
-
-interface FabricCategory {
-  categoryTitle: string;
-  categorySubtitle: string;
-  badge: string;
-  badgeColor: string;
-  items: FabricDetail[];
+  badge?: string;
+  isTrending?: boolean;
 }
 
 export const FabricsPage: React.FC = () => {
   const { settings } = useStore();
   const cleanWhatsApp = (settings.contact.whatsappNumber || '+919087704111').replace(/[^0-9]/g, '');
 
-  const fabricCategories: FabricCategory[] = [
+  const tshirtFabrics: FabricItem[] = [
     {
-      categoryTitle: 'Heavyweight Streetwear Knits',
-      categorySubtitle: 'Structured, high-density fabrics engineered for modern boxy streetwear and oversized drop-shoulder silhouettes.',
-      badge: '220 – 260 GSM',
-      badgeColor: 'bg-indigo-50 text-indigo-700 border-indigo-200',
-      items: [
-        {
-          id: 'hw-single-jersey',
-          name: '240 GSM Heavyweight Super-Combed Single Jersey',
-          gsm: '240 GSM (±5%)',
-          yarnCount: '16s / 20s Super-Combed Long-Staple Cotton',
-          composition: '100% Cotton (Double Compacted)',
-          bestFor: 'Oversized Streetwear Tees, Boxy Drop-Shoulder Drops, Acid Wash Tees',
-          drape: 'Structured, boxy silhouette retention with zero cling',
-          feel: 'Substantial, dense, premium soft-matte cotton hand feel',
-          features: [
-            'Zero transparency under harsh direct lighting',
-            'Double-compacted to prevent lateral fabric twist',
-            'Reinforced 2x2 Lycra ribbed collar retention',
-            'Pre-shrunk with silicone wash for smooth surface'
-          ],
-          image: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=1000&auto=format&fit=crop'
-        },
-        {
-          id: 'hw-french-terry-top',
-          name: '260 GSM Summer-Weight French Terry Jersey',
-          gsm: '260 GSM',
-          yarnCount: '20s + 24s Combed Cotton Knit',
-          composition: '100% Breathable Loopback Cotton',
-          bestFor: 'Luxury Streetwear Drop-Shoulder Tees & Relaxed Sweats',
-          drape: 'Heavy structural fall with relaxed luxury drape',
-          feel: 'Smooth exterior surface with breathable mini-loops inside',
-          features: [
-            'Mini loopback knit interior for climate regulation',
-            'Heavyweight feel with high airflow breathability',
-            'Maintains crisp shoulders and boxy hem drape'
-          ],
-          image: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=1000&auto=format&fit=crop'
-        }
-      ]
+      id: 'tf-cotton-single-jersey',
+      name: 'Cotton Single Jersey',
+      image: '/fabric-cotton-single-jersey.jpg'
     },
     {
-      categoryTitle: 'Classic & Everyday Essential Knits',
-      categorySubtitle: 'Ultra-soft, bio-washed combed cottons designed for classic daily tees, normal fit shirts, and casual wardrobe essentials.',
-      badge: '180 – 200 GSM',
-      badgeColor: 'bg-sky-50 text-sky-700 border-sky-200',
-      items: [
-        {
-          id: 'daily-bio-wash',
-          name: '180 GSM Bio-Washed Ring-Spun Cotton Jersey',
-          gsm: '180 – 190 GSM',
-          yarnCount: '24s / 30s Ring-Spun Combed Cotton',
-          composition: '100% Bio-Washed Combed Cotton',
-          bestFor: 'Normal Fit Daily T-Shirts, Base Layers & Classic Tees',
-          drape: 'Fluid, natural contouring drape with high breathability',
-          feel: 'Silky smooth, enzyme bio-polished against the skin',
-          features: [
-            'Bio-enzyme treated for zero surface fuzz and anti-pilling',
-            'Optimized for hot and tropical climate daily wear',
-            'Color-fast reactive dyeing resistant to fading'
-          ],
-          image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=1000&auto=format&fit=crop'
-        },
-        {
-          id: 'daily-pique',
-          name: '200 GSM Honeycomb Cotton Piqué Knit',
-          gsm: '200 GSM',
-          yarnCount: '26s Double Yarn Combed Cotton',
-          composition: '100% Breathable Honeycomb Cotton',
-          bestFor: 'Smart Casual Shirts, Collar Polos & Textured Essentials',
-          drape: 'Structured vertical hold with flexible stretch',
-          feel: 'Textured micro-waffle honeycomb weave for air circulation',
-          features: [
-            'Micro-waffle knit architecture for ventilation',
-            'Crisp collar stand retention for smart casual looks',
-            'Superior moisture wicking for all-day comfort'
-          ],
-          image: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?q=80&w=1000&auto=format&fit=crop'
-        }
-      ]
+      id: 'tf-combed-cotton',
+      name: 'Combed Cotton',
+      image: '/fabric-combed-cotton.jpg'
     },
     {
-      categoryTitle: 'Bottomwear & Loopback Fleece Knits',
-      categorySubtitle: 'Durable, heavy-duty loopback and interlock cottons tailored for French Terry shorts, loungewear, and athletic leisure.',
-      badge: '280 – 320 GSM',
-      badgeColor: 'bg-amber-50 text-amber-700 border-amber-200',
-      items: [
-        {
-          id: 'loopback-french-terry',
-          name: '300 GSM Heavyweight 3-Thread French Terry',
-          gsm: '300 – 320 GSM',
-          yarnCount: '20s Face + 10s Loopback Heavy Yarn',
-          composition: '100% Unbrushed Loopback Cotton Fleece',
-          bestFor: 'Everyday Shorts, Heavyweight Lounge Shorts, Track Pants',
-          drape: 'Robust, non-clinging silhouette with reinforced structure',
-          feel: 'Plush exterior with absorbent, breathable interior loops',
-          features: [
-            '3-thread loopback construction for maximum abrasion resistance',
-            'Heavy-duty rib waistband with reinforced metallic eyelets',
-            'Deep pocket bag anchoring to prevent pocket sagging'
-          ],
-          image: 'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?q=80&w=1000&auto=format&fit=crop'
-        },
-        {
-          id: 'compact-interlock',
-          name: '280 GSM Compact Cotton Interlock Double Knit',
-          gsm: '280 GSM',
-          yarnCount: '30s/2 Double Knit Combed Yarn',
-          composition: '100% Compact Combed Interlock',
-          bestFor: 'Tailored Casual Shorts, Cargo Shorts & Athletic Wear',
-          drape: 'Smooth two-faced finish with structured flexibility',
-          feel: 'Ultra-smooth on both interior and exterior surfaces',
-          features: [
-            'Identical smooth finish on both sides with zero curling',
-            'Natural mechanical stretch without synthetic elastane',
-            'Heavyweight density with superior color depth'
-          ],
-          image: 'https://images.unsplash.com/photo-1562157873-818bc0726f68?q=80&w=1000&auto=format&fit=crop'
-        }
-      ]
+      id: 'tf-bio-washed-cotton',
+      name: 'Bio-Washed Cotton',
+      image: '/fabric-bio-washed-cotton.png'
     },
     {
-      categoryTitle: 'Artisanal & Handcrafted Fabric Washes',
-      categorySubtitle: 'Specialized dyeing and finishing techniques executed by textile artisans in our Bhavani workshops.',
-      badge: 'Specialty Finishes',
-      badgeColor: 'bg-purple-50 text-purple-700 border-purple-200',
-      items: [
-        {
-          id: 'tie-dye-craft',
-          name: 'Artisanal Reactive-Dyed Tie & Dye Cotton',
-          gsm: '220 – 240 GSM',
-          yarnCount: '20s Super-Combed Single Jersey',
-          composition: '100% Combed Cotton with Non-Bleed Reactive Dyes',
-          bestFor: 'Handcrafted Tie & Dye Streetwear, Resort Shirts',
-          drape: 'Relaxed, pre-softened organic drape',
-          feel: 'Ultra-soft, pre-shrunk and garment-washed touch',
-          features: [
-            'Handcrafted pattern: Spiral, Marble, Sunburst & Nebula swirls',
-            'Colorfastness grade 4+ certified with zero wash bleeding',
-            'Pre-shrunk garment wash process for instant wearability'
-          ],
-          image: '/artisanal-tie-dye-cotton.jpg'
-        },
-        {
-          id: 'acid-wash-finish',
-          name: 'Vintage Mineral Acid Wash & Stone Enzymed Cotton',
-          gsm: '240 GSM',
-          yarnCount: '16s Heavyweight Combed Cotton',
-          composition: '100% Mineral-Treated Combed Cotton',
-          bestFor: 'Vintage Streetwear Drops, Grunge Oversized Tees',
-          drape: 'Heavyweight drop with soft vintage distressed drape',
-          feel: 'Buttery soft pumice-stone washed lived-in hand feel',
-          features: [
-            'Pumice stone and enzyme treated for authentic vintage patina',
-            'Subtle seam fading and marble tonal contrasts',
-            'Pre-distressed texture with reinforced structural seam integrity'
-          ],
-          image: '/vintage-mineral-acid-wash.png'
-        }
-      ]
+      id: 'tf-heavy-gsm-cotton',
+      name: 'Heavy GSM Cotton',
+      image: '/fabric-heavy-gsm-cotton.png'
+    },
+    {
+      id: 'tf-oversized-heavy-jersey',
+      name: 'Oversized Heavy Jersey',
+      image: '/fabric-oversized-heavy-jersey.png'
+    },
+    {
+      id: 'tf-french-terry',
+      name: 'French Terry',
+      image: '/fabric-french-terry.png'
+    },
+    {
+      id: 'tf-waffle-knit',
+      name: 'Waffle Knit',
+      image: '/fabric-waffle-knit.png'
+    },
+    {
+      id: 'tf-dry-fit-polyester',
+      name: 'Dry-Fit Polyester',
+      image: '/fabric-dry-fit-polyester.png'
+    },
+    {
+      id: 'tf-polyester-cotton-blend',
+      name: 'Polyester Cotton Blend',
+      image: '/fabric-polyester-cotton-blend.png'
+    },
+    {
+      id: 'tf-lycra-blend',
+      name: 'Lycra Blend',
+      image: '/fabric-lycra-blend.png'
     }
   ];
 
+  const shirtFabrics: FabricItem[] = [
+    {
+      id: 'sf-cotton-poplin',
+      name: 'Cotton Poplin',
+      image: '/fabric-cotton-poplin.png'
+    },
+    {
+      id: 'sf-oxford-cotton',
+      name: 'Oxford Cotton',
+      image: '/fabric-oxford-cotton.png',
+      isTrending: true,
+      badge: 'TRENDING'
+    },
+    {
+      id: 'sf-linen',
+      name: 'Linen',
+      image: '/fabric-linen.png'
+    },
+    {
+      id: 'sf-cotton-linen-blend',
+      name: 'Cotton Linen Blend',
+      image: '/fabric-cotton-linen-blend.png'
+    },
+    {
+      id: 'sf-satin-cotton',
+      name: 'Satin Cotton',
+      image: '/fabric-satin-cotton.png'
+    },
+    {
+      id: 'sf-denim-chambray',
+      name: 'Denim / Chambray',
+      image: '/fabric-denim-chambray.png'
+    },
+    {
+      id: 'sf-twill-cotton',
+      name: 'Twill Cotton',
+      image: '/fabric-twill-cotton.png'
+    },
+    {
+      id: 'sf-rayon-viscose',
+      name: 'Rayon / Viscose',
+      image: '/fabric-rayon-viscose.png'
+    },
+    {
+      id: 'sf-slub-cotton',
+      name: 'Slub Cotton',
+      image: '/fabric-slub-cotton.png'
+    },
+    {
+      id: 'sf-dobby-fabric',
+      name: 'Dobby Fabric',
+      image: '/fabric-dobby-fabric.png',
+      isTrending: true,
+      badge: 'TRENDING'
+    }
+  ];
+
+  const renderFabricCard = (fabric: FabricItem) => {
+    const whatsappUrl = `https://wa.me/${cleanWhatsApp}?text=${encodeURIComponent(
+      `Hello SD TRENDYZ, I would like fabric swatch samples and wholesale details for: ${fabric.name}.`
+    )}`;
+
+    return (
+      <a
+        key={fabric.id}
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group bg-white rounded-xl sm:rounded-2xl p-1.5 sm:p-2.5 border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-md hover:border-slate-300 transition-all duration-300 flex flex-col items-center justify-between text-center"
+      >
+        {/* Fabric Preview Image */}
+        <div className="relative aspect-square w-full rounded-lg sm:rounded-xl overflow-hidden bg-slate-100">
+          <img
+            src={fabric.image}
+            alt={fabric.name}
+            loading="lazy"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+          {fabric.badge && (
+            <div className="absolute top-1.5 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-xs border border-amber-200 text-amber-600 text-[8px] sm:text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-2xs flex items-center gap-0.5 whitespace-nowrap z-10">
+              <span>🔥</span>
+              <span>{fabric.badge}</span>
+            </div>
+          )}
+        </div>
+
+        {/* Card Title */}
+        <div className="pt-1.5 sm:pt-2 w-full flex items-center justify-center">
+          <span className="font-semibold text-[9px] sm:text-xs text-slate-800 group-hover:text-black line-clamp-2 leading-tight">
+            {fabric.name} {fabric.isTrending && '🔥'}
+          </span>
+        </div>
+      </a>
+    );
+  };
+
   return (
-    <div className="bg-transparent min-h-screen text-slate-900 pb-20">
-      {/* 1. Header (Open Antigravity Layout) */}
-      <div className="pt-8 pb-8 sm:pt-12 sm:pb-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+    <div className="bg-[#FAF9F7]/70 min-h-screen text-slate-900 pb-20">
+      {/* 1. Header / Hero Section */}
+      <div className="pt-6 pb-8 sm:pt-10 sm:pb-12 border-b border-slate-200/70 bg-white/80 backdrop-blur-xs">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3.5 sm:space-y-4">
           <Breadcrumbs items={[{ label: 'Fabrics' }]} />
 
-          <div className="max-w-3xl space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-mono font-bold uppercase tracking-widest shadow-2xs">
-              <Layers className="w-3.5 h-3.5 text-indigo-400" />
-              <span>TEXTILE ARCHITECTURE • BHAVANI ATELIER</span>
+          <div className="space-y-2.5 sm:space-y-3 pt-1">
+            {/* Pill Badge */}
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0F172A] text-white text-[10px] font-mono font-bold uppercase tracking-widest shadow-2xs">
+              <Sparkles className="w-3 h-3 text-amber-300" />
+              <span>OUR COLLECTION</span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl font-display font-black text-slate-900 uppercase tracking-tight">
-              Fabric Engineering & Specs
+            {/* Main Title */}
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-display font-black text-slate-900 tracking-tight">
+              T-Shirts & Shirts Fabrics
             </h1>
 
-            <p className="text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed max-w-2xl">
-              From 100% super-combed cottons and artisanal tie-dyes to vintage mineral acid washes and heavyweight loopback fleece across 180 to 320 GSM — explore our full textile architecture.
+            {/* Subtitle */}
+            <p className="text-xs sm:text-sm lg:text-base text-slate-600 leading-relaxed max-w-2xl">
+              Premium fabrics for everyday comfort and timeless style. Explore our wide range of t-shirt and shirt fabrics, sourced for quality, durability and modern fashion needs.
             </p>
+
+            {/* 3 Horizontal Feature Stats */}
+            <div className="flex items-center gap-4 sm:gap-8 pt-2 overflow-x-auto pb-1 no-scrollbar">
+              {/* Feature 1 */}
+              <div className="flex items-center gap-2 shrink-0">
+                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-700">
+                  <Gem className="w-4 h-4 text-slate-700" />
+                </div>
+                <div className="text-[11px] sm:text-xs font-semibold text-slate-800 leading-tight">
+                  <div>Premium</div>
+                  <div>Quality</div>
+                </div>
+              </div>
+
+              {/* Feature 2 */}
+              <div className="flex items-center gap-2 shrink-0">
+                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-700">
+                  <Truck className="w-4 h-4 text-slate-700" />
+                </div>
+                <div className="text-[11px] sm:text-xs font-semibold text-slate-800 leading-tight">
+                  <div>Wholesale</div>
+                  <div>Supply</div>
+                </div>
+              </div>
+
+              {/* Feature 3 */}
+              <div className="flex items-center gap-2 shrink-0">
+                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-700">
+                  <Shirt className="w-4 h-4 text-slate-700" />
+                </div>
+                <div className="text-[11px] sm:text-xs font-semibold text-slate-800 leading-tight">
+                  <div>Wide Fabric</div>
+                  <div>Range</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20 lg:space-y-28">
-        
-        {/* 2. Distinct Fabric Sections */}
-        {fabricCategories.map((category, catIdx) => (
-          <section key={catIdx} className="space-y-8">
-            {/* Category Header */}
-            <div className="border-b border-slate-200/90 pb-4 space-y-2">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono font-bold text-slate-400">
-                    0{catIdx + 1} //
-                  </span>
-                  <h2 className="text-2xl sm:text-3xl font-display font-black text-slate-900 uppercase tracking-tight">
-                    {category.categoryTitle}
-                  </h2>
-                </div>
-                <span className={`text-xs font-mono font-bold px-3 py-1 rounded-full border ${category.badgeColor}`}>
-                  {category.badge}
-                </span>
-              </div>
-              <p className="text-xs sm:text-sm text-slate-600 max-w-3xl">
-                {category.categorySubtitle}
-              </p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-12 sm:space-y-16">
+        {/* 2. T-Shirts Fabrics Section */}
+        <section className="space-y-4 sm:space-y-5">
+          <div className="flex items-center justify-between pb-2 border-b border-slate-200/80">
+            <div>
+              <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#4F46E5] block">
+                // T-SHIRTS FABRICS
+              </span>
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-display font-black text-slate-900 tracking-tight">
+                T-Shirt Fabrics
+              </h2>
             </div>
-
-            {/* Fabric Detail Cards Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {category.items.map((fabric) => (
-                <div
-                  key={fabric.id}
-                  className="rounded-3xl bg-white/95 backdrop-blur-md border border-slate-200/90 overflow-hidden shadow-sm hover:shadow-xl hover:border-slate-400 transition-all duration-300 flex flex-col justify-between"
-                >
-                  {/* Image & Badges */}
-                  <div className="relative aspect-[16/9] overflow-hidden bg-slate-100">
-                    <img
-                      src={fabric.image}
-                      alt={fabric.name}
-                      loading="lazy"
-                      className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute top-4 left-4 px-3 py-1 bg-slate-900/90 text-white text-xs font-mono font-bold rounded-full shadow-sm">
-                      {fabric.gsm}
-                    </div>
-                    <div className="absolute top-4 right-4 px-3 py-1 bg-white/90 backdrop-blur-md text-slate-900 text-[11px] font-mono font-bold rounded-full border border-slate-200 shadow-sm">
-                      {fabric.yarnCount.split(' ')[0]} YARN
-                    </div>
-                  </div>
-
-                  {/* Body Content */}
-                  <div className="p-6 sm:p-8 space-y-6 flex-1 flex flex-col justify-between">
-                    <div className="space-y-4">
-                      <div>
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-indigo-600">
-                          APPLICATION: {fabric.bestFor}
-                        </span>
-                        <h3 className="text-xl sm:text-2xl font-display font-black text-slate-900 mt-1">
-                          {fabric.name}
-                        </h3>
-                      </div>
-
-                      {/* Technical Specs Matrix */}
-                      <div className="grid grid-cols-2 gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs">
-                        <div>
-                          <p className="text-[10px] font-mono font-bold text-slate-400 uppercase">Yarn Count</p>
-                          <p className="font-bold text-slate-900 mt-0.5">{fabric.yarnCount}</p>
-                        </div>
-                        <div>
-                          <p className="text-[10px] font-mono font-bold text-slate-400 uppercase">Composition</p>
-                          <p className="font-bold text-slate-900 mt-0.5">{fabric.composition}</p>
-                        </div>
-                        <div>
-                          <p className="text-[10px] font-mono font-bold text-slate-400 uppercase">Silhouette Drape</p>
-                          <p className="font-medium text-slate-700 mt-0.5">{fabric.drape}</p>
-                        </div>
-                        <div>
-                          <p className="text-[10px] font-mono font-bold text-slate-400 uppercase">Hand Feel</p>
-                          <p className="font-medium text-slate-700 mt-0.5">{fabric.feel}</p>
-                        </div>
-                      </div>
-
-                      {/* Bullet Highlights */}
-                      <div className="space-y-2 pt-2">
-                        <p className="text-[11px] font-mono font-bold text-slate-500 uppercase tracking-wider">
-                          Key Performance Highlights
-                        </p>
-                        <ul className="space-y-2">
-                          {fabric.features.map((feat, fIdx) => (
-                            <li key={fIdx} className="flex items-center gap-2 text-xs text-slate-700">
-                              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                              <span>{feat}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-
-                    {/* Quick WhatsApp Sampling Action */}
-                    <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-4">
-                      <a
-                        href={`https://wa.me/${cleanWhatsApp}?text=${encodeURIComponent(
-                          `Hello SD TRENDYZ, I would like fabric swatch samples and pricing for: ${fabric.name} (${fabric.gsm}).`
-                        )}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full py-3 px-4 bg-slate-900 hover:bg-black text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all hover:scale-[1.02] text-center flex items-center justify-center gap-2 shadow-xs"
-                      >
-                        <MessageCircle className="w-4 h-4 text-emerald-400" />
-                        <span>Enquire Swatch Sample</span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        ))}
-
-        {/* 3. Quality Standards & Engineering Pillars */}
-        <section className="space-y-8 pt-6 border-t border-slate-200">
-          <div className="text-center max-w-3xl mx-auto space-y-2">
-            <span className="text-xs font-mono font-bold uppercase tracking-widest text-indigo-600">
-              // TEXTILE STANDARDS
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-display font-black text-slate-900 uppercase tracking-tight">
-              Bhavani Atelier Quality Commitments
-            </h2>
-            <p className="text-xs sm:text-base text-slate-600 leading-relaxed">
-              Every batch of fabric knitted in our Tamil Nadu facilities is subjected to multi-point quality inspections.
-            </p>
+            <Link
+              to="/collections/tshirts"
+              className="inline-flex items-center gap-1 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold shadow-2xs transition-colors"
+            >
+              <span>View All</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 border border-indigo-100">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-bold text-slate-900">Zero Transparency</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                220–240 GSM single jersey guarantees 100% opacity with no underwear show-through even under direct flashlights.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 border border-emerald-100">
-                <Zap className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-bold text-slate-900">Anti-Sag Rib Collars</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                2x2 Lycra infused collar ribs maintain strict circular collar tension without folding or baconing.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 border border-amber-100">
-                <Droplets className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-bold text-slate-900">Grade 4+ Colorfastness</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                European-certified reactive dyes ensure high color depth with zero wash fading or bleeding into other garments.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 border border-purple-100">
-                <Sliders className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-bold text-slate-900">Double Compacting</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Pre-shrunk fabric stabilization maintains exact fit with less than 3% post-wash residual shrinkage.
-              </p>
-            </div>
+          {/* 5-Column Grid */}
+          <div className="grid grid-cols-5 gap-2 sm:gap-3.5 lg:gap-4">
+            {tshirtFabrics.map(renderFabricCard)}
           </div>
         </section>
 
-        {/* 4. Bottom Custom Fabric Knitting & B2B Sampling Desk */}
-        <section className="text-center space-y-6 py-12 border-t border-slate-200 max-w-4xl mx-auto">
-          <div className="max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-mono font-bold uppercase tracking-widest text-indigo-600">
-              // CUSTOM FABRICATION & BULK SUPPLY
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-display font-black text-slate-900 uppercase tracking-tight">
-              Need Custom GSM or Bulk Fabric?
-            </h2>
-            <p className="text-xs sm:text-base text-slate-600 leading-relaxed">
-              We provide custom GSM knitting (180 to 320 GSM), pantone reactive dye matching, private label branding, and bulk wholesale fabric rolls direct from Bhavani.
-            </p>
+        {/* 3. Shirts Fabrics Section */}
+        <section className="space-y-4 sm:space-y-5">
+          <div className="flex items-center justify-between pb-2 border-b border-slate-200/80">
+            <div>
+              <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#4F46E5] block">
+                // SHIRTS FABRICS
+              </span>
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-display font-black text-slate-900 tracking-tight">
+                Shirt Fabrics
+              </h2>
+            </div>
+            <Link
+              to="/collections/shirts"
+              className="inline-flex items-center gap-1 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold shadow-2xs transition-colors"
+            >
+              <span>View All</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+          {/* 5-Column Grid */}
+          <div className="grid grid-cols-5 gap-2 sm:gap-3.5 lg:gap-4">
+            {shirtFabrics.map(renderFabricCard)}
+          </div>
+        </section>
+
+        {/* 4. Bottom WhatsApp Action Banner */}
+        <section>
+          <div className="bg-[#EAFBF3] border border-[#A7F3D0] rounded-2xl p-3.5 sm:p-5 flex items-center justify-between shadow-2xs">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#10B981] flex items-center justify-center text-white shrink-0 shadow-xs">
+                <MessageCircle className="w-5 h-5 fill-current" />
+              </div>
+              <div>
+                <div className="text-[9px] sm:text-[10px] font-mono font-bold tracking-widest text-[#047857] uppercase">
+                  NEED FABRIC SAMPLES?
+                </div>
+                <div className="text-xs sm:text-sm font-bold text-slate-900 leading-snug">
+                  Chat on WhatsApp for quick assistance
+                </div>
+              </div>
+            </div>
+
             <a
               href={`https://wa.me/${cleanWhatsApp}?text=${encodeURIComponent(
-                'Hello SD TRENDYZ, I would like to request custom fabric swatch samples and discuss bulk knitting.'
+                'Hello SD TRENDYZ, I would like fabric swatch samples and wholesale assistance.'
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-slate-900 hover:bg-black text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all shadow-md hover:scale-105"
+              className="bg-[#059669] hover:bg-[#047857] text-white text-xs sm:text-sm font-bold px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full inline-flex items-center gap-1.5 shadow-xs transition-all shrink-0 ml-2"
             >
-              <MessageCircle className="w-4 h-4 text-emerald-400" />
-              <span>Request Swatches on WhatsApp</span>
+              <span>CHAT NOW</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </a>
-
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-white border border-slate-200 text-slate-900 hover:bg-slate-100 text-xs font-bold uppercase tracking-widest rounded-xl transition-all shadow-2xs hover:scale-105"
-            >
-              <span>Contact Representative</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
           </div>
         </section>
 
+        {/* 5. Bottom 3-Column Highlights */}
+        <section className="pt-4 border-t border-slate-200">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
+            {/* Feature 1 */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2.5">
+              <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
+                <Gem className="w-5 h-5" />
+              </div>
+              <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest block">
+                PREMIUM QUALITY
+              </span>
+              <h3 className="text-base font-bold text-slate-900">
+                Carefully Sourced Fabrics
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                We source only the finest quality fabrics for durable and comfortable garments.
+              </p>
+            </div>
+
+            {/* Feature 2 */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2.5">
+              <div className="w-10 h-10 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center text-sky-600">
+                <Settings2 className="w-5 h-5" />
+              </div>
+              <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest block">
+                CUSTOM SOLUTIONS
+              </span>
+              <h3 className="text-base font-bold text-slate-900">
+                Wide Range & Custom Support
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Multiple fabric options with custom development for your brand needs.
+              </p>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2.5">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
+                <Truck className="w-5 h-5" />
+              </div>
+              <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest block">
+                BULK MANUFACTURING
+              </span>
+              <h3 className="text-base font-bold text-slate-900">
+                Reliable Supply
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Consistent quality and timely delivery for all your manufacturing needs.
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
