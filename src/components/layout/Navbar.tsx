@@ -5,6 +5,10 @@ import { useStore } from '../../context/StoreContext';
 
 export const Navbar: React.FC = () => {
   const { settings, setIsSearchOpen } = useStore();
+  const cleanWhatsApp = (settings.contact.whatsappNumber || '+919087704111').replace(/[^0-9]/g, '');
+  const whatsappUrl = `https://wa.me/${cleanWhatsApp}?text=${encodeURIComponent(
+    'Hello SD TRENDYZ, I would like to enquire about your products, fabric samples, and wholesale orders.'
+  )}`;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCollectionsHovered, setIsCollectionsHovered] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -388,24 +392,35 @@ export const Navbar: React.FC = () => {
                 <Search className="w-5 h-5 stroke-[1.75]" />
               </button>
 
-              <Link
-                to="/contact"
-                className="px-4 py-2 bg-[#171717] hover:bg-black text-[#FFFFFF] text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-xs"
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 bg-[#171717] hover:bg-black text-[#FFFFFF] text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-xs inline-flex items-center gap-1.5"
               >
                 ENQUIRE NOW
-              </Link>
+              </a>
             </div>
 
-            {/* Mobile Right: Search Button */}
-            <div className="flex items-center space-x-1 lg:hidden">
+            {/* Mobile Right: Search + Quick WhatsApp Enquire Button */}
+            <div className="flex items-center space-x-1.5 lg:hidden">
               <button
                 type="button"
                 onClick={() => setIsSearchOpen(true)}
-                className="p-2 text-[#171717] hover:text-black focus:outline-none"
+                className="p-1.5 text-[#171717] hover:text-black focus:outline-none"
                 aria-label="Open search dialog"
               >
                 <Search className="w-5 h-5 stroke-[1.75]" />
               </button>
+
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-2.5 py-1.5 bg-[#171717] hover:bg-black text-[#FFFFFF] text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all shadow-xs"
+              >
+                ENQUIRE NOW
+              </a>
             </div>
           </div>
         </div>
@@ -745,12 +760,14 @@ export const Navbar: React.FC = () => {
                 <p className="text-[11px] uppercase tracking-wider text-[#737373] font-bold">
                   Direct Enquiry
                 </p>
-                <Link
-                  to="/contact"
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="block w-full text-center py-2.5 text-xs font-bold uppercase tracking-wider text-white bg-[#171717] rounded-xl hover:bg-black transition-colors"
                 >
-                  Contact Business
-                </Link>
+                  ENQUIRE ON WHATSAPP
+                </a>
               </div>
             </div>
 
